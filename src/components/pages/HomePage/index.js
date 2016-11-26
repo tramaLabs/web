@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { PageTemplate,Hero2 } from 'components'
 
 const HomePage = () => {
   return (
-    <PageTemplate>Hello World</PageTemplate>
+    <PageTemplate>
+        <Hero2>Hello World</Hero2>
+    </PageTemplate>
   )
 }
 
