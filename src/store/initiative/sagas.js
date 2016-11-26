@@ -1,5 +1,7 @@
+import { arrayOf, normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import { initiativeList, initiativeCreate, INITIATIVE_LIST_REQUEST, INITIATIVE_CREATE_REQUEST } from './actions'
+import initiative from './schema'
 import api from 'services/api'
 
 const fn = () => true
@@ -8,7 +10,7 @@ export function* createInitiative (newData, resolve = fn, reject = fn) {
   try {
     const { data } = yield call(api.post, '/initiatives', { id: 1, ...newData })
     resolve(data)
-    yield put(initiativeCreate.success(data))
+    yield put(initiativeCreate.success(normalize(data, initiative)))
   } catch (e) {
     reject(e)
     yield put(initiativeCreate.failure(e))
@@ -20,7 +22,7 @@ export function* listInitiatives (limit, resolve = fn, reject = fn) {
     const params = { _limit: limit }
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
-    yield put(initiativeList.success(data))
+    yield put(initiativeList.success(normalize(data, arrayOf(initiative))))
   } catch (e) {
     reject(e)
     yield put(initiativeList.failure(e))

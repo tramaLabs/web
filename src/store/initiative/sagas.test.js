@@ -1,7 +1,9 @@
+import { normalize, arrayOf } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
+import initiative from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
@@ -16,14 +18,16 @@ describe('createInitiative', () => {
   it('calls success', () => {
     const generator = sagas.createInitiative(data)
     expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
-    expect(generator.next({ data }).value).toEqual(put(actions.initiativeCreate.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.initiativeCreate.success(normalize(data, initiative))))
   })
 
   it('calls success and resolve', () => {
     const generator = sagas.createInitiative(data, resolve)
     expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
     expect(resolve).not.toBeCalled()
-    expect(generator.next({ data }).value).toEqual(put(actions.initiativeCreate.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.initiativeCreate.success(normalize(data, initiative))))
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
@@ -48,14 +52,16 @@ describe('listInitiatives', () => {
   it('calls success', () => {
     const generator = sagas.listInitiatives(1)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
-    expect(generator.next({ data }).value).toEqual(put(actions.initiativeList.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.initiativeList.success(normalize(data, arrayOf(initiative)))))
   })
 
   it('calls success and resolve', () => {
     const generator = sagas.listInitiatives(1, resolve)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
     expect(resolve).not.toBeCalled()
-    expect(generator.next({ data }).value).toEqual(put(actions.initiativeList.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.initiativeList.success(normalize(data, arrayOf(initiative)))))
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
