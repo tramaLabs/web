@@ -7,7 +7,7 @@ const fn = () => true
 
 export function* facebookAuth (fbToken, resolve = fn, reject = fn) {
   try {
-    const { token } = yield call(api.post, '/auth/facebook', { access_token: fbToken })
+    const { data: { token } } = yield call(api.post, '/auth/facebook', { access_token: fbToken })
     resolve(token)
     yield call(cookie.save, 'token', token, { path: '/' })
     yield call(setToken, token)

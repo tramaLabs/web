@@ -1,7 +1,9 @@
+import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
+import user from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
@@ -16,14 +18,16 @@ describe('retrieveCurrentUser', () => {
   it('calls success', () => {
     const generator = sagas.retrieveCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
   })
 
   it('calls success and resolve', () => {
     const generator = sagas.retrieveCurrentUser(resolve)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(resolve).not.toBeCalled()
-    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
