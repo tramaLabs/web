@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import submit from 'redux-form-submit'
 
 import { InitiativeCreationPage } from 'components'
-import { config } from './PostForm'
+import { config } from './InitiativeCreationForm'
 
 class InitiativeCreationPageContainer extends Component {
   static post ({ req, store }) {

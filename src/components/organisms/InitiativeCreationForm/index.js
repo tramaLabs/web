@@ -16,7 +16,7 @@ const InitiativeCreationForm = ({ handleSubmit, submitting }) => {
       <Heading level={2}>Create a post</Heading>
       <Field name="_csrf" type="hidden" component="input" />
       <Field name="title" label="Title" component={ReduxField} />
-      <Field name="body" label="Body" type="textarea" component={ReduxField} />
+      <Field name="description" label="Description" type="textarea" component={ReduxField} />
       <Button type="submit" disabled={submitting}>Create</Button>
     </Form>
   )

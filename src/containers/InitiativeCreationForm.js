@@ -11,7 +11,7 @@ const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
 
 const validate = createValidator({
   title: [required],
-  body: [required]
+  description: [required]
 })
 
 const mapStateToProps = (state) => ({
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
 
 export const config = {
   form: 'InitiativeCreationForm',
-  fields: ['title', 'body'],
+  fields: ['title', 'description'],
   destroyOnUnmount: false,
   onSubmit,
   validate
