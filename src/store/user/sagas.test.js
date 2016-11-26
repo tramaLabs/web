@@ -1,0 +1,56 @@
+import { take, put, call, fork } from 'redux-saga/effects'
+import * as actions from './actions'
+import api from 'services/api'
+import saga, * as sagas from './sagas'
+
+const resolve = jest.fn()
+const reject = jest.fn()
+
+beforeEach(() => {
+  jest.resetAllMocks()
+})
+
+describe('retrieveCurrentUser', () => {
+  const data = { id: 1, title: 'test' }
+
+  it('calls success', () => {
+    const generator = sagas.retrieveCurrentUser()
+    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
+    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+  })
+
+  it('calls success and resolve', () => {
+    const generator = sagas.retrieveCurrentUser(resolve)
+    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
+    expect(resolve).not.toBeCalled()
+    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+    expect(resolve).toHaveBeenCalledWith(data)
+  })
+
+  it('calls failure', () => {
+    const generator = sagas.retrieveCurrentUser()
+    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
+    expect(generator.throw('test').value).toEqual(put(actions.currentUserRetrieve.failure('test')))
+  })
+
+  it('calls failure and reject', () => {
+    const generator = sagas.retrieveCurrentUser(resolve, reject)
+    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
+    expect(reject).not.toBeCalled()
+    expect(generator.throw('test').value).toEqual(put(actions.currentUserRetrieve.failure('test')))
+    expect(reject).toHaveBeenCalledWith('test')
+  })
+})
+
+test('watchCurrentUserRetrieveRequest', () => {
+  const payload = { resolve, reject }
+  const generator = sagas.watchCurrentUserRetrieveRequest()
+  expect(generator.next().value).toEqual(take(actions.CURRENT_USER_RETRIEVE_REQUEST))
+  expect(generator.next(payload).value)
+    .toEqual(call(sagas.retrieveCurrentUser, ...Object.values(payload)))
+})
+
+test('saga', () => {
+  const generator = saga()
+  expect(generator.next().value).toEqual(fork(sagas.watchCurrentUserRetrieveRequest))
+})

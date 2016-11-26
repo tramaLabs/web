@@ -7,12 +7,14 @@ import { fork } from 'redux-saga/effects'
 import form from './form/reducer'
 import initiative from './initiative/reducer'
 import status from './status/reducer'
+import user from './user/reducer'
 
 const reducers = {
   form,
   initiative,
   routing,
-  status
+  status,
+  user
 }
 
 const sagas = []
