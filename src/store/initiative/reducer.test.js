@@ -9,29 +9,19 @@ it('returns the initial state', () => {
 it('handles INITIATIVE_LIST_SUCCESS', () => {
   expect(reducer(initialState, {
     type: actions.INITIATIVE_LIST_SUCCESS,
-    list: [1, 2, 3]
+    result: [1, 2, 3]
   })).toEqual({
     ...initialState,
     list: [1, 2, 3]
   })
 })
 
-it('handles INITIATIVE_CREATE_SUCCESS', () => {
+it('handles INITIATIVE_RETRIEVE_SUCCESS', () => {
   expect(reducer(initialState, {
-    type: actions.INITIATIVE_CREATE_SUCCESS,
-    data: 3
+    type: actions.INITIATIVE_RETRIEVE_SUCCESS,
+    result: 1
   })).toEqual({
     ...initialState,
-    list: [3]
-  })
-
-  expect(reducer({
-    ...initialState, list: [1, 2]
-  }, {
-    type: actions.INITIATIVE_CREATE_SUCCESS,
-    data: 3
-  })).toEqual({
-    ...initialState,
-    list: [3, 1, 2]
+    item: 1
   })
 })

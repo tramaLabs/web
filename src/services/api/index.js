@@ -5,6 +5,14 @@ const api = axios.create({ baseURL: apiUrl })
 
 export const request = (config) => api.request(config)
 
+export const setToken = (token) => {
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
+
+export const unsetToken = () => {
+  delete api.defaults.headers.common['Authorization']
+}
+
 ;['delete', 'get', 'head'].forEach((method) => {
   module.exports[method] = (url, config) => request({ ...config, method, url })
 })
