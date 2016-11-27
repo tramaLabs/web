@@ -37,9 +37,8 @@ export function* retrieveInitiative (id, resolve = fn, reject = fn) {
   }
 }
 
-export function* listInitiatives (limit, resolve = fn, reject = fn) {
+export function* listInitiatives (params, resolve = fn, reject = fn) {
   try {
-    const params = { _limit: limit }
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
     yield put(initiativeList.success(normalize(data, arrayOf(initiative))))
@@ -76,8 +75,8 @@ export function* watchInitiativeRetrieveRequest () {
 
 export function* watchInitiativeListRequest () {
   while (true) {
-    const { limit, resolve, reject } = yield take(INITIATIVE_LIST_REQUEST)
-    yield call(listInitiatives, limit, resolve, reject)
+    const { params, resolve, reject } = yield take(INITIATIVE_LIST_REQUEST)
+    yield call(listInitiatives, params, resolve, reject)
   }
 }
 

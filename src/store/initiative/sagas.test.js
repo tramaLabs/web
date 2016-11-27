@@ -84,15 +84,15 @@ describe('listInitiatives', () => {
   const data = [1, 2, 3]
 
   it('calls success', () => {
-    const generator = sagas.listInitiatives(1)
-    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
+    const generator = sagas.listInitiatives({ limit: 1 })
+    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(generator.next({ data }).value)
       .toEqual(put(actions.initiativeList.success(normalize(data, arrayOf(initiative)))))
   })
 
   it('calls success and resolve', () => {
-    const generator = sagas.listInitiatives(1, resolve)
-    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
+    const generator = sagas.listInitiatives({ limit: 1 }, resolve)
+    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(resolve).not.toBeCalled()
     expect(generator.next({ data }).value)
       .toEqual(put(actions.initiativeList.success(normalize(data, arrayOf(initiative)))))
@@ -100,14 +100,14 @@ describe('listInitiatives', () => {
   })
 
   it('calls failure', () => {
-    const generator = sagas.listInitiatives(1)
-    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
+    const generator = sagas.listInitiatives({ limit: 1 })
+    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(generator.throw('test').value).toEqual(put(actions.initiativeList.failure('test')))
   })
 
   it('calls failure and reject', () => {
-    const generator = sagas.listInitiatives(1, resolve, reject)
-    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { _limit: 1 } }))
+    const generator = sagas.listInitiatives({ limit: 1 }, resolve, reject)
+    expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(reject).not.toBeCalled()
     expect(generator.throw('test').value).toEqual(put(actions.initiativeList.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
@@ -163,7 +163,7 @@ test('watchInitiativeRetrieveRequest', () => {
 })
 
 test('watchInitiativeListRequest', () => {
-  const payload = { limit: 1, resolve, reject }
+  const payload = { params: { limit: 1 }, resolve, reject }
   const generator = sagas.watchInitiativeListRequest()
   expect(generator.next().value).toEqual(take(actions.INITIATIVE_LIST_REQUEST))
   expect(generator.next(payload).value).toEqual(call(sagas.listInitiatives, ...Object.values(payload)))
