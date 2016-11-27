@@ -1,15 +1,22 @@
-export const AUTH_FACEBOOK = 'AUTH_FACEBOOK'
-export const AUTH_FACEBOOK_REQUEST = 'AUTH_FACEBOOK_REQUEST'
-export const AUTH_FACEBOOK_SUCCESS = 'AUTH_FACEBOOK_SUCCESS'
-export const AUTH_FACEBOOK_FAILURE = 'AUTH_FACEBOOK_FAILURE'
+export const AUTH = 'AUTH'
+export const AUTH_REQUEST = 'AUTH_REQUEST'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const AUTH_FAILURE = 'AUTH_FAILURE'
+export const AUTH_LOGOUT = 'AUTH_LOGOUT'
+
+export const auth = {
+  success: (token) => ({ type: AUTH_SUCCESS, token }),
+  failure: (error) => ({ type: AUTH_FAILURE, error })
+}
 
 export const authFacebook = {
-  request: (fbToken, resolve, reject) => ({
-    type: AUTH_FACEBOOK_REQUEST,
-    fbToken,
+  request: (accessToken, resolve, reject) => ({
+    type: AUTH_REQUEST,
+    service: 'facebook',
+    accessToken,
     resolve,
     reject
-  }),
-  success: (token) => ({ type: AUTH_FACEBOOK_SUCCESS, token }),
-  failure: (error) => ({ type: AUTH_FACEBOOK_FAILURE, error })
+  })
 }
+
+export const authLogout = () => ({ type: AUTH_LOGOUT })
