@@ -1,10 +1,17 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { GenericTemplate, HomeHero } from 'components'
 
 const HomePage = () => {
   return (
-    <PageTemplate>Hello World</PageTemplate>
+<<<<<<< HEAD
+        <HomeHero/>
+        <InitiativeCard />
+=======
+    <GenericTemplate>
+        <HomeHero></HomeHero>
+    </GenericTemplate>
+>>>>>>> hero
   )
 }
 

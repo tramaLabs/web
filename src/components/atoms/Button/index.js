@@ -11,15 +11,17 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
     font-family: ${fonts.primary};
     align-items: center;
     font-size: ${size ? size / 40 + 'rem' : '1rem'};
+    font-weight: bold;
     background-color: ${transparent ? 'transparent' : (disabled ? color[2] : color[1])};
     border: 0.0625em solid ${transparent ? 'currentcolor' : 'transparent'};
     height: 2.5em;
     justify-content: center;
     text-decoration: none;
+    text-transform: uppercase;
     cursor: ${disabled ? 'default' : 'pointer'};
     appearance: none;
     padding: 0 1em;
-    border-radius: 0.125em;
+    border-radius: 0px;
     box-sizing: border-box;
     pointer-events: ${disabled && 'none'};
     transition: background-color 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
