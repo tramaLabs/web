@@ -37,7 +37,7 @@ const HeroCall = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: rgba(240,130,31,0.4);
-
+`
 const StyledCol = styled(Col)`
   color:black;
   padding-top: 20px;

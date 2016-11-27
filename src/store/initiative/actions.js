@@ -50,31 +50,3 @@ export const initiativeCreate = {
   failure: (error) => ({ type: INITIATIVE_CREATE_FAILURE, error })
 }
 
-export const initiativeUpdate = {
-  request: (id, data, resolve, reject) => ({
-    type: INITIATIVE_UPDATE_REQUEST,
-    id,
-    data,
-    resolve,
-    reject
-  }),
-  success: (data) => ({ type: INITIATIVE_UPDATE_SUCCESS, ...data }),
-  failure: (error) => ({ type: INITIATIVE_UPDATE_FAILURE, error })
-}
-
-export const initiativeRetrieve = {
-  request: (id, resolve, reject) => ({ type: INITIATIVE_RETRIEVE_REQUEST, id, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_RETRIEVE_SUCCESS, ...data }),
-  failure: (error) => ({ type: INITIATIVE_RETRIEVE_FAILURE, error })
-}
-
-export const initiativeList = {
-  request: (params, resolve, reject) => ({
-    type: INITIATIVE_LIST_REQUEST,
-    params,
-    resolve,
-    reject
-  }),
-  success: (data) => ({ type: INITIATIVE_LIST_SUCCESS, ...data }),
-  failure: (error) => ({ type: INITIATIVE_LIST_FAILURE, error })
-}
