@@ -8,7 +8,7 @@ import { Heading, Button, Image, SearchBar,InitiativeCard } from 'components'
 
 import background from './background.jpg'
 
-import { Grid, Row, Col, FormGroup, FormControl } from 'react-bootstrap'
+import { Grid, Row, Col, FormGroup, FormControl, PageHeader } from 'react-bootstrap'
 
 const Wrapper = styled.div`
   display: table;
@@ -33,6 +33,16 @@ const Herop = styled.div`
   padding: 0px 170px;
 `
 const HeroCall = styled.div`
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(240,130,31,0.4);
+`
+const HeroInput = styled(FormControl)`
+  width: 30%;
+  margin:auto;
+  display: inline-block;
+
 `
 
 const StyledCol = styled(Col)`
@@ -43,12 +53,11 @@ const StyledCol = styled(Col)`
   font-weight: bold;
 `
 
-const Div = styled.div`
-`
+const Div = styled.div``
 const HomeHero = ({ ...props }) => {
   return (
-        <Div>
-        <Wrapper {...props}>
+        <header {...props} >
+        <Wrapper>
 			<Overlay>
 				<Grid>
 					<Row>
@@ -56,29 +65,25 @@ const HomeHero = ({ ...props }) => {
 							<Herop>
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula felis, fringilla sit amet porta et, suscipit eget risus. Mauris vestibulum eros tempor, lobortis magna nec, fringilla massa.
                           </Herop>
-							<Button to="#about" transparent light size={50}> 
+							<Button to="#about" kind="grayscale" transparent light size={50}> 
                               Crie sua iniciativa
                             </Button>
 						</HeroText>						
 					</Row>
 				</Grid>
 				<HeroCall>
-					<Heading level={2}>Colabore com iniciativas</Heading>
+					<Heading level={2} style={{fontSize:27, fontWeight:"bold",color:colors.grayscale[4]}}>
+                        Colabore com iniciativas
+                    </Heading>
 					<FormGroup>
-						<FormControl type={"text"}  placeholder={"Use tags para pesquisar (ex.: música, rio de janeiro)"} />
-		              <Button>Explorar</Button>
+						<HeroInput type={"text"}  placeholder={"Use tags para pesquisar (ex.: música, rio de janeiro)"} />
+							<Button to="#about" kind="grayscale" transparent light size={50}> 
+                      Explorar</Button>
 					</FormGroup>
 				</HeroCall>
 			</Overlay>
 		</Wrapper>	
-        <Grid>
-          <Row>
-            <StyledCol xs={12}>
-                <Heading level={2}>Iniciativas em Destaque</Heading>
-            </StyledCol>
-          </Row>
-        </Grid>
-        </Div>
+        </header>
   )
 }
 

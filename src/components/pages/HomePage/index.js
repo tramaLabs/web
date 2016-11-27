@@ -4,9 +4,8 @@ import { GenericTemplate, HomeHero } from 'components'
 
 const HomePage = () => {
   return (
-    <GenericTemplate>
-        <HomeHero></HomeHero>
-    </GenericTemplate>
+        <HomeHero/>
+        <InitiativeCard />
   )
 }
 
