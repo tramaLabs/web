@@ -8,7 +8,7 @@ import { Heading, Button, Image, SearchBar,InitiativeCard } from 'components'
 
 import background from './background.jpg'
 
-import { Grid, Row, Col, FormGroup, FormControl, PageHeader } from 'react-bootstrap'
+import { Grid, Row, Col, FormGroup, FormControl } from 'react-bootstrap'
 
 const Wrapper = styled.div`
   display: table;
@@ -37,13 +37,6 @@ const HeroCall = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: rgba(240,130,31,0.4);
-`
-const HeroInput = styled(FormControl)`
-  width: 30%;
-  margin:auto;
-  display: inline-block;
-
-`
 
 const StyledCol = styled(Col)`
   color:black;
@@ -52,6 +45,12 @@ const StyledCol = styled(Col)`
   text-align: center;
   font-weight: bold;
 `
+const HeroInput = styled(FormControl)`
+  width: 30%;
+  margin:auto;
+  display: inline-block;
+`
+
 
 const Div = styled.div``
 const HomeHero = ({ ...props }) => {
