@@ -1376,6 +1376,10 @@ cookie-signature@1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
 
+cookie@^0.1.2:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.1.5.tgz#6ab9948a4b1ae21952cd2588530a4722d4044d7c"
+
 cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
@@ -4276,6 +4280,12 @@ rc@^1.0.1, rc@^1.1.6, rc@~1.1.6:
 react-addons-test-utils@^15.3.2:
   version "15.4.0"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.4.0.tgz#bd326904916b80de6a466248ef52cdfc1799e963"
+
+react-cookie:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-0.4.8.tgz#4391453c42b2c860b1a79527ac96da04e0d7968a"
+  dependencies:
+    cookie "^0.1.2"
 
 react-deep-force-update@^2.0.1:
   version "2.0.1"

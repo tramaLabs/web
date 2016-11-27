@@ -4,6 +4,7 @@ import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import { fork } from 'redux-saga/effects'
 
+import auth from './auth/reducer'
 import entities from './entities/reducer'
 import form from './form/reducer'
 import initiative from './initiative/reducer'
@@ -11,6 +12,7 @@ import status from './status/reducer'
 import user from './user/reducer'
 
 const reducers = {
+  auth,
   entities,
   form,
   initiative,

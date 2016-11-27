@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { createMemoryHistory, RouterContext, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Router } from 'express'
+import cookie from 'react-cookie'
 import express from 'services/express'
 import routes from 'routes'
 import configureStore from 'store/configure'
@@ -23,8 +24,10 @@ router.use((req, res, next) => {
     global.webpackIsomorphicTools.refresh()
   }
 
+  cookie.setRawCookie(req.headers.cookie)
+  const token = cookie.load('token')
   const memoryHistory = createMemoryHistory(req.url)
-  const store = configureStore({}, memoryHistory)
+  const store = configureStore({ auth: { token } }, memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
 
   store.dispatch(setCsrfToken(req.csrfToken()))
