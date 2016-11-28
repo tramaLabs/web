@@ -5,6 +5,6 @@ export const CURRENT_USER_RETRIEVE_FAILURE = 'CURRENT_USER_RETRIEVE_FAILURE'
 
 export const currentUserRetrieve = {
   request: (resolve, reject) => ({ type: CURRENT_USER_RETRIEVE_REQUEST, resolve, reject }),
-  success: (data) => ({ type: CURRENT_USER_RETRIEVE_SUCCESS, data }),
+  success: (data) => ({ type: CURRENT_USER_RETRIEVE_SUCCESS, ...data }),
   failure: (error) => ({ type: CURRENT_USER_RETRIEVE_FAILURE, error })
 }

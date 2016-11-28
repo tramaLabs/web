@@ -5,9 +5,9 @@ test('currentUserRetrieve', () => {
     type: actions.CURRENT_USER_RETRIEVE_REQUEST
   })
 
-  expect(actions.currentUserRetrieve.success({ id: 1 })).toEqual({
+  expect(actions.currentUserRetrieve.success({ result: 1 })).toEqual({
     type: actions.CURRENT_USER_RETRIEVE_SUCCESS,
-    data: { id: 1 }
+    result: 1
   })
 
   expect(actions.currentUserRetrieve.failure('test')).toEqual({

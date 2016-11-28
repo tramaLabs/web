@@ -1,7 +1,10 @@
+import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
+import { AUTH_SUCCESS } from '../auth/actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
+import user from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
@@ -16,14 +19,16 @@ describe('retrieveCurrentUser', () => {
   it('calls success', () => {
     const generator = sagas.retrieveCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
   })
 
   it('calls success and resolve', () => {
     const generator = sagas.retrieveCurrentUser(resolve)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(resolve).not.toBeCalled()
-    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRetrieve.success(data)))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
@@ -45,7 +50,10 @@ describe('retrieveCurrentUser', () => {
 test('watchCurrentUserRetrieveRequest', () => {
   const payload = { resolve, reject }
   const generator = sagas.watchCurrentUserRetrieveRequest()
-  expect(generator.next().value).toEqual(take(actions.CURRENT_USER_RETRIEVE_REQUEST))
+  expect(generator.next().value).toEqual(take([
+    actions.CURRENT_USER_RETRIEVE_REQUEST,
+    AUTH_SUCCESS
+  ]))
   expect(generator.next(payload).value)
     .toEqual(call(sagas.retrieveCurrentUser, ...Object.values(payload)))
 })
