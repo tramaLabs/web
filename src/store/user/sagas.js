@@ -1,7 +1,7 @@
 import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import { currentUserRetrieve, CURRENT_USER_RETRIEVE_REQUEST } from './actions'
-import { AUTH_FACEBOOK_SUCCESS } from '../auth/actions'
+import { AUTH_SUCCESS } from '../auth/actions'
 import user from './schema'
 import api from 'services/api'
 
@@ -20,7 +20,7 @@ export function* retrieveCurrentUser (resolve = fn, reject = fn) {
 
 export function* watchCurrentUserRetrieveRequest () {
   while (true) {
-    const { resolve, reject } = yield take([CURRENT_USER_RETRIEVE_REQUEST, AUTH_FACEBOOK_SUCCESS])
+    const { resolve, reject } = yield take([CURRENT_USER_RETRIEVE_REQUEST, AUTH_SUCCESS])
     yield call(retrieveCurrentUser, resolve, reject)
   }
 }
