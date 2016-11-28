@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { apiUrl } from 'config'
 
-const api = axios.create({ baseURL: apiUrl })
+export const api = axios.create({ baseURL: apiUrl })
 
-export const request = (config) => api.request(config)
+export const request = (config) => {
+  return api.request(config)
+}
 
 export const setToken = (token) => {
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`

@@ -1,14 +1,27 @@
 import axios from 'axios'
 import { stub, spy } from 'sinon'
 
-let request = spy()
+const request = spy()
+const defaults = { headers: { common: {} } }
 
-stub(axios, 'create', () => ({ request }))
+stub(axios, 'create', () => ({ request, defaults }))
 
-const { get, post } = require('.')
+const { api, setToken, unsetToken, get, post } = require('.')
 
 beforeEach(() => {
   request.reset()
+})
+
+test('setToken', () => {
+  expect(api.defaults.headers.common).toEqual({})
+  setToken(1)
+  expect(api.defaults.headers.common['Authorization']).toBe('Bearer 1')
+})
+
+test('unsetToken', () => {
+  api.defaults.headers.common['Authorization'] = 1
+  unsetToken()
+  expect(api.defaults.headers.common['Authorization']).toBeUndefined()
 })
 
 test('get', () => {
