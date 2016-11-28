@@ -15,14 +15,14 @@ describe('serviceAuth', () => {
   it('calls success', () => {
     const generator = sagas.serviceAuth('service', 1)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(generator.next({ token: 1 }).value).toEqual(put(actions.auth.success(1)))
+    expect(generator.next({ data: { token: 1 } }).value).toEqual(put(actions.auth.success(1)))
   })
 
   it('calls success and resolve', () => {
     const generator = sagas.serviceAuth('service', 1, resolve)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
     expect(resolve).not.toBeCalled()
-    expect(generator.next({ token: 1 }).value).toEqual(put(actions.auth.success(1)))
+    expect(generator.next({ data: { token: 1 } }).value).toEqual(put(actions.auth.success(1)))
     expect(resolve).toHaveBeenCalledWith(1)
   })
 
@@ -49,7 +49,7 @@ test('loginFlow', () => {
     call(setToken, 1)
   ])
   expect(generator.next().value).toEqual(take(actions.AUTH_LOGOUT))
-  expect(generator.next({ token: 1 }).value).toEqual([
+  expect(generator.next().value).toEqual([
     call(cookie.remove, 'token', { path: '/' }),
     call(unsetToken)
   ])
