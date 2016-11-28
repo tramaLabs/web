@@ -18,10 +18,10 @@ const config = {
   production: {
     ip: process.env.IP || '0.0.0.0',
     port: process.env.PORT || 8080,
-    baseUrl: 'https://arc.diegohaz.com',
+    baseUrl: 'https://trama-web.herokuapp.com',
     apiUrl: 'https://trama-rest.herokuapp.com'
   }
 }
 
-module.exports = exports = merge(config.all, config[config.all.env])
-export default exports
+module.exports = merge(config.all, config[config.all.env])
+export default module.exports
