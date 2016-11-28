@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { apiUrl } from 'config'
 
-const api = axios.create({ baseURL: apiUrl })
+export const api = axios.create({ baseURL: apiUrl })
 
 export const request = (config) => {
   return api.request(config)
