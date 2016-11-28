@@ -6,6 +6,8 @@ import { Router, browserHistory, applyRouterMiddleware } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 import configureStore from 'store/configure'
+import { fromAuth } from 'store'
+import { setToken } from 'services/api'
 
 import routes from 'routes'
 
@@ -13,6 +15,11 @@ const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store)
 const root = document.getElementById('app')
+const token = fromAuth.getToken(store.getState())
+
+if (token) {
+  setToken(token)
+}
 
 const renderApp = () => (
   <AppContainer>
