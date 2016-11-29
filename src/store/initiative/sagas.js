@@ -13,9 +13,9 @@ import {
 import initiative from './schema'
 import api from 'services/api'
 
-const fn = () => true
+const noop = () => {}
 
-export function* createInitiative (newData, resolve = fn, reject = fn) {
+export function* createInitiative (newData, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.post, '/initiatives', newData)
     resolve(data)
@@ -26,7 +26,7 @@ export function* createInitiative (newData, resolve = fn, reject = fn) {
   }
 }
 
-export function* retrieveInitiative (id, resolve = fn, reject = fn) {
+export function* retrieveInitiative (id, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, `/initiatives/${id}`)
     resolve(data)
@@ -37,7 +37,7 @@ export function* retrieveInitiative (id, resolve = fn, reject = fn) {
   }
 }
 
-export function* listInitiatives (params, resolve = fn, reject = fn) {
+export function* listInitiatives (params, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
@@ -48,7 +48,7 @@ export function* listInitiatives (params, resolve = fn, reject = fn) {
   }
 }
 
-export function* updateInitiative (id, newData, resolve = fn, reject = fn) {
+export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
     resolve(data)

@@ -3,9 +3,9 @@ import cookie from 'react-cookie'
 import { auth, AUTH_REQUEST, AUTH_SUCCESS, AUTH_LOGOUT } from './actions'
 import api, { setToken, unsetToken } from 'services/api'
 
-const fn = () => true
+const noop = () => {}
 
-export function* serviceAuth (service, serviceToken, resolve = fn, reject = fn) {
+export function* serviceAuth (service, serviceToken, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.post, `/auth/${service}`, { access_token: serviceToken })
     resolve(data.token)

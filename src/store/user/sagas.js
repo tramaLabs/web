@@ -5,9 +5,9 @@ import { AUTH_SUCCESS } from '../auth/actions'
 import user from './schema'
 import api from 'services/api'
 
-const fn = () => true
+const noop = () => {}
 
-export function* retrieveCurrentUser (resolve = fn, reject = fn) {
+export function* retrieveCurrentUser (resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, '/users/me')
     resolve(data)
