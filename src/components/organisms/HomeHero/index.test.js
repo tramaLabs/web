@@ -2,12 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import HomeHero from '.'
 
-const wrap = (props = {}) => shallow(<HomeHero {...props} />).dive()
-
-it('renders children when passed in', () => {
-  const wrapper = wrap({ children: 'test' })
-  expect(wrapper.contains('test')).toBe(true)
-})
+const wrap = (props = {}) => shallow(<HomeHero {...props} />)
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })

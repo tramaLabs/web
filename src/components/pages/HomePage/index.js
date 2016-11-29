@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { GenericTemplate, HomeHero } from 'components'
+import { HomeHero } from 'components'
 
 const HomePage = () => {
   return (
-        <HomeHero/>
+    <HomeHero />
   )
 }
 

@@ -1,14 +1,13 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
+import { colors } from 'components/globals'
 
-import { colors, fonts } from 'components/globals'
-
-import { Heading, Button, Image, SearchBar,InitiativeCard } from 'components'
+import { Heading, Button } from 'components'
 
 import background from './background.jpg'
 
-import { Grid, Row, Col, FormGroup, FormControl } from 'react-bootstrap'
+import { Grid, Row, FormGroup, FormControl } from 'react-bootstrap'
 
 const Wrapper = styled.div`
   display: table;
@@ -38,53 +37,43 @@ const HeroCall = styled.div`
   padding-bottom: 20px;
   background-color: rgba(240,130,31,0.4);
 `
-const StyledCol = styled(Col)`
-  color:black;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-  font-weight: bold;
-`
 const HeroInput = styled(FormControl)`
   width: 30%;
   margin:auto;
   display: inline-block;
 `
 
-
-const Div = styled.div``
 const HomeHero = ({ ...props }) => {
   return (
-        <header {...props} >
-        <Wrapper>
-			<Overlay>
-				<Grid>
-					<Row>
-						<HeroText>
-							<Herop>
+    <header {...props} >
+      <Wrapper>
+        <Overlay>
+          <Grid>
+            <Row>
+              <HeroText>
+                <Herop>
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula felis, fringilla sit amet porta et, suscipit eget risus. Mauris vestibulum eros tempor, lobortis magna nec, fringilla massa.
                           </Herop>
-							<Button to="#about" kind="grayscale" transparent light size={50}> 
+                <Button to="#about" kind="grayscale" transparent light size={50}>
                               Crie sua iniciativa
                             </Button>
-						</HeroText>						
-					</Row>
-				</Grid>
-				<HeroCall>
-					<Heading level={2} style={{fontSize:27, fontWeight:"bold",color:colors.grayscale[4]}}>
+              </HeroText>
+            </Row>
+          </Grid>
+          <HeroCall>
+            <Heading level={2} style={{fontSize: 27, fontWeight: 'bold', color: colors.grayscale[4]}}>
                         Colabore com iniciativas
                     </Heading>
-					<FormGroup>
-						<HeroInput type={"text"}  placeholder={"Use tags para pesquisar (ex.: música, rio de janeiro)"} />
-							<Button to="#about" kind="grayscale" transparent light size={50}> 
+            <FormGroup>
+              <HeroInput type={'text'} placeholder={'Use tags para pesquisar (ex.: música, rio de janeiro)'} />
+              <Button to="#about" kind="grayscale" transparent light size={50}>
                       Explorar</Button>
-					</FormGroup>
-				</HeroCall>
-			</Overlay>
-		</Wrapper>	
-        </header>
+            </FormGroup>
+          </HeroCall>
+        </Overlay>
+      </Wrapper>
+    </header>
   )
 }
 
 export default HomeHero
-

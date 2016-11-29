@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react'
-import styled from 'styled-components'
 
 import { Button, Icon } from 'components'
 
