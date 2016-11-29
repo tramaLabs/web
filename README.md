@@ -1,24 +1,16 @@
 <p align="center">
-  <img width="206" alt="arclogo2" src="https://cloud.githubusercontent.com/assets/3068563/19498653/f9b73170-9570-11e6-9183-61dce798abab.png"><br><br>
+  <img width="206" alt="tramalogo" src="https://cloud.githubusercontent.com/assets/3068563/20716002/0f94fa58-b638-11e6-82a5-59da606d14bf.png"><br><br>
+  <a href="https://github.com/diegohaz/arc"><img src="https://img.shields.io/badge/generated%20with-arc-blue.svg?style=flat-square" alt="Standard Style" /></a>
   <a href="http://standardjs.com"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square" alt="Standard Style" /></a>
-  <a href="https://travis-ci.org/diegohaz/arc"><img src="https://img.shields.io/travis/diegohaz/arc/universal-redux.svg?style=flat-square" alt="Build Status" /></a>
-  <a href="https://codecov.io/gh/diegohaz/arc/branch/universal-redux"><img src="https://img.shields.io/codecov/c/github/diegohaz/arc/universal-redux.svg?style=flat-square" alt="Coverage Status" /></a>
+  <a href="https://travis-ci.org/tramaLabs/web"><img src="https://img.shields.io/travis/tramaLabs/web/master.svg?style=flat-square" alt="Build Status" /></a>
+  <a href="https://codecov.io/gh/tramaLabs/web/branch/master"><img src="https://img.shields.io/codecov/c/github/tramaLabs/web/master.svg?style=flat-square" alt="Coverage Status" /></a>
 </p>
-
-## Universal Redux
-
-This branch adds [Server Side Rendering](https://github.com/reactjs/redux/blob/master/docs/recipes/ServerRendering.md) to the [redux](https://github.com/diegohaz/arc/tree/redux) branch.
-
-See the [demo](https://arc.diegohaz.com). (*Disable javascript to see the magic*)
 
 ## Download
 
-Just clone the repository and remove the `.git` folder:
-
 ```sh
-$ git clone -b universal-redux https://github.com/diegohaz/arc my-app
-$ cd my-app
-$ rm -rf .git
+$ git clone https://github.com/tramaLabs/web trama-web
+$ cd trama-web
 $ npm install # or yarn
 ```
 
@@ -73,15 +65,13 @@ git push heroku master
 
 The source code should be placed in `src`; public/static files should be placed in `public` so they can be included in the build process.
 
-If you want to start with a clean and minimal source code without the predefined components and tests, just use the `src-clean` instead by renaming it to `src` (and removing or renaming the older one to something like `src-example`).
-
 ### Components
 
 This project leverages the Atomic Design methodology to create a scalable and easy to maintain component folder structure. See [why](https://github.com/diegohaz/arc#why).
 
 If you are creating a component and you don't know if it is an atom, a molecule or an organism, don't worry so much. It will be easy to move it later.
 
-You can use the [components](src/components) folder here as an example or refer to the [Pattern Lab Demo](http://demo.patternlab.io/) which this project is based on. Basically, you can think this way:
+You can use the [components](src/components) folder here as an example or refer to the [Pattern Lab Demo](http://demo.patternlab.io/). Basically, you can think this way:
 
 - An **atom** is a native html tag or a React Component that renders an html tag;
 - A **molecule** is a group of atoms;
@@ -230,27 +220,11 @@ export default SamplePageContainer
 
 In order to make the forms work on the server side, this is combined with [redux-form](https://github.com/erikras/redux-form) and [redux-form-submit](https://github.com/diegohaz/redux-form-submit).
 
-## Contributing
-
-When issuing, use the following patterns in the title for better understanding:
-```bash
-[v0.3.1-redux] Something wrong is not right # the v0.3.1 release of the redux branch
-[redux] Something wrong is not right # the actual code of the redux branch
-[master] Something right is not wrong # the actual code of the master branch
-Something wrong is right # general or not directly related to any branch
-```
-
-PRs are very appreciated. For bugs/features consider creating an issue before sending a PR. But there're other things you can contribute directly:
-
-- I'm not a native english speaker. If you find any typo or some text that could be written in a better way, please send a PR, even if it is only a punctuation;
-- If you forked or created another boilerplate based on this one with another features (using [`css-modules`](https://github.com/css-modules/css-modules) instead of [`styled-components`](https://github.com/styled-components/styled-components), for example), add that to the [Forks section](#forks) with the following pattern:
-  - [arc-css-modules](https://github.com/username/arc-css-modules) - A little description
-
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 [Diego Haz](https://github.com/diegohaz)
+Copyright (c) 2016 [Trama](https://github.com/tramaLabs)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
