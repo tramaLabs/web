@@ -1,17 +1,17 @@
 import { initialState } from './selectors'
-import { INITIATIVE_LIST_SUCCESS, INITIATIVE_RETRIEVE_SUCCESS } from './actions'
+import { INITIATIVE_LIST_READ_SUCCESS, INITIATIVE_DETAIL_READ_SUCCESS } from './actions'
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case INITIATIVE_LIST_SUCCESS:
+  case INITIATIVE_LIST_READ_SUCCESS:
     return {
       ...state,
-      list: action.result
+      ids: action.result
     }
-  case INITIATIVE_RETRIEVE_SUCCESS:
+  case INITIATIVE_DETAIL_READ_SUCCESS:
     return {
       ...state,
-      item: action.result
+      id: action.result
     }
   default:
     return state

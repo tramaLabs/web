@@ -13,52 +13,52 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-describe('retrieveCurrentUser', () => {
+describe('readCurrentUser', () => {
   const data = { id: 1, title: 'test' }
 
   it('calls success', () => {
-    const generator = sagas.retrieveCurrentUser()
+    const generator = sagas.readCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
+      .toEqual(put(actions.currentUserRead.success(normalize(data, user))))
   })
 
   it('calls success and resolve', () => {
-    const generator = sagas.retrieveCurrentUser(resolve)
+    const generator = sagas.readCurrentUser(resolve)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(resolve).not.toBeCalled()
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.currentUserRetrieve.success(normalize(data, user))))
+      .toEqual(put(actions.currentUserRead.success(normalize(data, user))))
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
   it('calls failure', () => {
-    const generator = sagas.retrieveCurrentUser()
+    const generator = sagas.readCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.throw('test').value).toEqual(put(actions.currentUserRetrieve.failure('test')))
+    expect(generator.throw('test').value).toEqual(put(actions.currentUserRead.failure('test')))
   })
 
   it('calls failure and reject', () => {
-    const generator = sagas.retrieveCurrentUser(resolve, reject)
+    const generator = sagas.readCurrentUser(resolve, reject)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.currentUserRetrieve.failure('test')))
+    expect(generator.throw('test').value).toEqual(put(actions.currentUserRead.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })
 
-test('watchCurrentUserRetrieveRequest', () => {
+test('watchCurrentUserReadRequest', () => {
   const payload = { resolve, reject }
-  const generator = sagas.watchCurrentUserRetrieveRequest()
+  const generator = sagas.watchCurrentUserReadRequest()
   expect(generator.next().value).toEqual(take([
-    actions.CURRENT_USER_RETRIEVE_REQUEST,
+    actions.CURRENT_USER_READ_REQUEST,
     AUTH_SUCCESS
   ]))
   expect(generator.next(payload).value)
-    .toEqual(call(sagas.retrieveCurrentUser, ...Object.values(payload)))
+    .toEqual(call(sagas.readCurrentUser, ...Object.values(payload)))
 })
 
 test('saga', () => {
   const generator = saga()
-  expect(generator.next().value).toEqual(fork(sagas.watchCurrentUserRetrieveRequest))
+  expect(generator.next().value).toEqual(fork(sagas.watchCurrentUserReadRequest))
 })

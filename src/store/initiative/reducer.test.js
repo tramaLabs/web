@@ -6,22 +6,22 @@ it('returns the initial state', () => {
   expect(reducer(undefined, {})).toEqual(initialState)
 })
 
-it('handles INITIATIVE_LIST_SUCCESS', () => {
+it('handles INITIATIVE_LIST_READ_SUCCESS', () => {
   expect(reducer(initialState, {
-    type: actions.INITIATIVE_LIST_SUCCESS,
+    type: actions.INITIATIVE_LIST_READ_SUCCESS,
     result: [1, 2, 3]
   })).toEqual({
     ...initialState,
-    list: [1, 2, 3]
+    ids: [1, 2, 3]
   })
 })
 
-it('handles INITIATIVE_RETRIEVE_SUCCESS', () => {
+it('handles INITIATIVE_DETAIL_READ_SUCCESS', () => {
   expect(reducer(initialState, {
-    type: actions.INITIATIVE_RETRIEVE_SUCCESS,
+    type: actions.INITIATIVE_DETAIL_READ_SUCCESS,
     result: 1
   })).toEqual({
     ...initialState,
-    item: 1
+    id: 1
   })
 })

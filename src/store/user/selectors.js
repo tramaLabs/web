@@ -1,5 +1,5 @@
 export const initialState = {
-  current: null
+  currentId: null
 }
 
-export const getCurrent = (state = initialState) => state.current
+export const getCurrentId = (state = initialState) => state.currentId

@@ -1,12 +1,12 @@
 import { initialState } from './selectors'
-import { CURRENT_USER_RETRIEVE_SUCCESS } from './actions'
+import { CURRENT_USER_READ_SUCCESS } from './actions'
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case CURRENT_USER_RETRIEVE_SUCCESS:
+  case CURRENT_USER_READ_SUCCESS:
     return {
       ...state,
-      current: action.data
+      currentId: action.result
     }
   default:
     return state

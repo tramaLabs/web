@@ -1,13 +1,13 @@
 import { arrayOf, normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import {
-  initiativeList,
-  initiativeRetrieve,
-  initiativeUpdate,
   initiativeCreate,
+  initiativeListRead,
+  initiativeDetailRead,
+  initiativeUpdate,
   INITIATIVE_CREATE_REQUEST,
-  INITIATIVE_RETRIEVE_REQUEST,
-  INITIATIVE_LIST_REQUEST,
+  INITIATIVE_LIST_READ_REQUEST,
+  INITIATIVE_DETAIL_READ_REQUEST,
   INITIATIVE_UPDATE_REQUEST
 } from './actions'
 import initiative from './schema'
@@ -26,25 +26,25 @@ export function* createInitiative (newData, resolve = noop, reject = noop) {
   }
 }
 
-export function* retrieveInitiative (id, resolve = noop, reject = noop) {
-  try {
-    const { data } = yield call(api.get, `/initiatives/${id}`)
-    resolve(data)
-    yield put(initiativeRetrieve.success(normalize(data, initiative)))
-  } catch (e) {
-    reject(e)
-    yield put(initiativeRetrieve.failure(e))
-  }
-}
-
-export function* listInitiatives (params, resolve = noop, reject = noop) {
+export function* readInitiativeList (params, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
-    yield put(initiativeList.success(normalize(data, arrayOf(initiative))))
+    yield put(initiativeListRead.success(normalize(data, arrayOf(initiative))))
   } catch (e) {
     reject(e)
-    yield put(initiativeList.failure(e))
+    yield put(initiativeListRead.failure(e))
+  }
+}
+
+export function* readInitiativeDetail (id, resolve = noop, reject = noop) {
+  try {
+    const { data } = yield call(api.get, `/initiatives/${id}`)
+    resolve(data)
+    yield put(initiativeDetailRead.success(normalize(data, initiative)))
+  } catch (e) {
+    reject(e)
+    yield put(initiativeDetailRead.failure(e))
   }
 }
 
@@ -66,17 +66,17 @@ export function* watchInitiativeCreateRequest () {
   }
 }
 
-export function* watchInitiativeRetrieveRequest () {
+export function* watchInitiativeListReadRequest () {
   while (true) {
-    const { id, resolve, reject } = yield take(INITIATIVE_RETRIEVE_REQUEST)
-    yield call(retrieveInitiative, id, resolve, reject)
+    const { params, resolve, reject } = yield take(INITIATIVE_LIST_READ_REQUEST)
+    yield call(readInitiativeList, params, resolve, reject)
   }
 }
 
-export function* watchInitiativeListRequest () {
+export function* watchInitiativeDetailReadRequest () {
   while (true) {
-    const { params, resolve, reject } = yield take(INITIATIVE_LIST_REQUEST)
-    yield call(listInitiatives, params, resolve, reject)
+    const { id, resolve, reject } = yield take(INITIATIVE_DETAIL_READ_REQUEST)
+    yield call(readInitiativeDetail, id, resolve, reject)
   }
 }
 
@@ -89,7 +89,7 @@ export function* watchInitiativeUpdateRequest () {
 
 export default function* () {
   yield fork(watchInitiativeCreateRequest)
-  yield fork(watchInitiativeRetrieveRequest)
-  yield fork(watchInitiativeListRequest)
+  yield fork(watchInitiativeListReadRequest)
+  yield fork(watchInitiativeDetailReadRequest)
   yield fork(watchInitiativeUpdateRequest)
 }

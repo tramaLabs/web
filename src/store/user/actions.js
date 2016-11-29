@@ -1,10 +1,10 @@
-export const CURRENT_USER_RETRIEVE = 'CURRENT_USER_RETRIEVE'
-export const CURRENT_USER_RETRIEVE_REQUEST = 'CURRENT_USER_RETRIEVE_REQUEST'
-export const CURRENT_USER_RETRIEVE_SUCCESS = 'CURRENT_USER_RETRIEVE_SUCCESS'
-export const CURRENT_USER_RETRIEVE_FAILURE = 'CURRENT_USER_RETRIEVE_FAILURE'
+export const CURRENT_USER_READ = 'CURRENT_USER_READ'
+export const CURRENT_USER_READ_REQUEST = 'CURRENT_USER_READ_REQUEST'
+export const CURRENT_USER_READ_SUCCESS = 'CURRENT_USER_READ_SUCCESS'
+export const CURRENT_USER_READ_FAILURE = 'CURRENT_USER_READ_FAILURE'
 
-export const currentUserRetrieve = {
-  request: (resolve, reject) => ({ type: CURRENT_USER_RETRIEVE_REQUEST, resolve, reject }),
-  success: (data) => ({ type: CURRENT_USER_RETRIEVE_SUCCESS, ...data }),
-  failure: (error) => ({ type: CURRENT_USER_RETRIEVE_FAILURE, error })
+export const currentUserRead = {
+  request: (resolve, reject) => ({ type: CURRENT_USER_READ_REQUEST, resolve, reject }),
+  success: (data) => ({ type: CURRENT_USER_READ_SUCCESS, ...data }),
+  failure: (error) => ({ type: CURRENT_USER_READ_FAILURE, error })
 }

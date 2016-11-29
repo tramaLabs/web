@@ -1,7 +1,7 @@
 export const initialState = {
-  list: [],
-  item: null
+  ids: [],
+  id: null
 }
 
-export const getList = (state = initialState) => state.list || initialState.list
-export const getItem = (state = initialState) => state.item || initialState.item
+export const getIds = (state = initialState) => state.ids || initialState.ids
+export const getId = (state = initialState) => state.id || initialState.id

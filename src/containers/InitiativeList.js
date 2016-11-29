@@ -1,6 +1,12 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { initiativeList, fromInitiative, fromStatus, INITIATIVE_LIST } from 'store'
+import {
+  initiativeListRead,
+  fromInitiative,
+  fromEntities,
+  fromStatus,
+  INITIATIVE_LIST_READ
+} from 'store'
 
 import { InitiativeList } from 'components'
 
@@ -27,12 +33,12 @@ class InitiativeListContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  list: fromInitiative.getList(state),
-  loading: fromStatus.isLoading(state, INITIATIVE_LIST)
+  list: fromEntities.getInitiatives(state, fromInitiative.getIds(state)),
+  loading: fromStatus.isLoading(state, INITIATIVE_LIST_READ)
 })
 
 const mapDispatchToProps = (dispatch, { limit }) => ({
-  request: () => dispatch(initiativeList.request(limit))
+  request: () => dispatch(initiativeListRead.request({ limit }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitiativeListContainer)
