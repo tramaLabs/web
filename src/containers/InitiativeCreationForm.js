@@ -3,7 +3,7 @@ import { reduxForm } from 'redux-form'
 import { initiativeCreate, fromForm } from 'store'
 import { createValidator, required } from 'services/validation'
 
-import { InitiativeCreationForm } from 'components'
+import InitiativeCreationForm from 'components/organisms/InitiativeCreationForm'
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
   dispatch(initiativeCreate.request(data, resolve, reject))
