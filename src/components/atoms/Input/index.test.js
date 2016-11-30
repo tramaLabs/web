@@ -7,6 +7,7 @@ const wrap = (props = {}) => shallow(<Input {...props} />).dive()
 it('mounts with different combination of props', () => {
   mount(<Input />)
   mount(<Input invalid />)
+  mount(<Input borderless />)
 })
 
 it('renders props when passed in', () => {
