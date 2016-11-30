@@ -18,7 +18,7 @@ const Html = ({ styles, assets, state, content }) => {
         <main id="app" dangerouslySetInnerHTML={{ __html: content }} />
         <script dangerouslySetInnerHTML={{ __html: state }} />
         {Object.keys(assets.javascript).map((key) =>
-          <script src={assets.javascript[key]} />
+          <script key={key} src={assets.javascript[key]} />
         )}
       </body>
     </html>
