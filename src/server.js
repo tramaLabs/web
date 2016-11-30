@@ -31,7 +31,7 @@ router.use((req, res, next) => {
   const store = configureStore({ auth: { token } }, memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
 
-  setToken(token)
+  token && setToken(token)
 
   store.dispatch(setCsrfToken(req.csrfToken()))
 

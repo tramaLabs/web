@@ -17,9 +17,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 const root = document.getElementById('app')
 const token = fromAuth.getToken(store.getState())
 
-if (token) {
-  setToken(token)
-}
+token && setToken(token)
 
 const renderApp = () => (
   <AppContainer>
