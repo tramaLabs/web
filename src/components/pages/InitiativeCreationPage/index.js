@@ -5,7 +5,7 @@ import { InitiativeCreationForm } from 'containers'
 
 const InitiativeCreationPage = () => {
   return (
-    <PageTemplate>
+    <PageTemplate header={<div />} footer={<div />}>
       <InitiativeCreationForm />
     </PageTemplate>
   )
