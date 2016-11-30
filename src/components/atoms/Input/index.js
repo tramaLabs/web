@@ -1,17 +1,21 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 
-import { colors } from 'components/globals'
+import { fonts, colors } from 'components/globals'
 
-const styles = ({ invalid, type }) => css`
+const styles = ({ invalid, type, borderless }) => css`
+  font-family: ${fonts.primary};
   display: block;
   width: 100%;
   color: inherit;
+  padding: 0 0.75rem;
   margin: 0;
   box-sizing: border-box;
-  font-size: 1.123rem;
-  border: 1px solid ${invalid ? colors.danger[2] : colors.grayscale[3]};
-  border-radius: 2px;
+  font-size: 1rem;
+  border: 1px solid ${invalid
+    ? colors.danger[2]
+    : borderless ? 'transparent' : colors.grayscale[3]
+  };
   height: ${type === 'textarea' ? 'auto' : '2.5rem'};
 
   &[type=checkbox], &[type=radio] {
@@ -21,6 +25,7 @@ const styles = ({ invalid, type }) => css`
     width: auto;
     height: auto;
     margin: 0 0.2rem 0 0;
+    padding: 0;
   }
 `
 
@@ -36,6 +41,7 @@ const Input = ({ ...props, type }) => {
 
 Input.propTypes = {
   invalid: PropTypes.bool,
+  borderless: PropTypes.bool,
   type: PropTypes.string
 }
 
