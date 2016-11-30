@@ -7,7 +7,7 @@ const Paragraph = styled.p`
   color: ${colors.grayscale[0]};
   font-size: 1rem;
   line-height: 1.3;
-  margin: 1rem 0 0;
+  margin: 0 0 1rem;
 `
 
 export default Paragraph
