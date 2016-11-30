@@ -5,12 +5,12 @@ import { colors, fonts } from 'components/globals'
 
 const styles = ({ level }) => css`
   font-family: ${fonts.primary};
-  font-weight: 500;
-  font-size: ${0.75 + 1 * (1 / level)}rem;
+  font-weight: 700;
+  font-size: ${1 + 1.625 * (1 / level)}rem;
   margin: 0;
   margin-top: ${1 + 0.5 * (1 / level)}rem;
   margin-bottom: ${0.5 + 0.5 * (1 / level)}rem;
-  color: ${colors.grayscale[0]};
+  color: ${level === 1 ? colors.primary[1] : colors.grayscale[0]};
 `
 
 const Heading = styled(({ level, children, ...props }) => {
