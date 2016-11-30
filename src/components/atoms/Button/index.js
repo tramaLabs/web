@@ -14,7 +14,7 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
     font-weight: 400;
     background-color: ${transparent ? 'transparent' : (disabled ? color[2] : color[1])};
     border: 0.143em solid ${transparent ? 'currentcolor' : 'transparent'};
-    height: 3.5714em;
+    height: 2.8571em;
     justify-content: center;
     text-decoration: none;
     text-transform: uppercase;
