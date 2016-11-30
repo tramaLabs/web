@@ -11,13 +11,15 @@ const Html = ({ styles, assets, state, content }) => {
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
+        {helmet.link.toComponent()}
         <style dangerouslySetInnerHTML={{ __html: styles }} />
       </head>
       <body>
         <main id="app" dangerouslySetInnerHTML={{ __html: content }} />
         <script dangerouslySetInnerHTML={{ __html: state }} />
-        <script src={assets.javascript.main} />
+        {Object.keys(assets.javascript).map((key) =>
+          <script key={key} src={assets.javascript[key]} />
+        )}
       </body>
     </html>
   )

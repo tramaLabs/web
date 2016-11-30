@@ -9,13 +9,12 @@ var DEBUG = process.env.NODE_ENV !== 'production'
 
 var config = {
   devtool: DEBUG ? 'eval' : false,
-  entry: [
-    'babel-polyfill',
-    path.join(__dirname, '../src/client')
-  ],
+  entry: {
+    app: ['babel-polyfill', path.join(__dirname, '../src/client')]
+  },
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: 'app.[hash].js',
+    filename: '[name].[hash].js',
     publicPath: DEBUG ? 'http://' + ip + ':' + port + '/' : '/'
   },
   resolve: {
@@ -32,6 +31,7 @@ var config = {
       { test: /\.png$/, loader: 'url?prefix=images/&limit=8000&mimetype=image/png' },
       { test: /\.jpg$/, loader: 'url?prefix=images/&limit=8000&mimetype=image/jpeg' },
       { test: /\.woff$/, loader: 'url?prefix=fonts/&limit=8000&mimetype=application/font-woff' },
+      { test: /\.woff2$/, loader: 'url?prefix=fonts/&limit=8000&mimetype=application/font-woff2' },
       { test: /\.ttf$/, loader: 'file?prefix=fonts/' },
       { test: /\.eot$/, loader: 'file?prefix=fonts/' },
       { test: /\.json$/, loader: 'json' }
@@ -40,7 +40,7 @@ var config = {
 }
 
 if (DEBUG) {
-  config.entry.unshift(
+  config.entry.app.unshift(
     'webpack-dev-server/client?http://' + ip + ':' + port + '/',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch'
