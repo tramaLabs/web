@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Grid, Row } from 'react-bootstrap'
 
 import { colors } from 'components/globals'
-
 import { Heading, Button } from 'components'
-
+import { SearchForm } from 'containers'
 import background from './background.jpg'
-
-import { Grid, Row, FormGroup, FormControl } from 'react-bootstrap'
 
 const Wrapper = styled.div`
   display: table;
@@ -37,11 +35,6 @@ const HeroCall = styled.div`
   padding-bottom: 20px;
   background-color: rgba(240,130,31,0.4);
 `
-const HeroInput = styled(FormControl)`
-  width: 30%;
-  margin:auto;
-  display: inline-block;
-`
 
 const HomeHero = ({ ...props }) => {
   return (
@@ -64,11 +57,7 @@ const HomeHero = ({ ...props }) => {
             <Heading level={2} style={{fontSize: 27, fontWeight: 'bold', color: colors.grayscale[4]}}>
                         Colabore com iniciativas
                     </Heading>
-            <FormGroup>
-              <HeroInput type={'text'} placeholder={'Use tags para pesquisar (ex.: música, rio de janeiro)'} />
-              <Button to="#about" kind="grayscale" transparent light size={50}>
-                      Explorar</Button>
-            </FormGroup>
+            <SearchForm kind="grayscale" transparent light borderless />
           </HeroCall>
         </Overlay>
       </Wrapper>
