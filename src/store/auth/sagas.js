@@ -16,13 +16,18 @@ export function* serviceAuth (service, serviceToken, resolve = noop, reject = no
   }
 }
 
-export function* loginFlow () {
+export function* watchAuthSuccess () {
   while (true) {
     const { token } = yield take(AUTH_SUCCESS)
     yield [
       call(cookie.save, 'token', token, { path: '/' }),
       call(setToken, token)
     ]
+  }
+}
+
+export function* watchAuthLogout () {
+  while (true) {
     yield take(AUTH_LOGOUT)
     yield [
       call(cookie.remove, 'token', { path: '/' }),
@@ -39,6 +44,7 @@ export function* watchAuthRequest () {
 }
 
 export default function* () {
-  yield fork(loginFlow)
+  yield fork(watchAuthSuccess)
+  yield fork(watchAuthLogout)
   yield fork(watchAuthRequest)
 }

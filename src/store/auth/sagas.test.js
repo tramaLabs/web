@@ -41,13 +41,17 @@ describe('serviceAuth', () => {
   })
 })
 
-test('loginFlow', () => {
-  const generator = sagas.loginFlow()
+test('watchAuthSuccess', () => {
+  const generator = sagas.watchAuthSuccess()
   expect(generator.next().value).toEqual(take(actions.AUTH_SUCCESS))
   expect(generator.next({ token: 1 }).value).toEqual([
     call(cookie.save, 'token', 1, { path: '/' }),
     call(setToken, 1)
   ])
+})
+
+test('watchAuthLogout', () => {
+  const generator = sagas.watchAuthLogout()
   expect(generator.next().value).toEqual(take(actions.AUTH_LOGOUT))
   expect(generator.next().value).toEqual([
     call(cookie.remove, 'token', { path: '/' }),
@@ -64,6 +68,7 @@ test('watchAuthRequest', () => {
 
 test('saga', () => {
   const generator = saga()
-  expect(generator.next().value).toEqual(fork(sagas.loginFlow))
+  expect(generator.next().value).toEqual(fork(sagas.watchAuthSuccess))
+  expect(generator.next().value).toEqual(fork(sagas.watchAuthLogout))
   expect(generator.next().value).toEqual(fork(sagas.watchAuthRequest))
 })
