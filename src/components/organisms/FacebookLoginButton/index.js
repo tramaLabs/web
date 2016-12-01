@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react'
+import { fbAppId } from 'config'
 
-import { Button, Icon } from 'components'
+import { IconButton } from 'components'
 
 class FacebookLoginButton extends Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired
+    onResponse: PropTypes.func.isRequired,
+    loading: PropTypes.bool
   }
 
   constructor (props) {
@@ -12,6 +14,7 @@ class FacebookLoginButton extends Component {
     this.click = this.click.bind(this)
   }
 
+  /* istanbul ignore next */
   componentDidMount () {
     const fbRoot = document.createElement('div')
     fbRoot.id = 'fb-root'
@@ -21,7 +24,7 @@ class FacebookLoginButton extends Component {
     if (typeof window !== 'undefined') {
       window.fbAsyncInit = () => {
         window.FB.init({
-          appId: '534673583399194',
+          appId: fbAppId,
           version: 'v2.7'
         })
       }
@@ -39,22 +42,27 @@ class FacebookLoginButton extends Component {
     }
   }
 
+  /* istanbul ignore next */
   click () {
     if (typeof window !== 'undefined') {
       window.FB.login(({ authResponse }) => {
         if (authResponse && authResponse.accessToken) {
-          this.props.onClick(authResponse.accessToken)
+          this.props.onResponse(authResponse.accessToken)
         }
       }, { scope: 'email' })
     }
   }
 
   render () {
+    const { loading, ...props } = this.props
     return (
-      <Button onClick={this.click}>
-        <Icon icon="facebook" style={{ marginRight: 8 }} />
-        Continue with Facebook
-      </Button>
+      <IconButton
+        onClick={this.click}
+        icon="facebook"
+        disabled={loading}
+        {...props}>
+        Login
+      </IconButton>
     )
   }
 }

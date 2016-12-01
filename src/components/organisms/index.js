@@ -1,3 +1,4 @@
+export FacebookLoginButton from './FacebookLoginButton'
 export Header from './Header'
 export HomeHero from './HomeHero'
 export InitiativeCard from './InitiativeCard'
