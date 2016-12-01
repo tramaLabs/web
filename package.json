@@ -24,7 +24,7 @@
     ],
     "moduleNameMapper": {
       "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/fileMock.js",
-      "^(components|containers)$": "<rootDir>/test/componentsMock.js"
+      "^(components|containers.*)$": "<rootDir>/test/componentsMock.js"
     }
   },
   "devDependencies": {
@@ -70,6 +70,7 @@
     "normalizr": "^2.2.1",
     "raw-loader": "^0.5.1",
     "react": "^15.3.2",
+    "react-aria-menubutton": "^4.3.0",
     "react-bootstrap": "^0.30.7",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.3.2",
