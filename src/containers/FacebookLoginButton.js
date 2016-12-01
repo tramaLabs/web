@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
-import { authFacebook } from 'store'
+import { authFacebook, fromStatus, AUTH } from 'store'
 
-import { FacebookLoginButton } from 'components'
+import FacebookLoginButton from 'components/organisms/FacebookLoginButton'
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  loading: fromStatus.isLoading(state, AUTH)
+})
 
 const mapDispatchToProps = (dispatch, { location }) => ({
-  onClick: (fbToken) => dispatch(authFacebook.request(fbToken))
+  onResponse: (fbToken) => dispatch(authFacebook.request(fbToken))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FacebookLoginButton)

@@ -1,5 +1,6 @@
 import { initialState } from './selectors'
 import * as actions from './actions'
+import { AUTH_LOGOUT } from '../auth/actions'
 import reducer from './reducer'
 
 it('returns the initial state', () => {
@@ -14,4 +15,13 @@ it('handles CURRENT_USER_READ_SUCCESS', () => {
     ...initialState,
     currentId: 1
   })
+})
+
+it('handles AUTH_LOGOUT', () => {
+  expect(reducer({
+    ...initialState,
+    currentId: 1
+  }, {
+    type: AUTH_LOGOUT
+  })).toEqual(initialState)
 })

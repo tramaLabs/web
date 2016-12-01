@@ -9,6 +9,7 @@ const config = {
     env: process.env.NODE_ENV || 'development',
     baseUrl: `http://${ip}:${port}`,
     apiUrl: `https://trama-rest.herokuapp.com`,
+    fbAppId: '534673583399194',
     browser,
     ip,
     port

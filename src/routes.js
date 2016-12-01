@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import { App, HomePage } from 'components'
-import { InitiativeCreationPage } from 'containers'
+import { HomePage } from 'components'
+import { App, InitiativeCreationPage } from 'containers'
 
 const routes = (
   <Route path="/" component={App}>

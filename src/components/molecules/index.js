@@ -1,3 +1,3 @@
-export FacebookLoginButton from './FacebookLoginButton'
 export Field from './Field'
+export IconButton from './IconButton'
 export TagLink from './TagLink'
