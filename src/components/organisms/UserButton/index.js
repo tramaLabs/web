@@ -5,7 +5,9 @@ import { Dropdown, IconButton, Menu, MenuItem } from 'components'
 import FacebookLoginButton from 'containers/FacebookLoginButton'
 
 const StyledIconButton = styled(IconButton)`
-  padding: 0 0.5rem;
+  @media screen and (min-width: 421px) {
+    padding: 0 0.5rem;
+  }
 `
 
 const ButtonWrapper = styled.div`
