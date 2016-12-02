@@ -2,10 +2,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import MenuItem from '.'
 
-const wrap = (props = {}) => shallow(<MenuItem {...props} />)
+const wrap = (props = {}) => shallow(<MenuItem {...props}>test</MenuItem>)
 
 it('renders children when passed in', () => {
-  const wrapper = wrap({ children: 'test' })
+  const wrapper = wrap()
   expect(wrapper.contains('test')).toBe(true)
 })
 
