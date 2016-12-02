@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
+import { Button as MenuButton } from 'react-aria-menubutton'
 
 import { colors, fonts } from 'components/globals'
 
@@ -41,12 +42,15 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
   `
 }
 
+const StyledMenuButton = styled(MenuButton)`${styles}`
 const StyledLink = styled(Link)`${styles}`
 const Anchor = styled.a`${styles}`
 const StyledButton = styled.button`${styles}`
 
 const Button = ({ type, ...props, to, href }) => {
-  if (to) {
+  if (type === 'menu') {
+    return <StyledMenuButton {...props} />
+  } else if (to) {
     return <StyledLink {...props} />
   } else if (href) {
     return <Anchor {...props} />
