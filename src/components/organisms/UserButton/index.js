@@ -12,12 +12,12 @@ const StyledWrapper = styled(Wrapper)`
 `
 
 const StyledIconButton = styled(IconButton)`
-  display: flex;
   padding: 0 0.5rem;
-  & > * {
-    display: flex;
-    align-items: center;
-  }
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
   & img {
     margin-right: 0.5rem;
   }
@@ -47,11 +47,13 @@ const UserButton = ({ user, onUserLogout, ...props }) => {
     return (
       <StyledWrapper onSelection={(value) => value()}>
         <Button tag={StyledIconButton} icon="down" right {...props}>
-          <img src={user.picture} alt={user.name} width={24} height={24} />
-          <span>{user.name}</span>
+          <ButtonWrapper>
+            <img src={user.picture} alt={user.name} width={24} height={24} />
+            <span>{user.name}</span>
+          </ButtonWrapper>
         </Button>
         <StyledMenu>
-          <StyledMenuItem value={onUserLogout}>Logout</StyledMenuItem>
+          <StyledMenuItem value={onUserLogout}>Sair</StyledMenuItem>
         </StyledMenu>
       </StyledWrapper>
     )
