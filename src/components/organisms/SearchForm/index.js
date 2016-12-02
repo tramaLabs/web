@@ -30,7 +30,7 @@ const SearchForm = ({ handleSubmit, borderless, kind, transparent, light, ...pro
         kind={kind}
         transparent={transparent}
         light={light}>
-        Pesquisar
+        Explorar
       </Button>
     </Form>
   )
