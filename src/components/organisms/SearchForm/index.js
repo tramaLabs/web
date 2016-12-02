@@ -14,6 +14,11 @@ const Form = styled.form`
   & > * {
     margin: 0.25rem;
   }
+  & > button {
+    @media screen and (max-width: 640px) {
+      display: none;
+    }
+  }
 `
 
 const SearchForm = ({ handleSubmit, borderless, kind, transparent, light, ...props }) => {
