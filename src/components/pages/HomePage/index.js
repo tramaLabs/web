@@ -6,7 +6,6 @@ class HomePage extends Component {
   constructor (...args) {
     super(...args)
     this.state = {
-      scrolled: false,
       scrolledBeyondHero: false
     }
     this.onScroll = this.onScroll.bind(this)
@@ -26,12 +25,6 @@ class HomePage extends Component {
     const scrollTop = window.scrollY
     const scrolledBeyondHero = scrollTop >= hero.clientHeight - header.clientHeight
 
-    if (scrollTop > 0 && !this.state.scrolled) {
-      this.setState({ scrolled: true })
-    } else if (scrollTop <= 0 && this.state.scrolled) {
-      this.setState({ scrolled: false })
-    }
-
     if (scrolledBeyondHero && !this.state.scrolledBeyondHero) {
       this.setState({ scrolledBeyondHero: true })
     } else if (!scrolledBeyondHero && this.state.scrolledBeyondHero) {
@@ -40,10 +33,10 @@ class HomePage extends Component {
   }
 
   render () {
-    const { scrolled, scrolledBeyondHero } = this.state
+    const { scrolledBeyondHero } = this.state
     return (
       <PageTemplate
-        header={<Header id="header" transparent={!scrolled} hideSearch={!scrolledBeyondHero} />}
+        header={<Header id="header" hideSearch={!scrolledBeyondHero} scrollsTranslucid />}
         hero={<HomeHero id="hero" />}
         footer={<div />}>
         test

@@ -28,17 +28,7 @@ it('mounts and unmounts', () => {
 
 it('has initialState', () => {
   const wrapper = wrap()
-  expect(wrapper.state('scrolled')).toBe(false)
   expect(wrapper.state('scrolledBeyondHero')).toBe(false)
-})
-
-it('scrolls', () => {
-  const wrapper = wrap()
-  expect(wrapper.state('scrolled')).toBe(false)
-  scrollTop(1)
-  expect(wrapper.state('scrolled')).toBe(true)
-  scrollTop(0)
-  expect(wrapper.state('scrolled')).toBe(false)
 })
 
 it('scrolls beyond hero', () => {
@@ -46,6 +36,8 @@ it('scrolls beyond hero', () => {
   expect(wrapper.state('scrolledBeyondHero')).toBe(false)
   scrollTop(400)
   expect(wrapper.state('scrolledBeyondHero')).toBe(true)
+  scrollTop(399)
+  expect(wrapper.state('scrolledBeyondHero')).toBe(false)
   scrollTop(399)
   expect(wrapper.state('scrolledBeyondHero')).toBe(false)
 })
