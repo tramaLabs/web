@@ -75,7 +75,13 @@ class Header extends Component {
   }
 
   componentDidMount () {
-    this.props.scrollsTranslucid && window.addEventListener('scroll', this.onScroll)
+    if (this.props.scrollsTranslucid) {
+      if (navigator.userAgent.indexOf('Safari') === -1) {
+        window.addEventListener('scroll', this.onScroll)
+      } else {
+        this.setState({ scrolled: true })
+      }
+    }
   }
 
   componentWillUnmount () {

@@ -52,3 +52,11 @@ it('sets scrolled state when scrollsTranslucid is passed in', () => {
   scrollTop(0)
   expect(wrapper.state('scrolled')).toBe(false)
 })
+
+it('keeps scrolled state true when userAgent is Safari', () => {
+  Object.defineProperty(window.navigator, 'userAgent', { value: 'Safari' })
+  const wrapper = wrap({ scrollsTranslucid: true })
+  expect(wrapper.state('scrolled')).toBe(true)
+  scrollTop(1)
+  expect(wrapper.state('scrolled')).toBe(true)
+})
