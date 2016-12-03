@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   background: url(${background}) no-repeat center center;
   background-size: cover;
-  background-color: white;
   text-align: center;
   @media screen and (max-width: 640px) {
     padding: 1rem;
@@ -68,7 +67,7 @@ const HomeHero = (props) => {
       <Shadow />
       <Main>
         <StyledParagraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula felis, fringilla sit amet porta et, suscipit eget risus. Mauris vestibulum eros tempor, lobortis magna nec, fringilla massa.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula felis, fringilla sit amet porta et, suscipit eget risus.
         </StyledParagraph>
         <Button to="/iniciativas/criar" size={54}>Criar iniciativa</Button>
       </Main>
