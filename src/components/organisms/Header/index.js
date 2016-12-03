@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { colors, fonts } from 'components/globals'
@@ -60,29 +60,58 @@ const StyledLink = styled(Link)`
   }
 `
 
-const Header = ({ hideSearch, ...props }) => {
-  return (
-    <Wrapper {...props}>
-      <InnerWrapper>
-        <StyledLogoLink height="100%" />
-        <StyledSearchForm
-          hideSearch={hideSearch}
-          kind="grayscale"
-          borderless
-          transparent
-          light />
-        <Nav>
-          <UserButton kind="grayscale" light responsive />
-          <StyledLink to="/" kind="grayscale" light>Manifesto</StyledLink>
-        </Nav>
-      </InnerWrapper>
-    </Wrapper>
-  )
-}
+class Header extends Component {
+  static propTypes = {
+    scrollsTranslucid: PropTypes.bool,
+    hideSearch: PropTypes.bool
+  }
 
-Header.propTypes = {
-  transparent: PropTypes.bool,
-  hideSearch: PropTypes.bool
+  constructor (...args) {
+    super(...args)
+    this.state = {
+      scrolled: false
+    }
+    this.onScroll = this.onScroll.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.scrollsTranslucid && window.addEventListener('scroll', this.onScroll)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.onScroll)
+  }
+
+  onScroll () {
+    const scrollTop = window.scrollY
+
+    if (scrollTop > 0 && !this.state.scrolled) {
+      this.setState({ scrolled: true })
+    } else if (scrollTop <= 0 && this.state.scrolled) {
+      this.setState({ scrolled: false })
+    }
+  }
+
+  render () {
+    const { hideSearch, scrollsTranslucid, ...props } = this.props
+    return (
+      <Wrapper transparent={scrollsTranslucid && !this.state.scrolled} {...props}>
+        <InnerWrapper>
+          <StyledLogoLink height="100%" />
+          <StyledSearchForm
+            hideSearch={hideSearch}
+            kind="grayscale"
+            borderless
+            transparent
+            light />
+          <Nav>
+            <UserButton kind="grayscale" light responsive />
+            <StyledLink to="/" kind="grayscale" light>Manifesto</StyledLink>
+          </Nav>
+        </InnerWrapper>
+      </Wrapper>
+    )
+  }
 }
 
 export default Header
