@@ -4,9 +4,10 @@ import Header from '.'
 
 const wrap = (props = {}) => shallow(<Header {...props} />).dive()
 
-it('renders children when passed in', () => {
-  const wrapper = wrap({ children: 'test' })
-  expect(wrapper.contains('test')).toBe(true)
+it('renders with different props', () => {
+  wrap({ transparent: true })
+  wrap({ hideSearch: false }).find({ hideSearch: false }).dive()
+  wrap({ hideSearch: true }).find({ hideSearch: true }).dive()
 })
 
 it('renders props when passed in', () => {
