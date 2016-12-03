@@ -61,7 +61,7 @@ class FacebookLoginButton extends Component {
         icon="facebook"
         disabled={loading}
         {...props}>
-        Login
+        Entrar
       </IconButton>
     )
   }

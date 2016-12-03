@@ -4,7 +4,7 @@ import UserButton from '.'
 
 const onUserLogout = jest.fn()
 const user = { picture: 'test.jpg', name: 'Test Name' }
-const wrap = (props = {}) => shallow(<UserButton onUserLogout={onUserLogout} {...props} />).dive()
+const wrap = (props = {}) => shallow(<UserButton onUserLogout={onUserLogout} {...props} />)
 
 it('renders', () => {
   wrap()

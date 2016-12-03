@@ -4,7 +4,6 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 4.6875rem;
   min-height: 100vh;
   box-sizing: border-box;
 `

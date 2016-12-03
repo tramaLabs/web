@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { fonts, colors } from 'components/globals'
 
 const styles = ({ invalid, type, borderless }) => css`
+  appearance: textfield;
   font-family: ${fonts.primary};
   display: block;
   width: 100%;
