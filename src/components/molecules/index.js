@@ -1,3 +1,4 @@
+export Feedback from './Feedback'
 export Field from './Field'
 export IconButton from './IconButton'
 export LogoLink from './LogoLink'
