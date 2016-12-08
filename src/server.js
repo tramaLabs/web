@@ -50,14 +50,12 @@ router.use((req, res, next) => {
       let promises = []
 
       components.forEach((component) => {
-        if (component) {
-          while (component && !component[method]) {
-            component = component.WrappedComponent
-          }
-          component &&
-          component[method] &&
-          promises.push(component[method]({ req, res, params, location, store }))
+        const args = { req, res, params, location, store }
+        while (component && !component.all && !component[method]) {
+          component = component.WrappedComponent
         }
+        component && component.all && promises.push(component.all(args))
+        component && component[method] && promises.push(component[method](args))
       })
 
       Promise.all(promises).then(resolve).catch(reject)
