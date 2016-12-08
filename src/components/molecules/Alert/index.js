@@ -22,7 +22,7 @@ const Message = styled.span`
   flex: 1;
 `
 
-const Feedback = ({ children, left, right, ...props }) => {
+const Alert = ({ children, left, right, ...props }) => {
   return (
     <Wrapper {...props}>
       {left}
@@ -32,15 +32,15 @@ const Feedback = ({ children, left, right, ...props }) => {
   )
 }
 
-Feedback.propTypes = {
+Alert.propTypes = {
   children: PropTypes.any,
   left: PropTypes.any,
   right: PropTypes.any,
   kind: PropTypes.oneOf(Object.keys(colors))
 }
 
-Feedback.defaultProps = {
+Alert.defaultProps = {
   kind: 'primary'
 }
 
-export default Feedback
+export default Alert
