@@ -47,7 +47,7 @@ router.use((req, res, next) => {
     const fetchData = () => new Promise((resolve, reject) => {
       const method = req.method.toLowerCase()
       const { params, location, components } = renderProps
-      let promises = []
+      const promises = []
 
       components.forEach((component) => {
         const args = { req, res, params, location, store }
