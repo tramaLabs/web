@@ -12,7 +12,7 @@ const wrap = (props = {}) => shallow(<InitiativeList list={list} {...props} />)
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })
-  expect(wrapper.find({ id: 'foo' }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
 })
 
 it('renders loading when passed in', () => {

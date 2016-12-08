@@ -10,7 +10,7 @@ const wrap = (props = {}) => shallow(
 
 it('renders link to /termos', () => {
   const wrapper = wrap()
-  expect(wrapper.find({ to: '/termos' }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ to: '/termos' })).toHaveLength(1)
 })
 
 it('renders error when passed in', () => {
@@ -20,12 +20,12 @@ it('renders error when passed in', () => {
 
 it('does not render submit button when not connected', () => {
   const wrapper = wrap()
-  expect(wrapper.find({ type: 'submit' }).length).toBe(0)
+  expect(wrapper.find({ type: 'submit' })).toHaveLength(0)
 })
 
 it('renders submit button when connected', () => {
   const wrapper = wrap({ connected: true })
-  expect(wrapper.find({ type: 'submit' }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ type: 'submit' })).toHaveLength(1)
 })
 
 it('calls renderSubmit when submitted', () => {
@@ -38,7 +38,7 @@ it('calls renderSubmit when submitted', () => {
 
 it('disables button while submitting', () => {
   const wrapper = wrap({ connected: true })
-  expect(wrapper.find({ disabled: true }).length).toBe(0)
+  expect(wrapper.find({ disabled: true })).toHaveLength(0)
   wrapper.setProps({ submitting: true })
-  expect(wrapper.find({ disabled: true }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ disabled: true })).toHaveLength(1)
 })

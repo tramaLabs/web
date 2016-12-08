@@ -12,13 +12,13 @@ it('renders', () => {
 
 it('renders props when user is passed in', () => {
   const wrapper = wrap({ user, id: 'foo' })
-  expect(wrapper.find({ id: 'foo' }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
 })
 
 it('renders user name and picture when user is passed in', () => {
   const wrapper = wrap({ user })
   expect(wrapper.contains(user.name)).toBe(true)
-  expect(wrapper.find({ src: user.picture }).length).toBeGreaterThan(0)
+  expect(wrapper.find({ src: user.picture })).toHaveLength(1)
 })
 
 it('calls onUserLogout when selection', () => {
