@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Menu from '.'
 
-const wrap = (props = {}) => shallow(<Menu {...props}>test</Menu>)
+const wrap = (props = {}) => shallow(<Menu {...props}>test</Menu>).dive()
 
 it('renders children when passed in', () => {
   const wrapper = wrap()
