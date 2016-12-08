@@ -17,13 +17,6 @@ const configureStore = (initialState, history) => {
 
   sagaMiddleware.run(saga)
 
-  if (module.hot) {
-    module.hot.accept('.', () => {
-      const nextReducer = require('.').reducer
-      store.replaceReducer(nextReducer)
-    })
-  }
-
   return store
 }
 

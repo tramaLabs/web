@@ -40,11 +40,11 @@ it('renders anchor when href is passed in', () => {
 })
 
 it('renders Link when to is passed in', () => {
-  const wrapper = wrap({ to: 'test' })
+  const wrapper = wrap({ to: 'test' }).dive()
   expect(wrapper.find('Link').length).toBeGreaterThan(0)
 })
 
 it('renders aria menu button when type is menu', () => {
-  const wrapper = wrap({ type: 'menu', children: 'test' })
+  const wrapper = wrap({ type: 'menu', children: 'test' }).dive()
   expect(wrapper.find('AriaMenuButton-Button').length).toBeGreaterThan(0)
 })

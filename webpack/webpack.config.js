@@ -42,7 +42,7 @@ var config = {
 if (DEBUG) {
   config.entry.app.unshift(
     'webpack-dev-server/client?http://' + ip + ':' + port + '/',
-    'webpack/hot/only-dev-server',
+    'webpack/hot/dev-server',
     'react-hot-loader/patch'
   )
 

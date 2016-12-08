@@ -8,28 +8,28 @@ const join = (rules) => (value, data) =>
   rules.map((rule) => rule(value, data)).filter((error) => !!error)[0]
 
 export const email = (value) => !isEmpty(value) && !isEmail(value) &&
-  'Invalid email address'
+  'E-mail inválido'
 
 export const url = (value) => !isEmpty(value) && !isURL(value) &&
-  'Invalid URL'
+  'URL inválida'
 
 export const required = (value) => isEmpty(value) &&
-  'Required field'
+  'Campo obrigatório'
 
 export const minLength = (min) => (value) => !isEmpty(value) && value.length < min &&
-  `Must be at least ${min} characters`
+  `Deve conter ao menos ${min} caracteres`
 
 export const maxLength = (max) => (value) => !isEmpty(value) && value.length > max &&
-  `Must be no more than ${max} characters`
+  `Não deve conter mais de ${max} caracteres`
 
 export const integer = (value) => !isInt(value) &&
-  'Must be an integer'
+  'Deve ser um número inteiro'
 
 export const oneOf = (values) => (value) => !isIn(value, values) &&
-  `Must be one of: ${values.join(', ')}`
+  `Deve ser um dos seguintes valores: ${values.join(', ')}`
 
 export const match = (field) => (value, data) => data && value !== data[field] &&
-  'Must match'
+  'Deve combinar'
 
 export const createValidator = (rules) => (data = {}) => {
   const errors = {}

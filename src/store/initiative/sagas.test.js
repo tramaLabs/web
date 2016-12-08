@@ -7,6 +7,7 @@ import initiative from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
+const error = { response: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -34,14 +35,14 @@ describe('createInitiative', () => {
   it('calls failure', () => {
     const generator = sagas.createInitiative(data)
     expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeCreate.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeCreate.failure('test')))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.createInitiative(data, resolve, reject)
     expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeCreate.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeCreate.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })
@@ -68,14 +69,14 @@ describe('readInitiativeList', () => {
   it('calls failure', () => {
     const generator = sagas.readInitiativeList({ limit: 1 })
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeListRead.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeListRead.failure('test')))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.readInitiativeList({ limit: 1 }, resolve, reject)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeListRead.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeListRead.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })
@@ -102,14 +103,14 @@ describe('readInitiativeDetail', () => {
   it('calls failure', () => {
     const generator = sagas.readInitiativeDetail(1)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives/1'))
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeDetailRead.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeDetailRead.failure('test')))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.readInitiativeDetail(1, resolve, reject)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives/1'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeDetailRead.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeDetailRead.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })
@@ -136,14 +137,14 @@ describe('updateInitiative', () => {
   it('calls failure', () => {
     const generator = sagas.updateInitiative(1, data)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1', data))
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeUpdate.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeUpdate.failure('test')))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.updateInitiative(1, data, resolve, reject)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1', data))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.initiativeUpdate.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.initiativeUpdate.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })

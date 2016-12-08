@@ -1,10 +1,10 @@
-import { PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Menu } from 'react-aria-menubutton'
 
 import { colors, fonts } from 'components/globals'
 
-const StyledMenu = styled(Menu)`
+const StyledMenu = styled(({ right, ...props }) => <Menu {...props} />)`
   position: absolute;
   font-family: ${fonts.primary};
   color: ${colors.grayscale[0]};

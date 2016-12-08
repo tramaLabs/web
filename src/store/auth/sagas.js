@@ -10,9 +10,9 @@ export function* serviceAuth (service, serviceToken, resolve = noop, reject = no
     const { data } = yield call(api.post, `/auth/${service}`, { access_token: serviceToken })
     resolve(data.token)
     yield put(auth.success(data.token))
-  } catch (e) {
-    reject(e)
-    yield put(auth.failure(e))
+  } catch ({ response }) {
+    reject(response)
+    yield put(auth.failure(response))
   }
 }
 

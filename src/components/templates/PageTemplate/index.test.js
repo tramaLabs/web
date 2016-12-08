@@ -25,6 +25,11 @@ it('renders hero', () => {
   expect(wrapper.contains('hero')).toBe(true)
 })
 
+it('renders heading', () => {
+  const wrapper = wrap({ heading: 'heading' })
+  expect(wrapper.contains('heading')).toBe(true)
+})
+
 it('renders footer', () => {
   const wrapper = wrap()
   expect(wrapper.contains('footer')).toBe(true)

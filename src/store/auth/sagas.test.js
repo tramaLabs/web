@@ -6,6 +6,7 @@ import saga, * as sagas from './sagas'
 
 const resolve = jest.fn()
 const reject = jest.fn()
+const error = { response: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -29,14 +30,14 @@ describe('serviceAuth', () => {
   it('calls failure', () => {
     const generator = sagas.serviceAuth('service', 1)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(generator.throw('test').value).toEqual(put(actions.auth.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.auth.failure('test')))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.serviceAuth('service', 1, resolve, reject)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
     expect(reject).not.toBeCalled()
-    expect(generator.throw('test').value).toEqual(put(actions.auth.failure('test')))
+    expect(generator.throw(error).value).toEqual(put(actions.auth.failure('test')))
     expect(reject).toHaveBeenCalledWith('test')
   })
 })

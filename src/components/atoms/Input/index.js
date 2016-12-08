@@ -9,7 +9,7 @@ const styles = ({ invalid, type, borderless }) => css`
   display: block;
   width: 100%;
   color: inherit;
-  padding: 0 0.75rem;
+  padding: ${type === 'textarea' ? '' : '0 '}0.75rem;
   margin: 0;
   box-sizing: border-box;
   font-size: 1rem;

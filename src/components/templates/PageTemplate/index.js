@@ -1,40 +1,58 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
+const headerHeight = '4.6875rem'
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
+  margin-top: ${headerHeight};
 `
 
 const Header = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 4.6875rem;
+  height: ${headerHeight};
   z-index: 999;
 `
 
-const Hero = styled.section``
+const Hero = styled.section`
+  margin-top: -${headerHeight};
+`
 
 const Content = styled.section`
   width: 100%;
   box-sizing: border-box;
-  margin: 2rem auto;
-  max-width: 920px;
+  margin: auto;
+  padding: 1rem;
+  max-width: 980px;
+`
+
+const Heading = styled.section`
+  margin: 7rem 0 3rem;
+  width: 70%;
+  @media screen and (max-width: 640px) {
+    margin: 0;
+    width: 100%;
+  }
 `
 
 const Footer = styled.footer`
   margin-top: auto;
 `
 
-const PageTemplate = ({ header, hero, children, footer, ...props }) => {
+const PageTemplate = ({ header, hero, heading, children, footer, ...props }) => {
   return (
     <Wrapper {...props}>
       <Header>{header}</Header>
       {hero && <Hero>{hero}</Hero>}
-      <Content>{children}</Content>
+      <Content>
+        {heading && <Heading>{heading}</Heading>}
+        {children}
+      </Content>
       <Footer>{footer}</Footer>
     </Wrapper>
   )
@@ -43,6 +61,7 @@ const PageTemplate = ({ header, hero, children, footer, ...props }) => {
 PageTemplate.propTypes = {
   header: PropTypes.any.isRequired,
   hero: PropTypes.any,
+  heading: PropTypes.any,
   children: PropTypes.any.isRequired,
   footer: PropTypes.any.isRequired
 }

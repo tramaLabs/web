@@ -42,8 +42,12 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
   `
 }
 
-const StyledMenuButton = styled(MenuButton)`${styles}`
-const StyledLink = styled(Link)`${styles}`
+const StyledMenuButton = styled(({ disabled, transparent, light, kind, size, ...props }) =>
+  <MenuButton {...props} />
+)`${styles}`
+const StyledLink = styled(({ disabled, transparent, light, kind, size, ...props }) =>
+  <Link {...props} />
+)`${styles}`
 const Anchor = styled.a`${styles}`
 const StyledButton = styled.button`${styles}`
 

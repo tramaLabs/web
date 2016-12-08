@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import submit from 'redux-form-submit'
 
-import { InitiativeCreationPage } from 'components'
+import InitiativeCreationPage from 'components/pages/InitiativeCreationPage'
 import { config } from './InitiativeCreationForm'
 
 class InitiativeCreationPageContainer extends Component {
-  static post ({ req, store }) {
-    return Promise.all([
-      this.get({ store }),
-      store.dispatch(submit(config, req.body))
-    ])
+  static post ({ req, res, store }) {
+    return store.dispatch(submit(config, req.body)).then((url) => {
+      res.redirect(url)
+    })
   }
 
   render () {
-    return <InitiativeCreationPage />
+    return <InitiativeCreationPage {...this.props} />
   }
 }
 
