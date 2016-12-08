@@ -20,9 +20,9 @@ export function* createInitiative (newData, resolve = noop, reject = noop) {
     const { data } = yield call(api.post, '/initiatives', newData)
     resolve(data)
     yield put(initiativeCreate.success(normalize(data, initiative)))
-  } catch (e) {
-    reject(e)
-    yield put(initiativeCreate.failure(e))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeCreate.failure(response))
   }
 }
 
@@ -31,9 +31,9 @@ export function* readInitiativeList (params, resolve = noop, reject = noop) {
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
     yield put(initiativeListRead.success(normalize(data, arrayOf(initiative))))
-  } catch (e) {
-    reject(e)
-    yield put(initiativeListRead.failure(e))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeListRead.failure(response))
   }
 }
 
@@ -42,9 +42,9 @@ export function* readInitiativeDetail (id, resolve = noop, reject = noop) {
     const { data } = yield call(api.get, `/initiatives/${id}`)
     resolve(data)
     yield put(initiativeDetailRead.success(normalize(data, initiative)))
-  } catch (e) {
-    reject(e)
-    yield put(initiativeDetailRead.failure(e))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeDetailRead.failure(response))
   }
 }
 
@@ -53,9 +53,9 @@ export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
     resolve(data)
     yield put(initiativeUpdate.success(normalize(data, initiative)))
-  } catch (e) {
-    reject(e)
-    yield put(initiativeUpdate.failure(e))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeUpdate.failure(response))
   }
 }
 
