@@ -1,23 +1,36 @@
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
-import { initiativeCreate, fromForm } from 'store'
-import { createValidator, required } from 'services/validation'
+import { push } from 'react-router-redux'
+import { reduxForm, SubmissionError } from 'redux-form'
+import { initiativeCreate, fromForm, fromUser } from 'store'
+import { createValidator, required, minLength, maxLength } from 'services/validation'
 
 import InitiativeCreationForm from 'components/organisms/InitiativeCreationForm'
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
   dispatch(initiativeCreate.request(data, resolve, reject))
+}).then(({ id, slug }) => {
+  const url = `/iniciativas/${id}/${slug}`
+  dispatch(push(url))
+  return url
+}).catch((error) => {
+  if (error.status === 401) {
+    throw new SubmissionError({ _error: 'Você precisa estar conectado para criar uma iniciativa' })
+  }
+  throw new SubmissionError({
+    _error: 'O servidor está instável. Por favor, tente novamente mais tarde.'
+  })
 })
 
 const validate = createValidator({
-  title: [required],
-  description: [required]
+  title: [required, maxLength(120)],
+  description: [required, minLength(10), maxLength(2048)]
 })
 
 const mapStateToProps = (state) => ({
   initialValues: {
     _csrf: fromForm.getCsrfToken(state)
-  }
+  },
+  connected: !!fromUser.getCurrentId(state)
 })
 
 export const config = {
