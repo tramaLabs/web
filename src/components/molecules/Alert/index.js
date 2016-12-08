@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   font-size: 1rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  color: ${(props) => colors[props.kind][0]};
+  color: ${colors.grayscale[0]};
   background-color: ${(props) => [ ...colors[props.kind] ].reverse()[0]};
   border: 1px solid ${(props) => [ ...colors[props.kind] ].reverse()[1]};
   & > * {
@@ -40,7 +40,7 @@ Alert.propTypes = {
 }
 
 Alert.defaultProps = {
-  kind: 'primary'
+  kind: 'alert'
 }
 
 export default Alert
