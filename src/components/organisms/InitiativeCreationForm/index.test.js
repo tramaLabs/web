@@ -8,6 +8,11 @@ const wrap = (props = {}) => shallow(
   <InitiativeCreationForm handleSubmit={handleSubmit} {...props} />
 )
 
+it('renders link to /termos', () => {
+  const wrapper = wrap()
+  expect(wrapper.find({ to: '/termos' }).length).toBeGreaterThan(0)
+})
+
 it('renders error when passed in', () => {
   const wrapper = wrap({ error: 'test error' })
   expect(wrapper.contains('test error')).toBe(true)

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Field } from 'redux-form'
 import styled from 'styled-components'
 
-import { ReduxField, Button, Feedback } from 'components'
+import { ReduxField, Button, Alert, Link } from 'components'
 import FacebookLoginButton from 'containers/FacebookLoginButton'
 
 const Form = styled.form`
@@ -13,7 +13,7 @@ const Form = styled.form`
 const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error }) => {
   return (
     <Form method="post" onSubmit={handleSubmit}>
-      {error && <Feedback kind="danger">{error}</Feedback>}
+      {error && <Alert kind="danger">{error}</Alert>}
       <Field name="_csrf" type="hidden" component="input" />
       <Field
         name="title"
@@ -29,11 +29,14 @@ const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error }) 
         rows={8}
         maxLength={2048}
         component={ReduxField} />
+      <Alert>
+        Ao criar uma iniciativa você concorda com os <Link to="/termos">Termos de Uso</Link>.
+      </Alert>
       {connected && <Button type="submit" disabled={submitting}>Criar iniciativa</Button>}
       {connected ||
-        <Feedback left={<FacebookLoginButton />}>
+        <Alert left={<FacebookLoginButton />}>
           Você precisa estar conectado para criar uma iniciativa
-        </Feedback>
+        </Alert>
       }
     </Form>
   )
