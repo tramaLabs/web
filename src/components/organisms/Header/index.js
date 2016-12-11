@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, reverseColors, fonts } from 'components/globals'
+import { colors, reverseColors, fonts, breakpoints } from 'components/globals'
 import { LogoLink, Link } from 'components'
 import SearchForm from 'containers/SearchForm'
 import UserButton from 'containers/UserButton'
@@ -18,7 +18,7 @@ const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  max-width: 980px;
+  max-width: ${breakpoints.maxWidth};
   margin: 0 auto;
   padding: 0 1rem;
   @media screen and (max-width: 640px) {
