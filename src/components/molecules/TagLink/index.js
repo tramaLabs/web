@@ -19,11 +19,18 @@ const Square = styled.span`
   background-color: ${colors.primary[1]};
 `
 
+const Text = styled.span`
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const TagLink = ({ children, ...props }) => {
   return (
     <StyledLink to={`/iniciativas?q=${children}`} kind="grayscale" light {...props}>
       <Square />
-      <span>{children}</span>
+      <Text>{children}</Text>
     </StyledLink>
   )
 }
