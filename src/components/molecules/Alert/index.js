@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
+import { colors, reverseColors, fonts } from 'components/globals'
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,8 +11,8 @@ const Wrapper = styled.div`
   padding: 0.5rem;
   margin-bottom: 1rem;
   color: ${colors.grayscale[0]};
-  background-color: ${(props) => [ ...colors[props.kind] ].reverse()[0]};
-  border: 1px solid ${(props) => [ ...colors[props.kind] ].reverse()[1]};
+  background-color: ${(props) => reverseColors[props.kind][0]};
+  border: 1px solid ${(props) => reverseColors[props.kind][1]};
   & > * {
     margin: 0.5rem;
   }
