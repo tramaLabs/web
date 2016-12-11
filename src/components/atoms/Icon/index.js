@@ -3,10 +3,10 @@ import styled, { css } from 'styled-components'
 
 const styles = ({ size, color }) => css`
   display: inline-block;
-  width: ${size ? size / 16 + 'rem' : '1em'};
-  height: ${size ? size / 16 + 'rem' : '1em'};
+  width: ${size ? size / 10.66667 + 'rem' : '1.5em'};
+  height: ${size ? size / 10.66667 + 'rem' : '1.5em'};
+  padding: ${size ? size / 128 + 'rem' : '0.125em'};
   box-sizing: border-box;
-  margin: ${size ? size / 160 + 'rem' : '0.1em'};
   color: ${color};
 
   & > svg {
