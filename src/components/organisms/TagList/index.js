@@ -1,27 +1,48 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
+import { TagLink } from 'components'
 
-const Div = styled.div`
-  display: block;
-  font-family: ${fonts.primary};
-  color: ${colors.grayscale[1]};
-  font-weight: 300;
-  font-style: normal;
-  margin-top: 0.4rem;
+const Wrapper = styled.div`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  & > * {
+    padding: 0.25rem;
+    max-width: ${({ tags, limit, lines }) =>
+      `calc(100% / ${limit > tags.length ? tags.length : limit} * ${lines})`
+    };
+    box-sizing: border-box;
+    @media screen and (max-width: 420px) {
+      display: none;
+    }
+  }
 `
 
-const TagList = ({ children, ...props }) => {
+const TagList = ({ ...props, tags, limit }) => {
   return (
-    <Div {...props}>
-      <Div>{children}</Div>
-    </Div>
+    <Wrapper {...props}>
+      {tags.slice(0, limit).map((tag, key) =>
+        <TagLink key={key}>{tag.name}</TagLink>
+      )}
+    </Wrapper>
   )
 }
 
 TagList.propTypes = {
-  children: PropTypes.any
+  tags: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  })).isRequired,
+  limit: PropTypes.number,
+  lines: PropTypes.number
+}
+
+TagList.defaultProps = {
+  limit: 6,
+  lines: 2
 }
 
 export default TagList
