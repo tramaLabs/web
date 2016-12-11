@@ -24,6 +24,10 @@ export const fonts = {
   quote: 'Georgia, serif'
 }
 
+export const breakpoints = {
+  maxWidth: '1100px'
+}
+
 export const animations = {
   rotate360: keyframes`
     from { transform: rotate(0deg); }
