@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { colors } from 'components/globals'
+import { reverseColors } from 'components/globals'
 import { Paragraph, Heading, Button } from 'components'
 import SearchForm from 'containers/SearchForm'
 import background from './background.jpg'
@@ -39,7 +39,7 @@ const Main = styled.div`
 `
 
 const StyledParagraph = styled(Paragraph)`
-  color: ${[ ...colors.grayscale ].reverse()[0]};
+  color: ${reverseColors.grayscale[0]};
   margin: 3rem auto;
   max-width: 800px;
   font-size: 1.625rem;

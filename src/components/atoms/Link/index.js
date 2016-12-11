@@ -2,18 +2,19 @@ import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link as RouterLink } from 'react-router'
 
-import { colors, fonts } from 'components/globals'
+import { colors, reverseColors, fonts } from 'components/globals'
 
 const styles = ({ light, kind }) => {
-  const color = light ? [ ...colors[kind] ].reverse()[1] : colors[kind][1]
+  const color = light ? reverseColors[kind] : colors[kind]
   return css`
     font-family: ${fonts.primary};
     text-decoration: none;
     font-weight: 500;
-    color: ${color};
+    color: ${color[1]};
 
     &:hover {
       text-decoration: underline;
+      color: ${color[0]};
     }
   `
 }

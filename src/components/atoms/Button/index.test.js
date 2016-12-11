@@ -48,3 +48,14 @@ it('renders aria menu button when type is menu', () => {
   const wrapper = wrap({ type: 'menu', children: 'test' }).dive()
   expect(wrapper.find('AriaMenuButton-Button')).toHaveLength(1)
 })
+
+it('renders component when component string is passed in', () => {
+  const wrapper = wrap({ component: 'label' }).dive()
+  expect(wrapper.find('label')).toHaveLength(1)
+})
+
+it('renders component when component element is passed in', () => {
+  const Test = () => <span />
+  const wrapper = wrap({ component: Test }).dive()
+  expect(wrapper.find(Test)).toHaveLength(1)
+})

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
+import { colors, reverseColors, fonts, breakpoints } from 'components/globals'
 import { LogoLink, Link } from 'components'
 import SearchForm from 'containers/SearchForm'
 import UserButton from 'containers/UserButton'
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.transparent ? 'transparent' : colors.grayscale[0]};
   height: 100%;
   font-family: ${fonts.primary};
-  color: ${[ ...colors.grayscale ].reverse()[0]};
+  color: ${reverseColors.grayscale[0]};
   transition: background-color 250ms ease-in-out;
 `
 
@@ -18,7 +18,7 @@ const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  max-width: 980px;
+  max-width: ${breakpoints.maxWidth};
   margin: 0 auto;
   padding: 0 1rem;
   @media screen and (max-width: 640px) {
@@ -115,7 +115,7 @@ class Header extends Component {
             transparent
             light />
           <Nav>
-            <UserButton kind="grayscale" light responsive />
+            <UserButton kind="alpha" light responsive />
             <StyledLink to="/" kind="grayscale" light>Manifesto</StyledLink>
           </Nav>
         </InnerWrapper>
