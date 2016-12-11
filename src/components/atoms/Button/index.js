@@ -3,10 +3,10 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
 import { Button as MenuButton } from 'react-aria-menubutton'
 
-import { colors, fonts } from 'components/globals'
+import { colors, reverseColors, fonts } from 'components/globals'
 
 const styles = ({ disabled, transparent, light, kind, size }) => {
-  const color = light ? [ ...colors[kind] ].reverse() : colors[kind]
+  const color = light ? reverseColors[kind] : colors[kind]
   return css`
     display: inline-flex;
     font-family: ${fonts.primary};
@@ -26,7 +26,7 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
     pointer-events: ${disabled && 'none'};
     color: ${transparent
       ? (disabled ? color[2] : color[1])
-      : (light ? colors.grayscale[0] : [ ...colors.grayscale ].reverse()[0])
+      : (light ? 'black' : 'white')
     };
 
     &:hover, &:focus, &:active {
