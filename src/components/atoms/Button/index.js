@@ -11,6 +11,7 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
     display: inline-flex;
     font-family: ${fonts.primary};
     align-items: center;
+    white-space: nowrap;
     font-size: ${size ? size / 53.33333 + 'rem' : '0.75rem'};
     font-weight: 500;
     background-color: ${transparent ? 'transparent' : (disabled ? color[2] : color[1])};
@@ -42,17 +43,25 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
   `
 }
 
+const Component = styled(({ component, disabled, transparent, light, kind, size, ...props }) =>
+  React.createElement(component, props)
+)`${styles}`
+
 const StyledMenuButton = styled(({ disabled, transparent, light, kind, size, ...props }) =>
   <MenuButton {...props} />
 )`${styles}`
+
 const StyledLink = styled(({ disabled, transparent, light, kind, size, ...props }) =>
   <Link {...props} />
 )`${styles}`
+
 const Anchor = styled.a`${styles}`
 const StyledButton = styled.button`${styles}`
 
-const Button = ({ type, ...props, to, href }) => {
-  if (type === 'menu') {
+const Button = ({ type, ...props, component, to, href }) => {
+  if (component) {
+    return <Component {...props} />
+  } else if (type === 'menu') {
     return <StyledMenuButton {...props} />
   } else if (to) {
     return <StyledLink {...props} />
@@ -70,7 +79,8 @@ Button.propTypes = {
   size: PropTypes.number,
   type: PropTypes.string,
   to: PropTypes.string,
-  href: PropTypes.string
+  href: PropTypes.string,
+  component: PropTypes.any
 }
 
 Button.defaultProps = {
