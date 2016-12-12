@@ -6,7 +6,7 @@ import photo from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
-const error = { response: 'test' }
+const error = { data: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -14,11 +14,14 @@ beforeEach(() => {
 
 describe('uploadPhoto', () => {
   const data = { id: 1 }
+  const [ upload, channel ] = sagas.createUploader()
 
   it('calls success and resolve', () => {
     const generator = sagas.uploadPhoto(data, resolve)
-    expect(generator.next().value.fn).toEqual(fork(sagas.watchPhotoUploadProgress).fn)
-    expect(generator.next().value.args).toEqual(call(() => {}, '/photos', data).args)
+    expect(generator.next().value).toEqual(call(sagas.createUploader))
+    expect(generator.next([ upload, channel ]).value)
+      .toEqual(fork(sagas.watchPhotoUploadProgress, channel))
+    expect(generator.next().value).toEqual(call(upload, '/photos', data))
     expect(resolve).not.toBeCalled()
     expect(generator.next({ data }).value)
       .toEqual(put(actions.photoUpload.success(normalize(data, photo))))
@@ -27,10 +30,13 @@ describe('uploadPhoto', () => {
 
   it('calls failure and reject', () => {
     const generator = sagas.uploadPhoto(data, undefined, reject)
-    expect(generator.next().value.fn).toEqual(fork(sagas.watchPhotoUploadProgress).fn)
+    expect(generator.next().value).toEqual(call(sagas.createUploader))
+    expect(generator.next([ upload, channel ]).value)
+      .toEqual(fork(sagas.watchPhotoUploadProgress, channel))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.photoUpload.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.photoUpload.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 

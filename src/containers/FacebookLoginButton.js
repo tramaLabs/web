@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { authFacebook, fromStatus, AUTH } from 'store'
+import { fromStatus } from 'store/selectors'
+import { authFacebook, AUTH } from 'store/actions'
 import { fbAppId } from 'config'
 
 import FacebookLoginButton from 'components/organisms/FacebookLoginButton'

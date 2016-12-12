@@ -6,7 +6,7 @@ import { Router, browserHistory, applyRouterMiddleware } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 import configureStore from 'store/configure'
-import { fromAuth } from 'store'
+import { fromAuth } from 'store/selectors'
 import api from 'services/api'
 
 import routes from 'routes'

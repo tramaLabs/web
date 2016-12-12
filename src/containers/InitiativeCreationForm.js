@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { reduxForm, SubmissionError } from 'redux-form'
-import { initiativeCreate, fromForm, fromUser } from 'store'
+import { fromForm, fromUser } from 'store/selectors'
+import { initiativeCreate } from 'store/actions'
 import { createValidator, required, minLength, maxLength } from 'services/validation'
 
 import InitiativeCreationForm from 'components/organisms/InitiativeCreationForm'

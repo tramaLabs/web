@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { fromEntities, fromUser, authLogout } from 'store'
+import { fromEntities, fromUser } from 'store/selectors'
+import { authLogout } from 'store/actions'
 
 import UserButton from 'components/organisms/UserButton'
 

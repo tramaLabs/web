@@ -4,6 +4,7 @@ const browser = typeof window !== 'undefined'
 const ip = process.env.IP || '0.0.0.0'
 const port = process.env.PORT || 3000
 
+// istanbul ignore next
 const config = {
   all: {
     env: process.env.NODE_ENV || 'development',

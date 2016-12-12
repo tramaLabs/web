@@ -25,9 +25,9 @@ export function* createInitiative (newData, resolve = noop, reject = noop) {
     const { data } = yield call(api.post, '/initiatives', newData)
     resolve(data)
     yield put(initiativeCreate.success(normalize(data, initiative)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeCreate.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeCreate.failure(error.data))
   }
 }
 
@@ -36,9 +36,9 @@ export function* readInitiativeList (params, resolve = noop, reject = noop) {
     const { data } = yield call(api.get, '/initiatives', { params })
     resolve(data)
     yield put(initiativeListRead.success(normalize(data, arrayOf(initiative))))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeListRead.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeListRead.failure(error.data))
   }
 }
 
@@ -47,9 +47,9 @@ export function* readInitiativeDetail (id, resolve = noop, reject = noop) {
     const { data } = yield call(api.get, `/initiatives/${id}`)
     resolve(data)
     yield put(initiativeDetailRead.success(normalize(data, initiative)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeDetailRead.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeDetailRead.failure(error.data))
   }
 }
 
@@ -58,9 +58,9 @@ export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
     resolve(data)
     yield put(initiativeUpdate.success(normalize(data, initiative)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeUpdate.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeUpdate.failure(error.data))
   }
 }
 
@@ -69,9 +69,9 @@ export function* joinInitiative (id, resolve = noop, reject = noop) {
     const { data } = yield call(api.put, `/initiatives/${id}/join`)
     resolve(data)
     yield put(initiativeJoin.success(normalize(data, initiative)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeJoin.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeJoin.failure(error.data))
   }
 }
 
@@ -80,9 +80,9 @@ export function* leaveInitiative (id, resolve = noop, reject = noop) {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
     resolve(data)
     yield put(initiativeLeave.success(normalize(data, initiative)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(initiativeLeave.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(initiativeLeave.failure(error.data))
   }
 }
 

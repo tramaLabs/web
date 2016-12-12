@@ -1,8 +1,10 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import cookie from 'react-cookie'
 import { auth, AUTH_REQUEST, AUTH_SUCCESS, AUTH_LOGOUT } from './actions'
+import { currentUserRead } from '../user/actions'
 import api from 'services/api'
 
+// istanbul ignore next
 const noop = () => {}
 
 export function* serviceAuth (service, serviceToken, resolve = noop, reject = noop) {
@@ -10,9 +12,9 @@ export function* serviceAuth (service, serviceToken, resolve = noop, reject = no
     const { data } = yield call(api.post, `/auth/${service}`, { access_token: serviceToken })
     resolve(data.token)
     yield put(auth.success(data.token))
-  } catch ({ response }) {
-    reject(response)
-    yield put(auth.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(auth.failure(error.data))
   }
 }
 
@@ -23,6 +25,7 @@ export function* watchAuthSuccess () {
       call(cookie.save, 'token', token, { path: '/' }),
       call(api.setToken, token)
     ]
+    yield put(currentUserRead.request())
   }
 }
 

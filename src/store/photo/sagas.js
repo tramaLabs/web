@@ -8,13 +8,13 @@ import api from 'services/api'
 // istanbul ignore next
 const noop = () => {}
 
-// istanbul ignore next
-const createUploader = () => {
+export const createUploader = () => {
   let emit
   const channel = eventChannel((emitter) => {
     emit = emitter
     return noop
   })
+  // istanbul ignore next
   const upload = (url, file) => api.upload(url, file, (e) => {
     const percent = e.loaded / e.total
     emit(percent < 1 ? percent : END)
@@ -25,14 +25,14 @@ const createUploader = () => {
 
 export function* uploadPhoto (file, resolve = noop, reject = noop) {
   try {
-    const [ upload, channel ] = createUploader()
+    const [ upload, channel ] = yield call(createUploader)
     yield fork(watchPhotoUploadProgress, channel)
     const { data } = yield call(upload, '/photos', file)
     resolve(data)
     yield put(photoUpload.success(normalize(data, photo)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(photoUpload.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(photoUpload.failure(error.data))
   }
 }
 
