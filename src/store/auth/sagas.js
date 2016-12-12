@@ -10,11 +10,11 @@ const noop = () => {}
 export function* serviceAuth (service, serviceToken, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.post, `/auth/${service}`, { access_token: serviceToken })
-    resolve(data.token)
     yield put(auth.success(data.token))
+    yield put(currentUserRead.request(resolve))
   } catch (error) {
-    reject(error)
     yield put(auth.failure(error.data))
+    reject(error)
   }
 }
 
@@ -25,7 +25,6 @@ export function* watchAuthSuccess () {
       call(cookie.save, 'token', token, { path: '/' }),
       call(api.setToken, token)
     ]
-    yield put(currentUserRead.request())
   }
 }
 

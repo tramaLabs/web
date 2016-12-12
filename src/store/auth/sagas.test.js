@@ -17,16 +17,16 @@ describe('serviceAuth', () => {
   it('calls success and resolve', () => {
     const generator = sagas.serviceAuth('service', 1, resolve)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(resolve).not.toBeCalled()
     expect(generator.next({ data: { token: 1 } }).value).toEqual(put(actions.auth.success(1)))
-    expect(resolve).toHaveBeenCalledWith(1)
+    expect(generator.next().value).toEqual(put(currentUserRead.request(resolve)))
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.serviceAuth('service', 1, undefined, reject)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(reject).not.toBeCalled()
     expect(generator.throw(error).value).toEqual(put(actions.auth.failure('test')))
+    expect(reject).not.toBeCalled()
+    generator.next()
     expect(reject).toHaveBeenCalledWith(error)
   })
 })
@@ -38,7 +38,6 @@ test('watchAuthSuccess', () => {
     call(cookie.save, 'token', 1, { path: '/' }),
     call(api.setToken, 1)
   ])
-  expect(generator.next().value).toEqual(put(currentUserRead.request()))
 })
 
 test('watchAuthLogout', () => {

@@ -28,11 +28,11 @@ export function* uploadPhoto (file, resolve = noop, reject = noop) {
     const [ upload, channel ] = yield call(createUploader)
     yield fork(watchPhotoUploadProgress, channel)
     const { data } = yield call(upload, '/photos', file)
-    resolve(data)
     yield put(photoUpload.success(normalize(data, photo)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(photoUpload.failure(error.data))
+    reject(error)
   }
 }
 

@@ -19,18 +19,20 @@ describe('readCurrentUser', () => {
   it('calls success and resolve', () => {
     const generator = sagas.readCurrentUser(resolve)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(resolve).not.toBeCalled()
     expect(generator.next({ data }).value)
       .toEqual(put(actions.currentUserRead.success(normalize(data, user))))
+    expect(resolve).not.toBeCalled()
+    generator.next()
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
   it('calls failure and reject', () => {
     const generator = sagas.readCurrentUser(undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(reject).not.toBeCalled()
     expect(generator.throw(error).value)
       .toEqual(put(actions.currentUserRead.failure('test')))
+    expect(reject).not.toBeCalled()
+    generator.next()
     expect(reject).toHaveBeenCalledWith(error)
   })
 })

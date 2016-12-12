@@ -23,66 +23,66 @@ const noop = () => {}
 export function* createInitiative (newData, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.post, '/initiatives', newData)
-    resolve(data)
     yield put(initiativeCreate.success(normalize(data, initiative)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeCreate.failure(error.data))
+    reject(error)
   }
 }
 
 export function* readInitiativeList (params, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
-    resolve(data)
     yield put(initiativeListRead.success(normalize(data, arrayOf(initiative))))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeListRead.failure(error.data))
+    reject(error)
   }
 }
 
 export function* readInitiativeDetail (id, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, `/initiatives/${id}`)
-    resolve(data)
     yield put(initiativeDetailRead.success(normalize(data, initiative)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeDetailRead.failure(error.data))
+    reject(error)
   }
 }
 
 export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
-    resolve(data)
     yield put(initiativeUpdate.success(normalize(data, initiative)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeUpdate.failure(error.data))
+    reject(error)
   }
 }
 
 export function* joinInitiative (id, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/join`)
-    resolve(data)
     yield put(initiativeJoin.success(normalize(data, initiative)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeJoin.failure(error.data))
+    reject(error)
   }
 }
 
 export function* leaveInitiative (id, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
-    resolve(data)
     yield put(initiativeLeave.success(normalize(data, initiative)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(initiativeLeave.failure(error.data))
+    reject(error)
   }
 }
 

@@ -15,22 +15,22 @@ const noop = () => {}
 export function* createTag (newData, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.post, '/tags', newData)
-    resolve(data)
     yield put(tagCreate.success(normalize(data, tag)))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(tagCreate.failure(error.data))
+    reject(error)
   }
 }
 
 export function* readTagList (params, resolve = noop, reject = noop) {
   try {
     const { data } = yield call(api.get, '/tags', { params })
-    resolve(data)
     yield put(tagListRead.success(normalize(data, arrayOf(tag))))
+    resolve(data)
   } catch (error) {
-    reject(error)
     yield put(tagListRead.failure(error.data))
+    reject(error)
   }
 }
 
