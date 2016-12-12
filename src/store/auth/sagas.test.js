@@ -1,7 +1,7 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import cookie from 'react-cookie'
 import * as actions from './actions'
-import api, { setToken, unsetToken } from 'services/api'
+import api from 'services/api'
 import saga, * as sagas from './sagas'
 
 const resolve = jest.fn()
@@ -47,7 +47,7 @@ test('watchAuthSuccess', () => {
   expect(generator.next().value).toEqual(take(actions.AUTH_SUCCESS))
   expect(generator.next({ token: 1 }).value).toEqual([
     call(cookie.save, 'token', 1, { path: '/' }),
-    call(setToken, 1)
+    call(api.setToken, 1)
   ])
 })
 
@@ -56,7 +56,7 @@ test('watchAuthLogout', () => {
   expect(generator.next().value).toEqual(take(actions.AUTH_LOGOUT))
   expect(generator.next().value).toEqual([
     call(cookie.remove, 'token', { path: '/' }),
-    call(unsetToken)
+    call(api.unsetToken)
   ])
 })
 

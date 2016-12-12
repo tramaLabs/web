@@ -1,7 +1,7 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import cookie from 'react-cookie'
 import { auth, AUTH_REQUEST, AUTH_SUCCESS, AUTH_LOGOUT } from './actions'
-import api, { setToken, unsetToken } from 'services/api'
+import api from 'services/api'
 
 const noop = () => {}
 
@@ -21,7 +21,7 @@ export function* watchAuthSuccess () {
     const { token } = yield take(AUTH_SUCCESS)
     yield [
       call(cookie.save, 'token', token, { path: '/' }),
-      call(setToken, token)
+      call(api.setToken, token)
     ]
   }
 }
@@ -31,7 +31,7 @@ export function* watchAuthLogout () {
     yield take(AUTH_LOGOUT)
     yield [
       call(cookie.remove, 'token', { path: '/' }),
-      call(unsetToken)
+      call(api.unsetToken)
     ]
   }
 }

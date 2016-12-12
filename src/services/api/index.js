@@ -1,32 +1,32 @@
 import axios from 'axios'
 import { apiUrl } from 'config'
 
-export const api = axios.create({ baseURL: apiUrl })
+const facade = {}
 
-export const request = (config) => {
-  return api.request(config)
-}
+const api = axios.create({ baseURL: apiUrl })
 
-export const setToken = (token) => {
+facade.request = (config) => api.request(config)
+
+facade.setToken = (token) => {
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-export const unsetToken = () => {
+facade.unsetToken = () => {
   delete api.defaults.headers.common['Authorization']
 }
 
-export const upload = (url, file, onUploadProgress) => {
+facade.upload = (url, file, onUploadProgress) => {
   const data = new FormData()
   data.append('data', file, file.name)
-  return request({ method: 'post', url, data, onUploadProgress })
+  return facade.request({ method: 'post', url, data, onUploadProgress })
 }
 
 ;['delete', 'get', 'head'].forEach((method) => {
-  module.exports[method] = (url, config) => request({ ...config, method, url })
+  facade[method] = (url, config) => facade.request({ ...config, method, url })
 })
 
 ;['post', 'put', 'patch'].forEach((method) => {
-  module.exports[method] = (url, data, config) => request({ ...config, method, url, data })
+  facade[method] = (url, data, config) => facade.request({ ...config, method, url, data })
 })
 
-export default module.exports
+export default facade
