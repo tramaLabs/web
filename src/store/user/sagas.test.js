@@ -17,13 +17,6 @@ beforeEach(() => {
 describe('readCurrentUser', () => {
   const data = { id: 1, title: 'test' }
 
-  it('calls success', () => {
-    const generator = sagas.readCurrentUser()
-    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.next({ data }).value)
-      .toEqual(put(actions.currentUserRead.success(normalize(data, user))))
-  })
-
   it('calls success and resolve', () => {
     const generator = sagas.readCurrentUser(resolve)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
@@ -33,14 +26,8 @@ describe('readCurrentUser', () => {
     expect(resolve).toHaveBeenCalledWith(data)
   })
 
-  it('calls failure', () => {
-    const generator = sagas.readCurrentUser()
-    expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.throw(error).value).toEqual(put(actions.currentUserRead.failure('test')))
-  })
-
   it('calls failure and reject', () => {
-    const generator = sagas.readCurrentUser(resolve, reject)
+    const generator = sagas.readCurrentUser(undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(reject).not.toBeCalled()
     expect(generator.throw(error).value).toEqual(put(actions.currentUserRead.failure('test')))

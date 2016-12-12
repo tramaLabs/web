@@ -5,6 +5,7 @@ import { AUTH_SUCCESS } from '../auth/actions'
 import user from './schema'
 import api from 'services/api'
 
+// istanbul ignore next
 const noop = () => {}
 
 export function* readCurrentUser (resolve = noop, reject = noop) {
