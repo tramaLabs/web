@@ -1,12 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  initiativeListRead,
-  fromInitiative,
-  fromEntities,
-  fromStatus,
-  INITIATIVE_LIST_READ
-} from 'store'
+import { fromInitiative, fromEntities, fromStatus } from 'store/selectors'
+import { initiativeListRead, INITIATIVE_LIST_READ } from 'store/actions'
 
 import { InitiativeList } from 'components'
 

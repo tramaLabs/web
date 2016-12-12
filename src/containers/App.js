@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { fromUser, fromAuth, currentUserRead } from 'store'
+import { fromUser, fromAuth } from 'store/selectors'
+import { currentUserRead } from 'store/actions'
 
 import App from 'components/App'
 

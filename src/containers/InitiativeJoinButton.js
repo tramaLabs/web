@@ -1,14 +1,6 @@
 import { connect } from 'react-redux'
-import {
-  initiativeJoin,
-  initiativeLeave,
-  fromStatus,
-  fromInitiative,
-  fromUser,
-  fromEntities,
-  INITIATIVE_JOIN,
-  INITIATIVE_LEAVE
-} from 'store'
+import { fromStatus, fromInitiative, fromUser, fromEntities } from 'store/selectors'
+import { initiativeJoin, initiativeLeave, INITIATIVE_JOIN, INITIATIVE_LEAVE } from 'store/actions'
 
 import InitiativeJoinButton from 'components/organisms/InitiativeJoinButton'
 

@@ -12,7 +12,7 @@ import express from 'services/express'
 import routes from 'routes'
 import configureStore from 'store/configure'
 import { env, port, ip } from 'config'
-import { setCsrfToken } from 'store'
+import { setCsrfToken } from 'store/actions'
 import { Html } from 'components'
 import api from 'services/api'
 
