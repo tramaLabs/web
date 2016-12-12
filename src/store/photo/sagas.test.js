@@ -6,7 +6,7 @@ import photo from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
-const error = { response: 'test' }
+const error = { data: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -34,8 +34,9 @@ describe('uploadPhoto', () => {
     expect(generator.next([ upload, channel ]).value)
       .toEqual(fork(sagas.watchPhotoUploadProgress, channel))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.photoUpload.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.photoUpload.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 

@@ -5,6 +5,12 @@ const facade = {}
 
 const api = axios.create({ baseURL: apiUrl })
 
+// istanbul ignore next
+api.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error.response)
+)
+
 facade.request = (config) => api.request(config)
 
 facade.setToken = (token) => {

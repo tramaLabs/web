@@ -7,7 +7,7 @@ import tag from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
-const error = { response: 'test' }
+const error = { data: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -29,8 +29,9 @@ describe('createTag', () => {
     const generator = sagas.createTag(data, undefined, reject)
     expect(generator.next().value).toEqual(call(api.post, '/tags', data))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.tagCreate.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.tagCreate.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -50,8 +51,9 @@ describe('readTagList', () => {
     const generator = sagas.readTagList({ limit: 1 }, undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/tags', { params: { limit: 1 } }))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.tagListRead.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.tagListRead.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 

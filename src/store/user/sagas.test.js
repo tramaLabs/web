@@ -7,7 +7,7 @@ import user from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
-const error = { response: 'test' }
+const error = { data: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -29,8 +29,9 @@ describe('readCurrentUser', () => {
     const generator = sagas.readCurrentUser(undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.currentUserRead.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.currentUserRead.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 

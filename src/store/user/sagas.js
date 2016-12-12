@@ -12,9 +12,9 @@ export function* readCurrentUser (resolve = noop, reject = noop) {
     const { data } = yield call(api.get, '/users/me')
     resolve(data)
     yield put(currentUserRead.success(normalize(data, user)))
-  } catch ({ response }) {
-    reject(response)
-    yield put(currentUserRead.failure(response))
+  } catch (error) {
+    reject(error)
+    yield put(currentUserRead.failure(error.data))
   }
 }
 

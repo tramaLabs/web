@@ -3,8 +3,9 @@ import { stub, spy } from 'sinon'
 
 const request = spy()
 const defaults = { headers: { common: {} } }
+const interceptors = { response: { use: () => {} } }
 
-stub(axios, 'create', () => ({ request, defaults }))
+stub(axios, 'create', () => ({ request, defaults, interceptors }))
 
 const api = require('.').default
 

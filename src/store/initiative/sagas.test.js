@@ -7,7 +7,7 @@ import initiative from './schema'
 
 const resolve = jest.fn()
 const reject = jest.fn()
-const error = { response: 'test' }
+const error = { data: 'test' }
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -29,8 +29,9 @@ describe('createInitiative', () => {
     const generator = sagas.createInitiative(data, undefined, reject)
     expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeCreate.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeCreate.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -50,8 +51,9 @@ describe('readInitiativeList', () => {
     const generator = sagas.readInitiativeList({ limit: 1 }, undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeListRead.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeListRead.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -71,8 +73,9 @@ describe('readInitiativeDetail', () => {
     const generator = sagas.readInitiativeDetail(1, undefined, reject)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives/1'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeDetailRead.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeDetailRead.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -92,8 +95,9 @@ describe('updateInitiative', () => {
     const generator = sagas.updateInitiative(1, data, undefined, reject)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1', data))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeUpdate.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeUpdate.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -113,8 +117,9 @@ describe('joinInitiative', () => {
     const generator = sagas.joinInitiative(1, undefined, reject)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/join'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeJoin.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeJoin.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
@@ -134,8 +139,9 @@ describe('leaveInitiative', () => {
     const generator = sagas.leaveInitiative(1, undefined, reject)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/leave'))
     expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.initiativeLeave.failure('test')))
-    expect(reject).toHaveBeenCalledWith('test')
+    expect(generator.throw(error).value)
+      .toEqual(put(actions.initiativeLeave.failure('test')))
+    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
