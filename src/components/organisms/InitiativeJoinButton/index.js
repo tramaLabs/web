@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { Button } from 'components'
+import { Button, Tooltip } from 'components'
 import FacebookLoginButton from 'containers/FacebookLoginButton'
 
 const MutatingWrapper = styled.div`
@@ -25,19 +25,33 @@ const isAuthor = (user, initiative) =>
 const isCollaborator = (user, initiative) =>
   user && initiative.users.find((u) => u.id === user.id)
 
-const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props }) => {
-  if (isAuthor(user, initiative)) return null
-  else if (isCollaborator(user, initiative)) {
+const join = ({ initiative, onJoin }) => () => onJoin(initiative.id)
+const leave = ({ initiative, onLeave }) => () => onLeave(initiative.id)
+
+const InitiativeJoinButton = ({ ...all, user, initiative, onLeave, onJoin, loading, ...props }) => {
+  if (isAuthor(user, initiative)) {
+    return (
+      <Tooltip data-title="Você é o criador da iniciativa">
+        <Button kind="success" {...props} style={{ cursor: 'default' }}>Participando</Button>
+      </Tooltip>
+    )
+  } else if (isCollaborator(user, initiative)) {
     return (
       <MutatingWrapper>
         <Button kind="success" {...props}>Participando</Button>
-        <Button kind="danger" onClick={onLeave} {...props}>Cancelar participação</Button>
+        <Button kind="danger" onClick={leave(all)} {...props}>Cancelar participação</Button>
       </MutatingWrapper>
     )
   } else if (user) {
-    return <Button onClick={onJoin} {...props}>Participar</Button>
+    return <Button onClick={join(all)} disabled={loading} {...props}>Participar</Button>
   }
-  return <FacebookLoginButton label="Participar" onSuccess={onJoin} {...props} />
+  return (
+    <FacebookLoginButton
+      label="Participar"
+      onSuccess={join(all)}
+      disabled={loading}
+      {...props} />
+  )
 }
 
 const user = PropTypes.shape({
@@ -51,7 +65,8 @@ InitiativeJoinButton.propTypes = {
     users: PropTypes.arrayOf(user).isRequired
   }).isRequired,
   onLeave: PropTypes.func.isRequired,
-  onJoin: PropTypes.func.isRequired
+  onJoin: PropTypes.func.isRequired,
+  loading: PropTypes.bool
 }
 
 export default InitiativeJoinButton
