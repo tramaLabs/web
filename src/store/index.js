@@ -8,6 +8,7 @@ import auth from './auth/reducer'
 import entities from './entities/reducer'
 import form from './form/reducer'
 import initiative from './initiative/reducer'
+import photo from './photo/reducer'
 import status from './status/reducer'
 import tag from './tag/reducer'
 import user from './user/reducer'
@@ -17,6 +18,7 @@ const reducers = {
   entities,
   form,
   initiative,
+  photo,
   routing,
   status,
   tag,

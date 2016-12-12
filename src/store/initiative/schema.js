@@ -1,10 +1,12 @@
 import { Schema, arrayOf } from 'normalizr'
-import user from '../user/schema'
+import photo from '../photo/schema'
 import tag from '../tag/schema'
+import user from '../user/schema'
 
 const initiative = new Schema('initiatives')
 
 initiative.define({
+  photo,
   user,
   users: arrayOf(user),
   tags: arrayOf(tag)

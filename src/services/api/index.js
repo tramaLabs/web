@@ -15,6 +15,12 @@ export const unsetToken = () => {
   delete api.defaults.headers.common['Authorization']
 }
 
+export const upload = (url, file, onUploadProgress) => {
+  const data = new FormData()
+  data.append('data', file, file.name)
+  return request({ method: 'post', url, data, onUploadProgress })
+}
+
 ;['delete', 'get', 'head'].forEach((method) => {
   module.exports[method] = (url, config) => request({ ...config, method, url })
 })
