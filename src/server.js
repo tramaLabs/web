@@ -14,7 +14,7 @@ import configureStore from 'store/configure'
 import { env, port, ip } from 'config'
 import { setCsrfToken } from 'store'
 import { Html } from 'components'
-import { setToken } from 'services/api'
+import api from 'services/api'
 
 const router = new Router()
 
@@ -31,7 +31,7 @@ router.use((req, res, next) => {
   const store = configureStore({ auth: { token } }, memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
 
-  token && setToken(token)
+  token && api.setToken(token)
 
   store.dispatch(setCsrfToken(req.csrfToken()))
 
