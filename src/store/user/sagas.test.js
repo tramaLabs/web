@@ -1,7 +1,6 @@
 import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
-import { AUTH_SUCCESS } from '../auth/actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
 import user from './schema'
@@ -38,10 +37,7 @@ describe('readCurrentUser', () => {
 test('watchCurrentUserReadRequest', () => {
   const payload = { resolve, reject }
   const generator = sagas.watchCurrentUserReadRequest()
-  expect(generator.next().value).toEqual(take([
-    actions.CURRENT_USER_READ_REQUEST,
-    AUTH_SUCCESS
-  ]))
+  expect(generator.next().value).toEqual(take(actions.CURRENT_USER_READ_REQUEST))
   expect(generator.next(payload).value)
     .toEqual(call(sagas.readCurrentUser, ...Object.values(payload)))
 })

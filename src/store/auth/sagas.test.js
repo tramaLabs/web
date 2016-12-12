@@ -1,6 +1,7 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import cookie from 'react-cookie'
 import * as actions from './actions'
+import { currentUserRead } from '../user/actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
 
@@ -49,6 +50,7 @@ test('watchAuthSuccess', () => {
     call(cookie.save, 'token', 1, { path: '/' }),
     call(api.setToken, 1)
   ])
+  expect(generator.next().value).toEqual(put(currentUserRead.request()))
 })
 
 test('watchAuthLogout', () => {

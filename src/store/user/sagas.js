@@ -1,7 +1,6 @@
 import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import { currentUserRead, CURRENT_USER_READ_REQUEST } from './actions'
-import { AUTH_SUCCESS } from '../auth/actions'
 import user from './schema'
 import api from 'services/api'
 
@@ -21,7 +20,7 @@ export function* readCurrentUser (resolve = noop, reject = noop) {
 
 export function* watchCurrentUserReadRequest () {
   while (true) {
-    const { resolve, reject } = yield take([CURRENT_USER_READ_REQUEST, AUTH_SUCCESS])
+    const { resolve, reject } = yield take(CURRENT_USER_READ_REQUEST)
     yield call(readCurrentUser, resolve, reject)
   }
 }
