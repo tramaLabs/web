@@ -2,7 +2,8 @@ import * as selectors from './selectors'
 
 const initialState = {
   initiatives: {},
-  users: {}
+  users: {},
+  tags: {}
 }
 
 const normalizedState = {
@@ -10,12 +11,14 @@ const normalizedState = {
     1: {
       id: 1,
       user: 1,
-      title: 'test initiative'
+      title: 'test initiative',
+      tags: [1]
     },
     2: {
       id: 2,
       user: 1,
-      title: 'test initiative 2'
+      title: 'test initiative 2',
+      tags: [1, 2]
     }
   },
   users: {
@@ -23,22 +26,31 @@ const normalizedState = {
       id: 1,
       name: 'test user'
     }
+  },
+  tags: {
+    1: {
+      id: 1,
+      name: 'test tag'
+    },
+    2: {
+      id: 2,
+      name: 'test tag 2'
+    }
   }
 }
 
 const denormalizedState = {
   initiatives: Object.keys(normalizedState.initiatives).map((i) => ({
     ...normalizedState.initiatives[i],
-    user: { ...normalizedState.users[normalizedState.initiatives[i].user] }
+    user: { ...normalizedState.users[normalizedState.initiatives[i].user] },
+    tags: normalizedState.initiatives[i].tags.map((id) => normalizedState.tags[id])
   })),
-  users: Object.keys(normalizedState.users).map((i) => normalizedState.users[i])
+  users: Object.keys(normalizedState.users).map((i) => normalizedState.users[i]),
+  tags: Object.keys(normalizedState.tags).map((i) => normalizedState.tags[i])
 }
 
 test('initialState', () => {
-  expect(selectors.initialState).toEqual({
-    initiatives: {},
-    users: {}
-  })
+  expect(selectors.initialState).toEqual(initialState)
 })
 
 test('getNormalizedInitiatives', () => {
@@ -53,6 +65,13 @@ test('getNormalizedUsers', () => {
   expect(selectors.getNormalizedUsers({})).toEqual({})
   expect(selectors.getNormalizedUsers(initialState)).toEqual(initialState.users)
   expect(selectors.getNormalizedUsers(normalizedState)).toEqual(normalizedState.users)
+})
+
+test('getNormalizedTags', () => {
+  expect(selectors.getNormalizedTags()).toEqual({})
+  expect(selectors.getNormalizedTags({})).toEqual({})
+  expect(selectors.getNormalizedTags(initialState)).toEqual(initialState.tags)
+  expect(selectors.getNormalizedTags(normalizedState)).toEqual(normalizedState.tags)
 })
 
 test('getInitiatives', () => {
@@ -76,7 +95,7 @@ test('getUsers', () => {
   expect(selectors.getUsers({})).toEqual([])
   expect(selectors.getUsers(initialState)).toEqual([])
   expect(selectors.getUsers(normalizedState)).toEqual(denormalizedState.users)
-  expect(selectors.getUsers(normalizedState)).toEqual([denormalizedState.users[0]])
+  expect(selectors.getUsers(normalizedState, [1])).toEqual([denormalizedState.users[0]])
 })
 
 test('getUser', () => {
@@ -85,4 +104,20 @@ test('getUser', () => {
   expect(selectors.getUser(initialState, 1)).toBeUndefined()
   expect(selectors.getUser(normalizedState)).toBeUndefined()
   expect(selectors.getUser(normalizedState, 1)).toEqual(denormalizedState.users[0])
+})
+
+test('getTags', () => {
+  expect(selectors.getTags()).toEqual([])
+  expect(selectors.getTags({})).toEqual([])
+  expect(selectors.getTags(initialState)).toEqual([])
+  expect(selectors.getTags(normalizedState)).toEqual(denormalizedState.tags)
+  expect(selectors.getTags(normalizedState, [1])).toEqual([denormalizedState.tags[0]])
+})
+
+test('getTag', () => {
+  expect(selectors.getTag()).toBeUndefined()
+  expect(selectors.getTag(initialState)).toBeUndefined()
+  expect(selectors.getTag(initialState, 1)).toBeUndefined()
+  expect(selectors.getTag(normalizedState)).toBeUndefined()
+  expect(selectors.getTag(normalizedState, 1)).toEqual(denormalizedState.tags[0])
 })

@@ -75,3 +75,39 @@ test('initiativeUpdate', () => {
     error: 'test'
   })
 })
+
+test('initiativeJoin', () => {
+  expect(actions.initiativeJoin.request(3)).toEqual({
+    type: actions.INITIATIVE_JOIN_REQUEST,
+    id: 3
+  })
+
+  expect(actions.initiativeJoin.success({ result: 1, entities: 1 })).toEqual({
+    type: actions.INITIATIVE_JOIN_SUCCESS,
+    result: 1,
+    entities: 1
+  })
+
+  expect(actions.initiativeJoin.failure('test')).toEqual({
+    type: actions.INITIATIVE_JOIN_FAILURE,
+    error: 'test'
+  })
+})
+
+test('initiativeLeave', () => {
+  expect(actions.initiativeLeave.request(3)).toEqual({
+    type: actions.INITIATIVE_LEAVE_REQUEST,
+    id: 3
+  })
+
+  expect(actions.initiativeLeave.success({ result: 1, entities: 1 })).toEqual({
+    type: actions.INITIATIVE_LEAVE_SUCCESS,
+    result: 1,
+    entities: 1
+  })
+
+  expect(actions.initiativeLeave.failure('test')).toEqual({
+    type: actions.INITIATIVE_LEAVE_FAILURE,
+    error: 'test'
+  })
+})
