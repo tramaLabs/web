@@ -5,14 +5,19 @@ import {
   initiativeListRead,
   initiativeDetailRead,
   initiativeUpdate,
+  initiativeJoin,
+  initiativeLeave,
   INITIATIVE_CREATE_REQUEST,
   INITIATIVE_LIST_READ_REQUEST,
   INITIATIVE_DETAIL_READ_REQUEST,
-  INITIATIVE_UPDATE_REQUEST
+  INITIATIVE_UPDATE_REQUEST,
+  INITIATIVE_JOIN_REQUEST,
+  INITIATIVE_LEAVE_REQUEST
 } from './actions'
 import initiative from './schema'
 import api from 'services/api'
 
+// istanbul ignore next
 const noop = () => {}
 
 export function* createInitiative (newData, resolve = noop, reject = noop) {
@@ -59,6 +64,28 @@ export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
   }
 }
 
+export function* joinInitiative (id, resolve = noop, reject = noop) {
+  try {
+    const { data } = yield call(api.put, `/initiatives/${id}/join`)
+    resolve(data)
+    yield put(initiativeJoin.success(normalize(data, initiative)))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeJoin.failure(response))
+  }
+}
+
+export function* leaveInitiative (id, resolve = noop, reject = noop) {
+  try {
+    const { data } = yield call(api.put, `/initiatives/${id}/leave`)
+    resolve(data)
+    yield put(initiativeLeave.success(normalize(data, initiative)))
+  } catch ({ response }) {
+    reject(response)
+    yield put(initiativeLeave.failure(response))
+  }
+}
+
 export function* watchInitiativeCreateRequest () {
   while (true) {
     const { data, resolve, reject } = yield take(INITIATIVE_CREATE_REQUEST)
@@ -87,9 +114,25 @@ export function* watchInitiativeUpdateRequest () {
   }
 }
 
+export function* watchInitiativeJoinRequest () {
+  while (true) {
+    const { id, resolve, reject } = yield take(INITIATIVE_JOIN_REQUEST)
+    yield call(joinInitiative, id, resolve, reject)
+  }
+}
+
+export function* watchInitiativeLeaveRequest () {
+  while (true) {
+    const { id, resolve, reject } = yield take(INITIATIVE_LEAVE_REQUEST)
+    yield call(leaveInitiative, id, resolve, reject)
+  }
+}
+
 export default function* () {
   yield fork(watchInitiativeCreateRequest)
   yield fork(watchInitiativeListReadRequest)
   yield fork(watchInitiativeDetailReadRequest)
   yield fork(watchInitiativeUpdateRequest)
+  yield fork(watchInitiativeJoinRequest)
+  yield fork(watchInitiativeLeaveRequest)
 }
