@@ -2,14 +2,17 @@ import { denormalize } from 'denormalizr'
 import { arrayOf } from 'normalizr'
 import initiative from '../initiative/schema'
 import user from '../user/schema'
+import tag from '../tag/schema'
 
 export const initialState = {
   initiatives: {},
-  users: {}
+  users: {},
+  tags: {}
 }
 
 export const getNormalizedInitiatives = (state = initialState) => state.initiatives || {}
 export const getNormalizedUsers = (state = initialState) => state.users || {}
+export const getNormalizedTags = (state = initialState) => state.tags || {}
 
 export const getInitiatives = (state = initialState, ids) =>
   denormalize(ids || Object.keys(getNormalizedInitiatives(state)), state, arrayOf(initiative))
@@ -22,3 +25,9 @@ export const getUsers = (state = initialState, ids) =>
 
 export const getUser = (state = initialState, id) =>
   denormalize(getNormalizedUsers(state)[id], state, user)
+
+export const getTags = (state = initialState, ids) =>
+  denormalize(ids || Object.keys(getNormalizedTags(state)), state, arrayOf(tag))
+
+export const getTag = (state = initialState, id) =>
+  denormalize(getNormalizedTags(state)[id], state, tag)

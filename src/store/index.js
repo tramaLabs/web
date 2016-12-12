@@ -9,6 +9,7 @@ import entities from './entities/reducer'
 import form from './form/reducer'
 import initiative from './initiative/reducer'
 import status from './status/reducer'
+import tag from './tag/reducer'
 import user from './user/reducer'
 
 const reducers = {
@@ -18,6 +19,7 @@ const reducers = {
   initiative,
   routing,
   status,
+  tag,
   user
 }
 
