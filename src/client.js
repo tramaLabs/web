@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 import configureStore from 'store/configure'
 import { fromAuth } from 'store'
-import { setToken } from 'services/api'
+import api from 'services/api'
 
 import routes from 'routes'
 
@@ -17,7 +17,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 const root = document.getElementById('app')
 const token = fromAuth.getToken(store.getState())
 
-token && setToken(token)
+token && api.setToken(token)
 
 const renderApp = () => (
   <AppContainer>
