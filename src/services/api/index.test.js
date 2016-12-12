@@ -6,7 +6,7 @@ const defaults = { headers: { common: {} } }
 
 stub(axios, 'create', () => ({ request, defaults }))
 
-const { api, setToken, unsetToken, get, post } = require('.')
+const { api, setToken, unsetToken, upload, get, post } = require('.')
 
 beforeEach(() => {
   request.reset()
@@ -22,6 +22,20 @@ test('unsetToken', () => {
   api.defaults.headers.common['Authorization'] = 1
   unsetToken()
   expect(api.defaults.headers.common['Authorization']).toBeUndefined()
+})
+
+test('upload', () => {
+  const onUploadProgress = jest.fn()
+  const file = new File(['test'], 'test.jpg')
+  const data = new FormData()
+  expect(request.called).toBe(false)
+  upload('/test', file, onUploadProgress)
+  expect(request.calledWith({
+    method: 'post',
+    url: '/test',
+    data,
+    onUploadProgress
+  })).toBe(true)
 })
 
 test('get', () => {
