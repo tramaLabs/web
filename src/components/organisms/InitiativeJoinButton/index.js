@@ -46,11 +46,7 @@ const InitiativeJoinButton = ({ ...all, user, initiative, onLeave, onJoin, loadi
     return <Button onClick={join(all)} disabled={loading} {...props}>Participar</Button>
   }
   return (
-    <FacebookLoginButton
-      label="Participar"
-      onSuccess={join(all)}
-      disabled={loading}
-      {...props} />
+    <FacebookLoginButton label="Participar" onSuccess={join(all)} {...props} />
   )
 }
 
