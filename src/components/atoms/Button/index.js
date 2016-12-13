@@ -1,11 +1,13 @@
+import omit from 'lodash/omit'
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
 import { Button as MenuButton } from 'react-aria-menubutton'
 
 import { colors, reverseColors, fonts } from 'components/globals'
+import { Spinner } from 'components'
 
-const styles = ({ disabled, transparent, light, kind, size }) => {
+const styles = ({ loading, disabled, transparent, light, kind, size }) => {
   const color = light ? reverseColors[kind] : colors[kind]
   return css`
     display: inline-flex;
@@ -40,40 +42,58 @@ const styles = ({ disabled, transparent, light, kind, size }) => {
     &:focus {
       outline: none
     }
+
+    & > span > .children {
+      display: block;
+      visibility: hidden;
+      height: 0;
+    }
   `
 }
 
-const Component = styled(({ component, disabled, transparent, light, kind, size, ...props }) =>
-  React.createElement(component, props)
+const propsToOmit = ['component', 'disabled', 'loading', 'transparent', 'light', 'kind', 'size']
+const omitProps = (props) => omit(props, propsToOmit)
+
+const Component = styled(({ component, ...props }) =>
+  React.createElement(component, omitProps(props))
 )`${styles}`
 
-const StyledMenuButton = styled(({ disabled, transparent, light, kind, size, ...props }) =>
-  <MenuButton {...props} />
-)`${styles}`
-
-const StyledLink = styled(({ disabled, transparent, light, kind, size, ...props }) =>
-  <Link {...props} />
-)`${styles}`
-
+const StyledMenuButton = styled((props) => <MenuButton {...omitProps(props)} />)`${styles}`
+const StyledLink = styled((props) => <Link {...omitProps(props)} />)`${styles}`
 const Anchor = styled.a`${styles}`
 const StyledButton = styled.button`${styles}`
 
+// eslint-disable-next-line react/prop-types
+const renderChildrenWithSpinner = ({ children, light }) => (
+  <span>
+    <span className="children">{children}</span>
+    <Spinner light={!light} kind="alpha" />
+  </span>
+)
+
 const Button = ({ type, ...props, component, to, href }) => {
-  if (component) {
-    return <Component {...props} />
-  } else if (type === 'menu') {
-    return <StyledMenuButton {...props} />
-  } else if (to) {
-    return <StyledLink {...props} />
-  } else if (href) {
-    return <Anchor {...props} />
+  const propsToPass = {
+    ...props,
+    disabled: props.loading || props.disabled,
+    children: props.loading ? renderChildrenWithSpinner(props) : props.children
   }
-  return <StyledButton {...props} type={type} />
+  if (component) {
+    return <Component {...propsToPass} />
+  } else if (type === 'menu') {
+    return <StyledMenuButton {...propsToPass} />
+  } else if (to) {
+    return <StyledLink {...propsToPass} />
+  } else if (href) {
+    return <Anchor {...propsToPass} />
+  }
+  return <StyledButton {...propsToPass} type={type} />
 }
 
 Button.propTypes = {
+  children: PropTypes.any,
+  kind: PropTypes.oneOf(Object.keys(colors)),
   disabled: PropTypes.bool,
-  kind: PropTypes.oneOf(Object.keys(colors)).isRequired,
+  loading: PropTypes.bool,
   transparent: PropTypes.bool,
   light: PropTypes.bool,
   size: PropTypes.number,
