@@ -1,7 +1,7 @@
 import { normalize } from 'normalizr'
 import { eventChannel, END } from 'redux-saga'
 import { take, put, call, fork } from 'redux-saga/effects'
-import { photoUpload, PHOTO_UPLOAD_REQUEST } from './actions'
+import { photoUpload, photoPreview, PHOTO_UPLOAD_REQUEST, PHOTO_PREVIEW_REQUEST } from './actions'
 import photo from './schema'
 import api from 'services/api'
 
@@ -10,7 +10,7 @@ const noop = () => {}
 
 export const createUploader = () => {
   let emit
-  const channel = eventChannel((emitter) => {
+  const chan = eventChannel((emitter) => {
     emit = emitter
     return noop
   })
@@ -20,19 +20,48 @@ export const createUploader = () => {
     emit(percent < 1 ? percent : END)
   })
 
-  return [ upload, channel ]
+  return [ upload, chan ]
 }
 
 export function* uploadPhoto (file, resolve = noop, reject = noop) {
   try {
-    const [ upload, channel ] = yield call(createUploader)
-    yield fork(watchPhotoUploadProgress, channel)
+    const [ upload, chan ] = yield call(createUploader)
+    yield fork(watchPhotoUploadProgress, chan)
     const { data } = yield call(upload, '/photos', file)
     yield put(photoUpload.success(normalize(data, photo)))
     resolve(data)
   } catch (error) {
     yield put(photoUpload.failure(error.data))
     reject(error)
+  }
+}
+
+export const createPreviewer = (file) => eventChannel(
+  // istanbul ignore next
+  (emit) => {
+    if (!window.FileReader) emit(END)
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onload = () => {
+      emit(reader.result)
+      emit(END)
+    }
+
+    return () => reader.abort()
+  }
+)
+
+export function* previewPhoto (file) {
+  const chan = yield call(createPreviewer, file)
+  try {
+    while (true) {
+      const url = yield take(chan)
+      yield put(photoPreview.success(url))
+    }
+  } catch (e) {
+    yield put(photoPreview.cancel())
   }
 }
 
@@ -43,13 +72,21 @@ export function* watchPhotoUploadRequest () {
   }
 }
 
-export function* watchPhotoUploadProgress (channel) {
+export function* watchPhotoUploadProgress (chan) {
   while (true) {
-    const progress = yield take(channel)
+    const progress = yield take(chan)
     yield put(photoUpload.progress(progress))
+  }
+}
+
+export function* watchPhotoPreviewRequest () {
+  while (true) {
+    const { data } = yield take(PHOTO_PREVIEW_REQUEST)
+    yield call(previewPhoto, data)
   }
 }
 
 export default function* () {
   yield fork(watchPhotoUploadRequest)
+  yield fork(watchPhotoPreviewRequest)
 }

@@ -22,3 +22,19 @@ test('photoUpload', () => {
     progress: 0.5
   })
 })
+
+test('photoPreview', () => {
+  expect(actions.photoPreview.request('file')).toEqual({
+    type: actions.PHOTO_PREVIEW_REQUEST,
+    data: 'file'
+  })
+
+  expect(actions.photoPreview.success('test')).toEqual({
+    type: actions.PHOTO_PREVIEW_SUCCESS,
+    url: 'test'
+  })
+
+  expect(actions.photoPreview.cancel()).toEqual({
+    type: actions.PHOTO_PREVIEW_CANCEL
+  })
+})

@@ -14,13 +14,13 @@ beforeEach(() => {
 
 describe('uploadPhoto', () => {
   const data = { id: 1 }
-  const [ upload, channel ] = sagas.createUploader()
+  const [ upload, chan ] = sagas.createUploader()
 
   it('calls success and resolve', () => {
     const generator = sagas.uploadPhoto(data, resolve)
     expect(generator.next().value).toEqual(call(sagas.createUploader))
-    expect(generator.next([ upload, channel ]).value)
-      .toEqual(fork(sagas.watchPhotoUploadProgress, channel))
+    expect(generator.next([ upload, chan ]).value)
+      .toEqual(fork(sagas.watchPhotoUploadProgress, chan))
     expect(generator.next().value).toEqual(call(upload, '/photos', data))
     expect(generator.next({ data }).value)
       .toEqual(put(actions.photoUpload.success(normalize(data, photo))))
@@ -32,13 +32,32 @@ describe('uploadPhoto', () => {
   it('calls failure and reject', () => {
     const generator = sagas.uploadPhoto(data, undefined, reject)
     expect(generator.next().value).toEqual(call(sagas.createUploader))
-    expect(generator.next([ upload, channel ]).value)
-      .toEqual(fork(sagas.watchPhotoUploadProgress, channel))
+    expect(generator.next([ upload, chan ]).value)
+      .toEqual(fork(sagas.watchPhotoUploadProgress, chan))
     expect(generator.throw(error).value)
       .toEqual(put(actions.photoUpload.failure('test')))
     expect(reject).not.toBeCalled()
     generator.next()
     expect(reject).toHaveBeenCalledWith(error)
+  })
+})
+
+describe('previewPhoto', () => {
+  const data = new File(['test'], 'test.jpg')
+  const chan = sagas.createPreviewer(data)
+
+  it('calls success', () => {
+    const generator = sagas.previewPhoto(data)
+    expect(generator.next().value).toEqual(call(sagas.createPreviewer, data))
+    expect(generator.next(chan).value).toEqual(take(chan))
+    expect(generator.next('url').value).toEqual(put(actions.photoPreview.success('url')))
+  })
+
+  it('calls cancel', () => {
+    const generator = sagas.previewPhoto(data)
+    expect(generator.next().value).toEqual(call(sagas.createPreviewer, data))
+    expect(generator.next(chan).value).toEqual(take(chan))
+    expect(generator.throw().value).toEqual(put(actions.photoPreview.cancel()))
   })
 })
 
@@ -56,7 +75,16 @@ test('watchPhotoUploadProgress', () => {
   expect(generator.next(0.5).value).toEqual(put(actions.photoUpload.progress(0.5)))
 })
 
+test('watchPhotoPreviewRequest', () => {
+  const payload = { data: 1 }
+  const generator = sagas.watchPhotoPreviewRequest()
+  expect(generator.next().value).toEqual(take(actions.PHOTO_PREVIEW_REQUEST))
+  expect(generator.next(payload).value)
+    .toEqual(call(sagas.previewPhoto, ...Object.values(payload)))
+})
+
 test('saga', () => {
   const generator = saga()
   expect(generator.next().value).toEqual(fork(sagas.watchPhotoUploadRequest))
+  expect(generator.next().value).toEqual(fork(sagas.watchPhotoPreviewRequest))
 })

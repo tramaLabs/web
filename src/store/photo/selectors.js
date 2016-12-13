@@ -1,5 +1,10 @@
 export const initialState = {
-  progress: 0
+  uploadProgress: 0,
+  previewUrl: null
 }
 
-export const getProgress = (state = initialState) => state.progress || initialState.progress
+export const getUploadProgress = (state = initialState) =>
+  state.uploadProgress || initialState.uploadProgress
+
+export const getPreviewUrl = (state = initialState) =>
+  state.previewUrl || initialState.previewUrl
