@@ -2,9 +2,16 @@ import * as selectors from './selectors'
 
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
+    id: null,
     uploadProgress: 0,
     previewUrl: null
   })
+})
+
+test('getId', () => {
+  expect(selectors.getId()).toEqual(selectors.initialState.id)
+  expect(selectors.getId({})).toEqual(selectors.initialState.id)
+  expect(selectors.getId(selectors.initialState)).toEqual(selectors.initialState.id)
 })
 
 test('getUploadProgress', () => {

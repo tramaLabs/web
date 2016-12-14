@@ -1,7 +1,9 @@
 import { normalize } from 'normalizr'
 import { eventChannel, END } from 'redux-saga'
-import { take, put, call, fork } from 'redux-saga/effects'
+import { take, put, call, fork, select } from 'redux-saga/effects'
 import { photoUpload, photoPreview, PHOTO_UPLOAD_REQUEST, PHOTO_PREVIEW_REQUEST } from './actions'
+import { initiativeUpdate } from '../initiative/actions'
+import { fromInitiative } from '../selectors'
 import photo from './schema'
 import api from 'services/api'
 
@@ -29,7 +31,8 @@ export function* uploadPhoto (file, resolve = noop, reject = noop) {
     yield fork(watchPhotoUploadProgress, chan)
     const { data } = yield call(upload, '/photos', file)
     yield put(photoUpload.success(normalize(data, photo)))
-    resolve(data)
+    const initiativeId = yield select(fromInitiative.getId)
+    yield put(initiativeUpdate.request(initiativeId, { photo: data.id }, resolve))
   } catch (error) {
     yield put(photoUpload.failure(error.data))
     reject(error)

@@ -1,5 +1,7 @@
 import { normalize } from 'normalizr'
-import { take, put, call, fork } from 'redux-saga/effects'
+import { take, put, call, fork, select } from 'redux-saga/effects'
+import { initiativeUpdate } from '../initiative/actions'
+import { fromInitiative } from '../selectors'
 import * as actions from './actions'
 import saga, * as sagas from './sagas'
 import photo from './schema'
@@ -16,7 +18,7 @@ describe('uploadPhoto', () => {
   const data = { id: 1 }
   const [ upload, chan ] = sagas.createUploader()
 
-  it('calls success and resolve', () => {
+  it('calls success', () => {
     const generator = sagas.uploadPhoto(data, resolve)
     expect(generator.next().value).toEqual(call(sagas.createUploader))
     expect(generator.next([ upload, chan ]).value)
@@ -24,9 +26,9 @@ describe('uploadPhoto', () => {
     expect(generator.next().value).toEqual(call(upload, '/photos', data))
     expect(generator.next({ data }).value)
       .toEqual(put(actions.photoUpload.success(normalize(data, photo))))
-    expect(resolve).not.toBeCalled()
-    generator.next()
-    expect(resolve).toHaveBeenCalledWith(data)
+    expect(generator.next().value).toEqual(select(fromInitiative.getId))
+    expect(generator.next(1).value)
+      .toEqual(put(initiativeUpdate.request(1, { photo: data.id }, resolve)))
   })
 
   it('calls failure and reject', () => {
