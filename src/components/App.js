@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { injectGlobal } from 'styled-components'
 import Helmet from 'react-helmet'
 
+import { Snack } from 'containers'
+
 injectGlobal`
   body {
     margin: 0;
@@ -32,6 +34,7 @@ class App extends Component {
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:300,400,700' }
           ]} />
         {children}
+        <Snack />
       </div>
     )
   }
