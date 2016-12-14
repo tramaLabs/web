@@ -16,8 +16,8 @@ class InitiativeCreationFormContainer extends Component {
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
   dispatch(initiativeCreate.request(data, resolve, reject))
-}).then(({ id, slug }) => {
-  const url = `/iniciativas/${id}/${slug}`
+}).then(({ data }) => {
+  const url = `/iniciativas/${data.id}/${data.slug}`
   dispatch(push(url))
   return url
 }).catch((error) => {

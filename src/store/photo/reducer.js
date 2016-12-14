@@ -7,6 +7,7 @@ import {
   PHOTO_UPLOAD_PROGRESS,
   PHOTO_PREVIEW_REQUEST,
   PHOTO_PREVIEW_SUCCESS,
+  PHOTO_PREVIEW_FAILURE,
   PHOTO_PREVIEW_CANCEL
 } from './actions'
 import { INITIATIVE_DETAIL_READ_SUCCESS, INITIATIVE_UPDATE_SUCCESS } from '../initiative/actions'
@@ -37,6 +38,7 @@ export default (state = initialState, action) => {
   case LOCATION_CHANGE:
     return initialState
   case PHOTO_PREVIEW_REQUEST:
+  case PHOTO_PREVIEW_FAILURE:
   case PHOTO_PREVIEW_CANCEL:
     return {
       ...state,

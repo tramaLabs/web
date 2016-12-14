@@ -5,64 +5,44 @@ import api from 'services/api'
 import saga, * as sagas from './sagas'
 import tag from './schema'
 
-const resolve = jest.fn()
-const reject = jest.fn()
-const error = { data: 'test' }
-
-beforeEach(() => {
-  jest.resetAllMocks()
-})
-
 describe('createTag', () => {
   const data = { id: 1, title: 'test' }
 
-  it('calls success and resolve', () => {
-    const generator = sagas.createTag(data, resolve)
+  it('calls success', () => {
+    const generator = sagas.createTag(data)
     expect(generator.next().value).toEqual(call(api.post, '/tags', data))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.tagCreate.success(normalize(data, tag))))
-    expect(resolve).not.toBeCalled()
-    generator.next()
-    expect(resolve).toHaveBeenCalledWith(data)
+      .toEqual(put(actions.tagCreate.success({ ...normalize(data, tag), data })))
   })
 
-  it('calls failure and reject', () => {
-    const generator = sagas.createTag(data, undefined, reject)
+  it('calls failure', () => {
+    const generator = sagas.createTag(data)
     expect(generator.next().value).toEqual(call(api.post, '/tags', data))
-    expect(generator.throw(error).value)
+    expect(generator.throw('test').value)
       .toEqual(put(actions.tagCreate.failure('test')))
-    expect(reject).not.toBeCalled()
-    generator.next()
-    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
 describe('readTagList', () => {
   const data = [1, 2, 3]
 
-  it('calls success and resolve', () => {
-    const generator = sagas.readTagList({ limit: 1 }, resolve)
+  it('calls success', () => {
+    const generator = sagas.readTagList({ limit: 1 })
     expect(generator.next().value).toEqual(call(api.get, '/tags', { params: { limit: 1 } }))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.tagListRead.success(normalize(data, arrayOf(tag)))))
-    expect(resolve).not.toBeCalled()
-    generator.next()
-    expect(resolve).toHaveBeenCalledWith(data)
+      .toEqual(put(actions.tagListRead.success({ ...normalize(data, arrayOf(tag)), data })))
   })
 
-  it('calls failure and reject', () => {
-    const generator = sagas.readTagList({ limit: 1 }, undefined, reject)
+  it('calls failure', () => {
+    const generator = sagas.readTagList({ limit: 1 })
     expect(generator.next().value).toEqual(call(api.get, '/tags', { params: { limit: 1 } }))
-    expect(generator.throw(error).value)
+    expect(generator.throw('test').value)
       .toEqual(put(actions.tagListRead.failure('test')))
-    expect(reject).not.toBeCalled()
-    generator.next()
-    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
 test('watchTagCreateRequest', () => {
-  const payload = { data: 1, resolve, reject }
+  const payload = { data: 1 }
   const generator = sagas.watchTagCreateRequest()
   expect(generator.next().value).toEqual(take(actions.TAG_CREATE_REQUEST))
   expect(generator.next(payload).value)
@@ -70,7 +50,7 @@ test('watchTagCreateRequest', () => {
 })
 
 test('watchTagListReadRequest', () => {
-  const payload = { params: { limit: 1 }, resolve, reject }
+  const payload = { params: { limit: 1 } }
   const generator = sagas.watchTagListReadRequest()
   expect(generator.next().value).toEqual(take(actions.TAG_LIST_READ_REQUEST))
   expect(generator.next(payload).value)

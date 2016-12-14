@@ -6,6 +6,7 @@ export const PHOTO_UPLOAD_PROGRESS = 'PHOTO_UPLOAD_PROGRESS'
 export const PHOTO_PREVIEW = 'PHOTO_PREVIEW'
 export const PHOTO_PREVIEW_REQUEST = 'PHOTO_PREVIEW_REQUEST'
 export const PHOTO_PREVIEW_SUCCESS = 'PHOTO_PREVIEW_SUCCESS'
+export const PHOTO_PREVIEW_FAILURE = 'PHOTO_PREVIEW_FAILURE'
 export const PHOTO_PREVIEW_CANCEL = 'PHOTO_PREVIEW_CANCEL'
 
 export const photoUpload = {
@@ -18,5 +19,6 @@ export const photoUpload = {
 export const photoPreview = {
   request: (data) => ({ type: PHOTO_PREVIEW_REQUEST, data }),
   success: (url) => ({ type: PHOTO_PREVIEW_SUCCESS, url }),
+  failure: (error) => ({ type: PHOTO_PREVIEW_FAILURE, error }),
   cancel: () => ({ type: PHOTO_PREVIEW_CANCEL })
 }

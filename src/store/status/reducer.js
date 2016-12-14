@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
       }
     }
   case 'SUCCESS':
+  case 'CANCEL':
     return {
       loading: {
         ...getLoadingState(state),

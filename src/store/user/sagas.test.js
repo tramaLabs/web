@@ -5,44 +5,28 @@ import api from 'services/api'
 import saga, * as sagas from './sagas'
 import user from './schema'
 
-const resolve = jest.fn()
-const reject = jest.fn()
-const error = { data: 'test' }
-
-beforeEach(() => {
-  jest.resetAllMocks()
-})
-
 describe('readCurrentUser', () => {
   const data = { id: 1, title: 'test' }
 
   it('calls success and resolve', () => {
-    const generator = sagas.readCurrentUser(resolve)
+    const generator = sagas.readCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.currentUserRead.success(normalize(data, user))))
-    expect(resolve).not.toBeCalled()
-    generator.next()
-    expect(resolve).toHaveBeenCalledWith(data)
+      .toEqual(put(actions.currentUserRead.success({ ...normalize(data, user), data })))
   })
 
   it('calls failure and reject', () => {
-    const generator = sagas.readCurrentUser(undefined, reject)
+    const generator = sagas.readCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.throw(error).value)
+    expect(generator.throw('test').value)
       .toEqual(put(actions.currentUserRead.failure('test')))
-    expect(reject).not.toBeCalled()
-    generator.next()
-    expect(reject).toHaveBeenCalledWith(error)
   })
 })
 
 test('watchCurrentUserReadRequest', () => {
-  const payload = { resolve, reject }
   const generator = sagas.watchCurrentUserReadRequest()
   expect(generator.next().value).toEqual(take(actions.CURRENT_USER_READ_REQUEST))
-  expect(generator.next(payload).value)
-    .toEqual(call(sagas.readCurrentUser, ...Object.values(payload)))
+  expect(generator.next().value).toEqual(call(sagas.readCurrentUser))
 })
 
 test('saga', () => {
