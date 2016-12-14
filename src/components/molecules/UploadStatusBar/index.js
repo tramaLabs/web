@@ -9,6 +9,10 @@ const Wrapper = styled.div`
   background-color: ${reverseColors.grayscale[0]};
 `
 
+const color = ({ filled }) => filled ? reverseColors.grayscale[0] : colors.grayscale[0]
+const backgroundColor = ({ filled }) => filled ? colors.alert[1] : reverseColors.grayscale[0]
+const clipPath = ({ progress }) => progress * 100
+
 const Text = styled.div`
   position: absolute;
   width: calc(100% - 0.250rem);
@@ -21,32 +25,25 @@ const Text = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props) => props.filled ? reverseColors.grayscale[0] : colors.grayscale[0]};
-  background-color: ${(props) =>
-    props.filled
-    ? (props.error ? colors.danger[1] : colors.alert[1])
-    : reverseColors.grayscale[0]
-  };
-  clip-path: inset(0 0 0 ${(props) => props.progress * 100}%);
+  color: ${color};
+  background-color: ${backgroundColor};
+  clip-path: inset(0 0 0 ${clipPath}%);
   will-change: clip-path;
   transition: clip-path 250ms;
 `
 
-const UploadStatusBar = ({ filename, loading, error, progress, ...props }) => {
-  const errorMessage = typeof error === 'string' ? error : 'Ocorreu um erro no upload'
-  const text = error ? errorMessage : (loading ? 'Enviando...' : filename)
+const UploadStatusBar = ({ filename, progress, ...props }) => {
+  const text = progress > 0 ? 'Enviando...' : filename
   return (
     <Wrapper {...props}>
-      <Text filled error={error}>{text}</Text>
-      <Text progress={progress || (error && 1)}>{text}</Text>
+      <Text filled>{text}</Text>
+      <Text progress={progress}>{text}</Text>
     </Wrapper>
   )
 }
 
 UploadStatusBar.propTypes = {
   filename: PropTypes.string.isRequired,
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   progress: PropTypes.number
 }
 
