@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { breakpoints } from 'components/globals'
-
-const headerHeight = '4.6875rem'
+import { breakpoints, headerHeight } from 'components/globals'
 
 const Wrapper = styled.div`
   display: flex;
