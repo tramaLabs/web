@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fromUser, fromAuth } from 'store/selectors'
 import { currentUserRead } from 'store/actions'
 
-import { App } from 'components'
+import App from 'components/App'
 
 class AppContainer extends Component {
   static propTypes = {

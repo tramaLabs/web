@@ -13,7 +13,7 @@ import routes from 'routes'
 import configureStore from 'store/configure'
 import { env, port, ip } from 'config'
 import { setCsrfToken } from 'store/actions'
-import { Html } from 'components'
+import Html from 'components/Html'
 import api from 'services/api'
 
 const router = new Router()

@@ -1,6 +1,3 @@
-export App from './App'
-export Html from './Html'
-
 const req = require.context('.', true, /\.\/[^/]+\/[^/]+\/index\.js$/)
 
 req.keys().forEach((key) => {
