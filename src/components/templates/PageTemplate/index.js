@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
+import { breakpoints } from 'components/globals'
+
 const headerHeight = '4.6875rem'
 
 const Wrapper = styled.div`
@@ -8,7 +10,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
-  margin-top: ${headerHeight};
+  padding-top: ${headerHeight};
 `
 
 const Header = styled.header`
@@ -25,10 +27,9 @@ const Hero = styled.section`
 
 const Content = styled.section`
   width: 100%;
-  box-sizing: border-box;
-  margin: auto;
+  margin: 0 auto;
   padding: 1rem;
-  max-width: 980px;
+  max-width: ${breakpoints.maxWidth};
 `
 
 const Heading = styled.section`
