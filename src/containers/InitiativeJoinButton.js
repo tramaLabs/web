@@ -1,18 +1,30 @@
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { fromStatus, fromInitiative, fromUser, fromEntities } from 'store/selectors'
+import { fromStatus, fromUser, fromEntities } from 'store/selectors'
 import { initiativeJoin, initiativeLeave, INITIATIVE_JOIN, INITIATIVE_LEAVE } from 'store/actions'
 
-import InitiativeJoinButton from 'components/organisms/InitiativeJoinButton'
+import { InitiativeJoinButton } from 'components'
 
-const mapStateToProps = (state, { initiative }) => ({
+class InitiativeJoinButtonContainer extends Component {
+  static propTypes = {
+    initiative: PropTypes.shape({
+      id: PropTypes.any
+    }).isRequired
+  }
+
+  render () {
+    return <InitiativeJoinButton {...this.props} />
+  }
+}
+
+const mapStateToProps = (state) => ({
   loading: fromStatus.isLoading(state, [INITIATIVE_JOIN, INITIATIVE_LEAVE]),
-  initiative: initiative || fromEntities.getInitiative(state, fromInitiative.getId(state)),
   user: fromEntities.getUser(state, fromUser.getCurrentId(state))
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onJoin: (id) => dispatch(initiativeJoin.request(id)),
-  onLeave: (id) => dispatch(initiativeLeave.request(id))
+const mapDispatchToProps = (dispatch, { initiative }) => ({
+  onJoin: () => dispatch(initiativeJoin.request(initiative.id)),
+  onLeave: () => dispatch(initiativeLeave.request(initiative.id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(InitiativeJoinButton)
+export default connect(mapStateToProps, mapDispatchToProps)(InitiativeJoinButtonContainer)
