@@ -30,7 +30,7 @@ const StyledLogoLink = styled(LogoLink)`
   margin: 0 0.5rem;
 `
 
-const StyledSearchForm = styled(SearchForm)`
+const StyledSearchForm = styled((props) => <SearchForm {...props} />)`
   flex: 1;
   margin: 0 2rem;
   color: ${colors.grayscale[0]};
