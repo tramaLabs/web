@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import submit from 'redux-form-submit'
 
-import InitiativeCreationPage from 'components/pages/InitiativeCreationPage'
+import { InitiativeCreationPage } from 'components'
 import { config } from './InitiativeCreationForm'
 
 class InitiativeCreationPageContainer extends Component {

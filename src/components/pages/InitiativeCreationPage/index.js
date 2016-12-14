@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { PageTemplate, Header, Heading, Paragraph } from 'components'
-import InitiativeCreationForm from 'containers/InitiativeCreationForm'
+import { InitiativeCreationForm } from 'containers'
 
 const InitiativeCreationPage = () => {
   return (
