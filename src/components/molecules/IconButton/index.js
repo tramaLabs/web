@@ -22,9 +22,12 @@ const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => 
       }
     }
   `}
-  @media screen and (max-width: ${breakpoint}px) {
-    width: ${responsive && 'auto'};
-  }
+  ${responsive && css`
+    @media screen and (max-width: ${breakpoint}px) {
+      width: auto;
+      flex: 0 !important;
+    }
+  `}
 `
 
 const textStyle = ({ responsive, breakpoint }) => css`
