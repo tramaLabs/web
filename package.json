@@ -2,16 +2,19 @@
   "name": "arc",
   "version": "0.1.0",
   "private": true,
-  "main": "src",
+  "main": "dist/server",
   "scripts": {
     "start": "node .",
     "test": "jest",
     "coverage": "npm test -- --coverage && opn coverage/lcov-report/index.html",
-    "dev": "concurrently --kill-others 'nodemon --watch src' 'node webpack/webpack-dev-server'",
+    "dev": "concurrently --kill-others 'nodemon --watch src' 'webpack --config webpack/webpack.server.babel --watch' 'node webpack/webpack-dev-server'",
     "lint": "eslint 'src/**/*.js' 'src-clean/**/*.js' 'webpack/**/*.js'",
     "clean": "del 'dist/!(.git*|Procfile)**'",
-    "copy": "copyfiles -u 1 public/* public/**/* dist",
-    "build": "npm run clean && npm run copy && cross-env NODE_ENV=production webpack --config webpack/webpack.config",
+    "copy": "copyfiles public/* public/**/* dist",
+    "prebuild": "npm run clean && npm run copy",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.client.babel",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.server.babel",
+    "build": "npm run build:client; npm run build:server",
     "heroku-postbuild": "npm run build"
   },
   "jest": {
@@ -29,6 +32,7 @@
     }
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.5.0",
     "babel-eslint": "^7.0.0",
     "babel-jest": "^18.0.0",
     "concurrently": "^3.1.0",
@@ -44,7 +48,8 @@
     "opn-cli": "^3.1.0",
     "react-addons-test-utils": "^15.3.2",
     "sinon": "^1.17.6",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
     "axios": "^0.15.2",

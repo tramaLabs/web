@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import React from 'react'
 import serialize from 'serialize-javascript'
 import styleSheet from 'styled-components/lib/models/StyleSheet'
@@ -11,7 +12,7 @@ import cookie from 'react-cookie'
 import express from 'services/express'
 import routes from 'routes'
 import configureStore from 'store/configure'
-import { env, port, ip } from 'config'
+import { port, ip } from 'config'
 import { setCsrfToken } from 'store/actions'
 import Html from 'components/Html'
 import api from 'services/api'
@@ -19,12 +20,9 @@ import api from 'services/api'
 const router = new Router()
 
 router.use(csrf({ cookie: true }))
+console.log(process.env.NODE_ENV)
 
 router.use((req, res, next) => {
-  if (env === 'development') {
-    global.webpackIsomorphicTools.refresh()
-  }
-
   cookie.setRawCookie(req.headers.cookie)
   const token = cookie.load('token')
   const memoryHistory = createMemoryHistory(req.url)
@@ -70,7 +68,7 @@ router.use((req, res, next) => {
 
       const styles = styleSheet.rules().map(rule => rule.cssText).join('\n')
       const initialState = store.getState()
-      const assets = global.webpackIsomorphicTools.assets()
+      const assets = global.stats.assetsByChunkName
       const state = `window.__INITIAL_STATE__ = ${serialize(initialState)}`
       const markup = <Html {...{ styles, assets, state, content }} />
       const doctype = '<!doctype html>\n'

@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var WebpackDevServer = require('webpack-dev-server')
-var config = require('./webpack.config')
+var config = require('./webpack.client.babel')
 
 var ip = process.env.IP || '0.0.0.0'
 var port = (+process.env.PORT + 1) || 3001

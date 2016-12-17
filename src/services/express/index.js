@@ -11,6 +11,8 @@ const root = path.join(__dirname, '../../..')
 export default (routes) => {
   const app = express()
 
+  app.use(express.static(path.join(__dirname, '../../../dist/public')))
+
   /* istanbul ignore next */
   if (env === 'production' || env === 'development') {
     app.use(compression())
