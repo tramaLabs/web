@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   background: url(${mediumBackgroundImage}) no-repeat center top;
   background-size: cover;
-  height: 480px;
+  height: 420px;
   @media screen and (min-width: 640px) {
     background-image: url(${largeBackgroundImage});
     & *[for=coverPhoto] {
@@ -83,6 +83,20 @@ const OptionsWrapper = styled.div`
   display: flex;
   & > * {
     margin: 0.5rem;
+  }
+  @media screen and (max-width: 640px) {
+    flex-wrap: wrap;
+    & > * {
+      flex: 1;
+    }
+  }
+`
+
+const StyledUploadStatusBar = styled(UploadStatusBar)`
+  flex: 1;
+  max-width: calc(100% - 1rem);
+  @media screen and (max-width: 640px) {
+    flex: 1 1 100% !important;
   }
 `
 
@@ -175,10 +189,9 @@ class InitiativeDetailCover extends Component {
     const { filename } = this.state
     return (
       <OptionsWrapper>
-        <UploadStatusBar
+        <StyledUploadStatusBar
           filename={filename}
-          progress={uploadProgress}
-          style={{ flex: 1 }} />
+          progress={uploadProgress} />
         <Button
           loading={uploadLoading || previewLoading}
           disabled={uploadLoading || previewLoading || !this.state.file}
