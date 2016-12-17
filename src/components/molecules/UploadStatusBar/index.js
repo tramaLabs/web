@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   position: relative;
   font-family: ${fonts.primary};
   background-color: ${reverseColors.grayscale[0]};
+  height: 2.5rem;
 `
 
 const color = ({ filled }) => filled ? reverseColors.grayscale[0] : colors.grayscale[0]
