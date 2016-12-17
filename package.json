@@ -18,6 +18,10 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/src-clean"
     ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/test",
+      "<rootDir>/node_modules"
+    ],
     "moduleDirectories": [
       "src",
       "node_modules"
