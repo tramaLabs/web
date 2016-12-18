@@ -3,7 +3,7 @@ import { Field } from 'redux-form'
 import styled from 'styled-components'
 
 import { ReduxField, Button, Alert, Link } from 'components'
-import FacebookLoginButton from 'containers/FacebookLoginButton'
+import { FacebookLoginButton } from 'containers'
 
 const Form = styled.form`
   width: 100%;

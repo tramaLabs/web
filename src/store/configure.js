@@ -15,8 +15,21 @@ const configureStore = (initialState, history) => {
   )(createStore)
 
   const store = finalCreateStore(reducer, initialState)
+  let sagaTask = sagaMiddleware.run(sagas)
 
-  sagaMiddleware.run(sagas)
+  if (module.hot) {
+    module.hot.accept('./reducer', () => {
+      const nextReducer = require('./reducer').default
+      store.replaceReducer(nextReducer)
+    })
+    module.hot.accept('./sagas', () => {
+      const nextSagas = require('./sagas').default
+      sagaTask.cancel()
+      sagaTask.done.then(() => {
+        sagaTask = sagaMiddleware.run(nextSagas)
+      })
+    })
+  }
 
   return store
 }

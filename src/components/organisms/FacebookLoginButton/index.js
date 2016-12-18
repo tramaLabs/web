@@ -66,7 +66,7 @@ class FacebookLoginButton extends Component {
       <IconButton
         onClick={this.onClick}
         icon="facebook"
-        disabled={loading}
+        loading={loading}
         {...props}>
         {label}
       </IconButton>

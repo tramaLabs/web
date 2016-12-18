@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { reverseColors } from 'components/globals'
 import { Paragraph, Heading, Button } from 'components'
-import SearchForm from 'containers/SearchForm'
+import { SearchForm } from 'containers'
 import background from './background.jpg'
 
 const Wrapper = styled.div`

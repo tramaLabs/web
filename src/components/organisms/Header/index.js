@@ -3,8 +3,7 @@ import styled from 'styled-components'
 
 import { colors, reverseColors, fonts, breakpoints } from 'components/globals'
 import { LogoLink, Link } from 'components'
-import SearchForm from 'containers/SearchForm'
-import UserButton from 'containers/UserButton'
+import { SearchForm, UserButton } from 'containers'
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.transparent ? 'transparent' : colors.grayscale[0]};
@@ -31,7 +30,7 @@ const StyledLogoLink = styled(LogoLink)`
   margin: 0 0.5rem;
 `
 
-const StyledSearchForm = styled(SearchForm)`
+const StyledSearchForm = styled((props) => <SearchForm {...props} />)`
   flex: 1;
   margin: 0 2rem;
   color: ${colors.grayscale[0]};

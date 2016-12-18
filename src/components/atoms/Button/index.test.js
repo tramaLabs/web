@@ -29,6 +29,11 @@ it('renders props when passed in', () => {
   expect(wrapper.find({ type: 'submit' })).toHaveLength(1)
 })
 
+it('renders disabled when loading is passed in', () => {
+  const wrapper = wrap({ loading: true })
+  expect(wrapper.find({ disabled: true })).toHaveLength(1)
+})
+
 it('renders button by default', () => {
   const wrapper = wrap()
   expect(wrapper.find('button')).toHaveLength(1)

@@ -4,24 +4,19 @@ import { currentUserRead, CURRENT_USER_READ_REQUEST } from './actions'
 import user from './schema'
 import api from 'services/api'
 
-// istanbul ignore next
-const noop = () => {}
-
-export function* readCurrentUser (resolve = noop, reject = noop) {
+export function* readCurrentUser () {
   try {
     const { data } = yield call(api.get, '/users/me')
-    resolve(data)
-    yield put(currentUserRead.success(normalize(data, user)))
+    yield put(currentUserRead.success({ ...normalize(data, user), data }))
   } catch (error) {
-    reject(error)
-    yield put(currentUserRead.failure(error.data))
+    yield put(currentUserRead.failure(error))
   }
 }
 
 export function* watchCurrentUserReadRequest () {
   while (true) {
-    const { resolve, reject } = yield take(CURRENT_USER_READ_REQUEST)
-    yield call(readCurrentUser, resolve, reject)
+    yield take(CURRENT_USER_READ_REQUEST)
+    yield call(readCurrentUser)
   }
 }
 

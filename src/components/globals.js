@@ -1,5 +1,7 @@
 import { keyframes } from 'styled-components'
 
+export const headerHeight = '4.6875rem'
+
 export const colors = {
   primary: ['#d06e04', '#fe8604', '#feb25f', '#fec88c', '#fedeba'],
   secondary: ['#c2185b', '#e91e63', '#f06292', '#f8bbd0'],

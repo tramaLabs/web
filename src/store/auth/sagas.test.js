@@ -5,29 +5,20 @@ import { currentUserRead } from '../user/actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
 
-const resolve = jest.fn()
-const reject = jest.fn()
-const error = { data: 'test' }
-
-beforeEach(() => {
-  jest.resetAllMocks()
-})
-
 describe('serviceAuth', () => {
-  it('calls success and resolve', () => {
-    const generator = sagas.serviceAuth('service', 1, resolve)
+  it('calls success', () => {
+    const generator = sagas.serviceAuth('service', 1)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(resolve).not.toBeCalled()
     expect(generator.next({ data: { token: 1 } }).value).toEqual(put(actions.auth.success(1)))
-    expect(resolve).toHaveBeenCalledWith(1)
+    expect(generator.next().value).toEqual(put(currentUserRead.request()))
   })
 
-  it('calls failure and reject', () => {
-    const generator = sagas.serviceAuth('service', 1, undefined, reject)
+  it('calls failure', () => {
+    const generator = sagas.serviceAuth('service', 1)
     expect(generator.next().value).toEqual(call(api.post, '/auth/service', { access_token: 1 }))
-    expect(reject).not.toBeCalled()
-    expect(generator.throw(error).value).toEqual(put(actions.auth.failure('test')))
-    expect(reject).toHaveBeenCalledWith(error)
+    expect(generator.throw('test').value).toEqual(put(actions.auth.failure('test')))
+    expect(generator.next().done).toBe(false)
+    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -38,7 +29,7 @@ test('watchAuthSuccess', () => {
     call(cookie.save, 'token', 1, { path: '/' }),
     call(api.setToken, 1)
   ])
-  expect(generator.next().value).toEqual(put(currentUserRead.request()))
+  expect(generator.next().done).toBe(false)
 })
 
 test('watchAuthLogout', () => {
@@ -48,10 +39,11 @@ test('watchAuthLogout', () => {
     call(cookie.remove, 'token', { path: '/' }),
     call(api.unsetToken)
   ])
+  expect(generator.next().done).toBe(false)
 })
 
 test('watchAuthRequest', () => {
-  const payload = { service: 'facebook', accessToken: 1, resolve, reject }
+  const payload = { service: 'facebook', accessToken: 1 }
   const generator = sagas.watchAuthRequest()
   expect(generator.next().value).toEqual(take(actions.AUTH_REQUEST))
   expect(generator.next(payload).value).toEqual(call(sagas.serviceAuth, ...Object.values(payload)))

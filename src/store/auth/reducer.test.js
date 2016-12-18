@@ -2,23 +2,23 @@ import { initialState } from './selectors'
 import * as actions from './actions'
 import reducer from './reducer'
 
+const altState = {
+  ...initialState,
+  token: 2
+}
+
 it('returns the initial state', () => {
   expect(reducer(undefined, {})).toEqual(initialState)
 })
 
 it('handles AUTH_SUCCESS', () => {
-  expect(reducer(initialState, {
-    type: actions.AUTH_SUCCESS,
-    token: 1
-  })).toEqual({
-    ...initialState,
-    token: 1
-  })
+  const action = { type: actions.AUTH_SUCCESS, token: 1 }
+  expect(reducer(initialState, action)).toEqual({ ...initialState, token: 1 })
+  expect(reducer(altState, action)).toEqual({ ...altState, token: 1 })
 })
 
 it('handles AUTH_LOGOUT', () => {
-  expect(reducer({ ...initialState, token: 1 }, { type: actions.AUTH_LOGOUT })).toEqual({
-    ...initialState,
-    token: initialState.token
-  })
+  const action = { type: actions.AUTH_LOGOUT }
+  expect(reducer(initialState, action)).toEqual(initialState)
+  expect(reducer(altState, action)).toEqual({ ...altState, token: initialState.token })
 })

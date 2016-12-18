@@ -14,117 +14,111 @@ import {
   INITIATIVE_JOIN_REQUEST,
   INITIATIVE_LEAVE_REQUEST
 } from './actions'
+import { snackShow } from '../snack/actions'
 import initiative from './schema'
 import api from 'services/api'
 
-// istanbul ignore next
-const noop = () => {}
-
-export function* createInitiative (newData, resolve = noop, reject = noop) {
+export function* createInitiative (newData) {
   try {
     const { data } = yield call(api.post, '/initiatives', newData)
-    resolve(data)
-    yield put(initiativeCreate.success(normalize(data, initiative)))
+    yield put(initiativeCreate.success({ ...normalize(data, initiative), data }))
+    yield put(snackShow('Iniciativa aberta! Bora tramar!', 'success'))
   } catch (error) {
-    reject(error)
-    yield put(initiativeCreate.failure(error.data))
+    yield put(initiativeCreate.failure(error))
+    yield put(snackShow('Ops! Não foi possível criar a iniciativa.', 'danger'))
   }
 }
 
-export function* readInitiativeList (params, resolve = noop, reject = noop) {
+export function* readInitiativeList (params) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
-    resolve(data)
-    yield put(initiativeListRead.success(normalize(data, arrayOf(initiative))))
+    yield put(initiativeListRead.success({ ...normalize(data, arrayOf(initiative)), data }))
   } catch (error) {
-    reject(error)
-    yield put(initiativeListRead.failure(error.data))
+    yield put(initiativeListRead.failure(error))
   }
 }
 
-export function* readInitiativeDetail (id, resolve = noop, reject = noop) {
+export function* readInitiativeDetail (id) {
   try {
     const { data } = yield call(api.get, `/initiatives/${id}`)
-    resolve(data)
-    yield put(initiativeDetailRead.success(normalize(data, initiative)))
+    yield put(initiativeDetailRead.success({ ...normalize(data, initiative), data }))
   } catch (error) {
-    reject(error)
-    yield put(initiativeDetailRead.failure(error.data))
+    yield put(initiativeDetailRead.failure(error))
   }
 }
 
-export function* updateInitiative (id, newData, resolve = noop, reject = noop) {
+export function* updateInitiative (id, newData) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
-    resolve(data)
-    yield put(initiativeUpdate.success(normalize(data, initiative)))
+    yield put(initiativeUpdate.success({ ...normalize(data, initiative), data }))
+    yield put(snackShow('Iniciativa atualizadíssima!', 'success'))
   } catch (error) {
-    reject(error)
-    yield put(initiativeUpdate.failure(error.data))
+    yield put(initiativeUpdate.failure(error))
+    yield put(snackShow('Ops! Não foi possível atualizar a iniciativa.', 'danger'))
   }
 }
 
-export function* joinInitiative (id, resolve = noop, reject = noop) {
+export function* joinInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/join`)
-    resolve(data)
-    yield put(initiativeJoin.success(normalize(data, initiative)))
+    yield put(initiativeJoin.success({ ...normalize(data, initiative), data }))
+    yield put(snackShow('Boa! Agora você está participando da iniciativa!', 'success'))
   } catch (error) {
-    reject(error)
-    yield put(initiativeJoin.failure(error.data))
+    yield put(initiativeJoin.failure(error))
+    yield put(snackShow('Ops! Não foi possível participar da iniciativa.', 'danger'))
   }
 }
 
-export function* leaveInitiative (id, resolve = noop, reject = noop) {
+export function* leaveInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
-    resolve(data)
-    yield put(initiativeLeave.success(normalize(data, initiative)))
+    yield put(initiativeLeave.success({ ...normalize(data, initiative), data }))
+    yield put(snackShow('Você deixou a iniciativa.', 'success'))
   } catch (error) {
-    reject(error)
-    yield put(initiativeLeave.failure(error.data))
+    yield put(initiativeLeave.failure(error))
+    yield put(snackShow('Ops! Não foi possível deixar a iniciativa.', 'danger'))
   }
 }
 
 export function* watchInitiativeCreateRequest () {
   while (true) {
-    const { data, resolve, reject } = yield take(INITIATIVE_CREATE_REQUEST)
-    yield call(createInitiative, data, resolve, reject)
+    const { data } = yield take(INITIATIVE_CREATE_REQUEST)
+    yield call(createInitiative, data)
   }
 }
 
 export function* watchInitiativeListReadRequest () {
   while (true) {
-    const { params, resolve, reject } = yield take(INITIATIVE_LIST_READ_REQUEST)
-    yield call(readInitiativeList, params, resolve, reject)
+    const { params } = yield take(INITIATIVE_LIST_READ_REQUEST)
+    yield call(readInitiativeList, params)
   }
 }
 
 export function* watchInitiativeDetailReadRequest () {
   while (true) {
-    const { id, resolve, reject } = yield take(INITIATIVE_DETAIL_READ_REQUEST)
-    yield call(readInitiativeDetail, id, resolve, reject)
+    const { id } = yield take(INITIATIVE_DETAIL_READ_REQUEST)
+    yield call(readInitiativeDetail, id)
   }
 }
 
 export function* watchInitiativeUpdateRequest () {
   while (true) {
-    const { id, data, resolve, reject } = yield take(INITIATIVE_UPDATE_REQUEST)
-    yield call(updateInitiative, id, data, resolve, reject)
+    const { id, data } = yield take(INITIATIVE_UPDATE_REQUEST)
+    yield call(updateInitiative, id, data)
   }
 }
 
 export function* watchInitiativeJoinRequest () {
   while (true) {
-    const { id, resolve, reject } = yield take(INITIATIVE_JOIN_REQUEST)
-    yield call(joinInitiative, id, resolve, reject)
+    const { id } = yield take(INITIATIVE_JOIN_REQUEST)
+    yield call(joinInitiative, id)
   }
 }
 
 export function* watchInitiativeLeaveRequest () {
   while (true) {
-    const { id, resolve, reject } = yield take(INITIATIVE_LEAVE_REQUEST)
-    yield call(leaveInitiative, id, resolve, reject)
+    const { id } = yield take(INITIATIVE_LEAVE_REQUEST)
+    yield call(leaveInitiative, id)
   }
 }
 
