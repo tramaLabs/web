@@ -25,20 +25,6 @@ test('unsetToken', () => {
   expect(defaults.headers.common['Authorization']).toBeUndefined()
 })
 
-test('upload', () => {
-  const onUploadProgress = jest.fn()
-  const file = new File(['test'], 'test.jpg')
-  const data = new FormData()
-  expect(request.called).toBe(false)
-  api.upload('/test', file, onUploadProgress)
-  expect(request.calledWith({
-    method: 'post',
-    url: '/test',
-    data,
-    onUploadProgress
-  })).toBe(true)
-})
-
 test('get', () => {
   expect(request.called).toBe(false)
   api.get('/test', { foo: 'bar' })

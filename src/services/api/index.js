@@ -21,12 +21,6 @@ facade.unsetToken = () => {
   delete api.defaults.headers.common['Authorization']
 }
 
-facade.upload = (url, file, onUploadProgress) => {
-  const data = new FormData()
-  data.append('data', file, file.name)
-  return facade.request({ method: 'post', url, data, onUploadProgress })
-}
-
 ;['delete', 'get', 'head'].forEach((method) => {
   facade[method] = (url, config) => facade.request({ ...config, method, url })
 })

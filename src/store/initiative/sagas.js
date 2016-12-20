@@ -1,5 +1,7 @@
 import { arrayOf, normalize } from 'normalizr'
-import { take, put, call, fork } from 'redux-saga/effects'
+import { push } from 'react-router-redux'
+import { eventChannel, END } from 'redux-saga'
+import { take, put, call, fork, select } from 'redux-saga/effects'
 import {
   initiativeCreate,
   initiativeListRead,
@@ -7,21 +9,71 @@ import {
   initiativeUpdate,
   initiativeJoin,
   initiativeLeave,
+  initiativePhotoUpdate,
+  initiativePhotoPreview,
   INITIATIVE_CREATE_REQUEST,
   INITIATIVE_LIST_READ_REQUEST,
   INITIATIVE_DETAIL_READ_REQUEST,
   INITIATIVE_UPDATE_REQUEST,
   INITIATIVE_JOIN_REQUEST,
-  INITIATIVE_LEAVE_REQUEST
+  INITIATIVE_LEAVE_REQUEST,
+  INITIATIVE_PHOTO_UPDATE_REQUEST,
+  INITIATIVE_PHOTO_PREVIEW_REQUEST
 } from './actions'
 import { snackShow } from '../snack/actions'
+import { extractTagList } from '../tag/sagas'
+import { fromTag } from '../selectors'
 import initiative from './schema'
 import api from 'services/api'
 
+const maxMegaBytes = 2
+const maxFileSize = maxMegaBytes * Math.pow(1024, 2)
+
+export const createUploader = () => {
+  let emit
+  const chan = eventChannel((emitter) => {
+    emit = emitter
+    // istanbul ignore next
+    return () => {}
+  })
+  // istanbul ignore next
+  const upload = (url, file) => {
+    const data = new FormData()
+    data.append('data', file, file.name)
+    const onUploadProgress = (e) => {
+      const percent = e.loaded / e.total
+      emit(percent < 1 ? percent : END)
+    }
+    return api.put(url, data, { onUploadProgress })
+  }
+
+  return [ upload, chan ]
+}
+
+export const createPreviewer = (file) => eventChannel(
+  // istanbul ignore next
+  (emit) => {
+    if (!window.FileReader) emit(END)
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onload = () => {
+      emit(reader.result)
+      emit(END)
+    }
+
+    return () => reader.abort()
+  }
+)
+
 export function* createInitiative (newData) {
   try {
+    yield call(extractTagList, `${newData.title}\n\n${newData.description}`)
+    newData.tags = yield select(fromTag.getIds)
     const { data } = yield call(api.post, '/initiatives', newData)
     yield put(initiativeCreate.success({ ...normalize(data, initiative), data }))
+    yield put(push(`/iniciativas/${data.id}/${data.slug}`))
     yield put(snackShow('Iniciativa aberta! Bora tramar!', 'success'))
   } catch (error) {
     yield put(initiativeCreate.failure(error))
@@ -80,6 +132,47 @@ export function* leaveInitiative (id) {
   }
 }
 
+export function* watchInitiativePhotoUpdateProgress (chan) {
+  while (true) {
+    const progress = yield take(chan)
+    yield put(initiativePhotoUpdate.progress(progress))
+  }
+}
+
+export function* updatePhotoInitiative (id, file) {
+  try {
+    const [ upload, chan ] = yield call(createUploader)
+    yield fork(watchInitiativePhotoUpdateProgress, chan)
+    const { data } = yield call(upload, `/initiatives/${id}/photo`, file)
+    yield put(initiativePhotoUpdate.success({ ...normalize(data, initiative), data }))
+    yield put(snackShow('Foto de capa atualizada!', 'success'))
+  } catch (error) {
+    yield put(initiativePhotoUpdate.failure(error))
+    yield put(initiativePhotoPreview.cancel())
+    yield put(snackShow('Ops! Não foi possível enviar a foto.', 'danger'))
+  }
+}
+
+export function* previewPhotoInitiative (file) {
+  if (file.size > maxFileSize) {
+    yield put(initiativePhotoPreview.failure())
+    yield put(snackShow(
+      `Ops! Arquivo muito pesado. Tente não ultrapassar ${maxMegaBytes}MB.`,
+      'danger'
+    ))
+    return
+  }
+  const chan = yield call(createPreviewer, file)
+  try {
+    while (true) {
+      const url = yield take(chan)
+      yield put(initiativePhotoPreview.success(url))
+    }
+  } catch (e) {
+    yield put(initiativePhotoPreview.cancel())
+  }
+}
+
 export function* watchInitiativeCreateRequest () {
   while (true) {
     const { data } = yield take(INITIATIVE_CREATE_REQUEST)
@@ -122,6 +215,20 @@ export function* watchInitiativeLeaveRequest () {
   }
 }
 
+export function* watchInitiativePhotoUpdateRequest () {
+  while (true) {
+    const { id, data } = yield take(INITIATIVE_PHOTO_UPDATE_REQUEST)
+    yield call(updatePhotoInitiative, id, data)
+  }
+}
+
+export function* watchInitiativePhotoPreviewRequest () {
+  while (true) {
+    const { data } = yield take(INITIATIVE_PHOTO_PREVIEW_REQUEST)
+    yield call(previewPhotoInitiative, data)
+  }
+}
+
 export default function* () {
   yield fork(watchInitiativeCreateRequest)
   yield fork(watchInitiativeListReadRequest)
@@ -129,4 +236,6 @@ export default function* () {
   yield fork(watchInitiativeUpdateRequest)
   yield fork(watchInitiativeJoinRequest)
   yield fork(watchInitiativeLeaveRequest)
+  yield fork(watchInitiativePhotoUpdateRequest)
+  yield fork(watchInitiativePhotoPreviewRequest)
 }

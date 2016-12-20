@@ -22,6 +22,16 @@ export const INITIATIVE_LEAVE = 'INITIATIVE_LEAVE'
 export const INITIATIVE_LEAVE_REQUEST = 'INITIATIVE_LEAVE_REQUEST'
 export const INITIATIVE_LEAVE_SUCCESS = 'INITIATIVE_LEAVE_SUCCESS'
 export const INITIATIVE_LEAVE_FAILURE = 'INITIATIVE_LEAVE_FAILURE'
+export const INITIATIVE_PHOTO_UPDATE = 'INITIATIVE_PHOTO_UPDATE'
+export const INITIATIVE_PHOTO_UPDATE_REQUEST = 'INITIATIVE_PHOTO_UPDATE_REQUEST'
+export const INITIATIVE_PHOTO_UPDATE_SUCCESS = 'INITIATIVE_PHOTO_UPDATE_SUCCESS'
+export const INITIATIVE_PHOTO_UPDATE_FAILURE = 'INITIATIVE_PHOTO_UPDATE_FAILURE'
+export const INITIATIVE_PHOTO_UPDATE_PROGRESS = 'INITIATIVE_PHOTO_UPDATE_PROGRESS'
+export const INITIATIVE_PHOTO_PREVIEW = 'INITIATIVE_PHOTO_PREVIEW'
+export const INITIATIVE_PHOTO_PREVIEW_REQUEST = 'INITIATIVE_PHOTO_PREVIEW_REQUEST'
+export const INITIATIVE_PHOTO_PREVIEW_SUCCESS = 'INITIATIVE_PHOTO_PREVIEW_SUCCESS'
+export const INITIATIVE_PHOTO_PREVIEW_FAILURE = 'INITIATIVE_PHOTO_PREVIEW_FAILURE'
+export const INITIATIVE_PHOTO_PREVIEW_CANCEL = 'INITIATIVE_PHOTO_PREVIEW_CANCEL'
 
 export const initiativeCreate = {
   request: (data, resolve, reject) => ({ type: INITIATIVE_CREATE_REQUEST, data, resolve, reject }),
@@ -59,4 +69,19 @@ export const initiativeLeave = {
   request: (id, resolve, reject) => ({ type: INITIATIVE_LEAVE_REQUEST, id, resolve, reject }),
   success: (data) => ({ type: INITIATIVE_LEAVE_SUCCESS, ...data }),
   failure: (error) => ({ type: INITIATIVE_LEAVE_FAILURE, error })
+}
+
+export const initiativePhotoUpdate = {
+  request: (id, data, resolve, reject) =>
+    ({ type: INITIATIVE_PHOTO_UPDATE_REQUEST, id, data, resolve, reject }),
+  success: (data) => ({ type: INITIATIVE_PHOTO_UPDATE_SUCCESS, ...data }),
+  failure: (error) => ({ type: INITIATIVE_PHOTO_UPDATE_FAILURE, error }),
+  progress: (progress) => ({ type: INITIATIVE_PHOTO_UPDATE_PROGRESS, progress })
+}
+
+export const initiativePhotoPreview = {
+  request: (data) => ({ type: INITIATIVE_PHOTO_PREVIEW_REQUEST, data }),
+  success: (url) => ({ type: INITIATIVE_PHOTO_PREVIEW_SUCCESS, url }),
+  failure: (error) => ({ type: INITIATIVE_PHOTO_PREVIEW_FAILURE, error }),
+  cancel: () => ({ type: INITIATIVE_PHOTO_PREVIEW_CANCEL })
 }

@@ -1,26 +1,40 @@
 import { normalize, arrayOf } from 'normalizr'
-import { take, put, call, fork } from 'redux-saga/effects'
+import { push } from 'react-router-redux'
+import { take, put, call, fork, select } from 'redux-saga/effects'
 import * as actions from './actions'
+import { extractTagList } from '../tag/sagas'
+import { fromTag } from '../selectors'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
 import initiative from './schema'
 
 describe('createInitiative', () => {
-  const data = { id: 1, title: 'test' }
+  const data = { id: 1, title: 'test', slug: 'test', description: 'description' }
 
   it('calls success', () => {
     const generator = sagas.createInitiative(data)
-    expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
+    expect(generator.next().value).toEqual(call(extractTagList, 'test\n\ndescription'))
+    expect(generator.next().value).toEqual(select(fromTag.getIds))
+    expect(generator.next([1, 2]).value).toEqual(call(api.post, '/initiatives', {
+      ...data,
+      tags: [1, 2]
+    }))
     expect(generator.next({ data }).value).toEqual(
       put(actions.initiativeCreate.success({ ...normalize(data, initiative), data }))
     )
+    expect(generator.next().value).toEqual(put(push('/iniciativas/1/test')))
     expect(generator.next().done).toBe(false)
     expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
     const generator = sagas.createInitiative(data)
-    expect(generator.next().value).toEqual(call(api.post, '/initiatives', data))
+    expect(generator.next().value).toEqual(call(extractTagList, 'test\n\ndescription'))
+    expect(generator.next().value).toEqual(select(fromTag.getIds))
+    expect(generator.next(['1', '2']).value).toEqual(call(api.post, '/initiatives', {
+      ...data,
+      tags: ['1', '2']
+    }))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativeCreate.failure('test')))
     expect(generator.next().done).toBe(false)
@@ -135,6 +149,67 @@ describe('leaveInitiative', () => {
   })
 })
 
+test('watchInitiativePhotoUpdateProgress', () => {
+  const generator = sagas.watchInitiativePhotoUpdateProgress('test')
+  expect(generator.next().value).toEqual(take('test'))
+  expect(generator.next(0.5).value).toEqual(put(actions.initiativePhotoUpdate.progress(0.5)))
+})
+
+describe('updatePhotoInitiative', () => {
+  const data = { id: 1 }
+  const [ upload, chan ] = sagas.createUploader()
+
+  it('calls success', () => {
+    const generator = sagas.updatePhotoInitiative(1, data)
+    expect(generator.next().value).toEqual(call(sagas.createUploader))
+    expect(generator.next([ upload, chan ]).value)
+      .toEqual(fork(sagas.watchInitiativePhotoUpdateProgress, chan))
+    expect(generator.next().value).toEqual(call(upload, '/initiatives/1/photo', data))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.initiativePhotoUpdate.success({ ...normalize(data, initiative), data })))
+    expect(generator.next().done).toBe(false)
+    expect(generator.next().done).toBe(true)
+  })
+
+  it('calls failure', () => {
+    const generator = sagas.updatePhotoInitiative(1, data)
+    expect(generator.next().value).toEqual(call(sagas.createUploader))
+    expect(generator.next([ upload, chan ]).value)
+      .toEqual(fork(sagas.watchInitiativePhotoUpdateProgress, chan))
+    expect(generator.throw('test').value)
+      .toEqual(put(actions.initiativePhotoUpdate.failure('test')))
+    expect(generator.next().value).toEqual(put(actions.initiativePhotoPreview.cancel()))
+    expect(generator.next().done).toBe(false)
+    expect(generator.next().done).toBe(true)
+  })
+})
+
+describe('previewPhotoInitiative', () => {
+  const data = new File(['test'], 'test.jpg')
+  const chan = sagas.createPreviewer(data)
+
+  it('calls failure when file size is greater than the allowed', () => {
+    const generator = sagas.previewPhotoInitiative({ size: 999999999 })
+    expect(generator.next().value).toEqual(put(actions.initiativePhotoPreview.failure()))
+    expect(generator.next().done).toBe(false)
+    expect(generator.next().done).toBe(true)
+  })
+
+  it('calls success', () => {
+    const generator = sagas.previewPhotoInitiative(data)
+    expect(generator.next().value).toEqual(call(sagas.createPreviewer, data))
+    expect(generator.next(chan).value).toEqual(take(chan))
+    expect(generator.next('url').value).toEqual(put(actions.initiativePhotoPreview.success('url')))
+  })
+
+  it('calls cancel', () => {
+    const generator = sagas.previewPhotoInitiative(data)
+    expect(generator.next().value).toEqual(call(sagas.createPreviewer, data))
+    expect(generator.next(chan).value).toEqual(take(chan))
+    expect(generator.throw().value).toEqual(put(actions.initiativePhotoPreview.cancel()))
+  })
+})
+
 test('watchInitiativeCreateRequest', () => {
   const payload = { data: 1 }
   const generator = sagas.watchInitiativeCreateRequest()
@@ -183,6 +258,22 @@ test('watchInitiativeLeaveRequest', () => {
     .toEqual(call(sagas.leaveInitiative, ...Object.values(payload)))
 })
 
+test('watchInitiativePhotoUpdateRequest', () => {
+  const payload = { id: 1, data: 1 }
+  const generator = sagas.watchInitiativePhotoUpdateRequest()
+  expect(generator.next().value).toEqual(take(actions.INITIATIVE_PHOTO_UPDATE_REQUEST))
+  expect(generator.next(payload).value)
+    .toEqual(call(sagas.updatePhotoInitiative, ...Object.values(payload)))
+})
+
+test('watchInitiativePhotoPreviewRequest', () => {
+  const payload = { data: 1 }
+  const generator = sagas.watchInitiativePhotoPreviewRequest()
+  expect(generator.next().value).toEqual(take(actions.INITIATIVE_PHOTO_PREVIEW_REQUEST))
+  expect(generator.next(payload).value)
+    .toEqual(call(sagas.previewPhotoInitiative, ...Object.values(payload)))
+})
+
 test('saga', () => {
   const generator = saga()
   expect(generator.next().value).toEqual(fork(sagas.watchInitiativeCreateRequest))
@@ -191,4 +282,6 @@ test('saga', () => {
   expect(generator.next().value).toEqual(fork(sagas.watchInitiativeUpdateRequest))
   expect(generator.next().value).toEqual(fork(sagas.watchInitiativeJoinRequest))
   expect(generator.next().value).toEqual(fork(sagas.watchInitiativeLeaveRequest))
+  expect(generator.next().value).toEqual(fork(sagas.watchInitiativePhotoUpdateRequest))
+  expect(generator.next().value).toEqual(fork(sagas.watchInitiativePhotoPreviewRequest))
 })

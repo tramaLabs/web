@@ -111,3 +111,48 @@ test('initiativeLeave', () => {
     error: 'test'
   })
 })
+
+test('initiativePhotoUpdate', () => {
+  expect(actions.initiativePhotoUpdate.request(1, 'file')).toEqual({
+    type: actions.INITIATIVE_PHOTO_UPDATE_REQUEST,
+    id: 1,
+    data: 'file'
+  })
+
+  expect(actions.initiativePhotoUpdate.success({ result: 1, entities: 1 })).toEqual({
+    type: actions.INITIATIVE_PHOTO_UPDATE_SUCCESS,
+    result: 1,
+    entities: 1
+  })
+
+  expect(actions.initiativePhotoUpdate.failure('test')).toEqual({
+    type: actions.INITIATIVE_PHOTO_UPDATE_FAILURE,
+    error: 'test'
+  })
+
+  expect(actions.initiativePhotoUpdate.progress(0.5)).toEqual({
+    type: actions.INITIATIVE_PHOTO_UPDATE_PROGRESS,
+    progress: 0.5
+  })
+})
+
+test('initiativePhotoPreview', () => {
+  expect(actions.initiativePhotoPreview.request('file')).toEqual({
+    type: actions.INITIATIVE_PHOTO_PREVIEW_REQUEST,
+    data: 'file'
+  })
+
+  expect(actions.initiativePhotoPreview.success('test')).toEqual({
+    type: actions.INITIATIVE_PHOTO_PREVIEW_SUCCESS,
+    url: 'test'
+  })
+
+  expect(actions.initiativePhotoPreview.failure('test')).toEqual({
+    type: actions.INITIATIVE_PHOTO_PREVIEW_FAILURE,
+    error: 'test'
+  })
+
+  expect(actions.initiativePhotoPreview.cancel()).toEqual({
+    type: actions.INITIATIVE_PHOTO_PREVIEW_CANCEL
+  })
+})

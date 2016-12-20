@@ -1,11 +1,22 @@
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { fromStatus, fromUser, fromPhoto, fromEntities } from 'store/selectors'
-import { photoPreview, photoUpload, PHOTO_UPLOAD, PHOTO_PREVIEW } from 'store/actions'
+import { fromStatus, fromUser, fromInitiative, fromEntities } from 'store/selectors'
+import {
+  initiativePhotoPreview,
+  initiativePhotoUpdate,
+  INITIATIVE_PHOTO_UPDATE,
+  INITIATIVE_PHOTO_PREVIEW
+} from 'store/actions'
 
 import { InitiativeDetailCover } from 'components'
 
 class InitiativeDetailCoverContainer extends Component {
+  static propTypes = {
+    initiative: PropTypes.shape({
+      id: PropTypes.any
+    }).isRequired
+  }
+
   render () {
     return <InitiativeDetailCover {...this.props} />
   }
@@ -13,17 +24,16 @@ class InitiativeDetailCoverContainer extends Component {
 
 const mapStateToProps = (state) => ({
   user: fromEntities.getUser(state, fromUser.getCurrentId(state)),
-  photo: fromEntities.getPhoto(state, fromPhoto.getId(state)),
-  uploadLoading: fromStatus.isLoading(state, PHOTO_UPLOAD),
-  uploadProgress: fromPhoto.getUploadProgress(state),
-  preview: fromPhoto.getPreviewUrl(state),
-  previewLoading: fromStatus.isLoading(state, PHOTO_PREVIEW)
+  uploadLoading: fromStatus.isLoading(state, INITIATIVE_PHOTO_UPDATE),
+  uploadProgress: fromInitiative.getPhotoUpdateProgress(state),
+  preview: fromInitiative.getPhotoPreviewUrl(state),
+  previewLoading: fromStatus.isLoading(state, INITIATIVE_PHOTO_PREVIEW)
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelect: (file) => dispatch(photoPreview.request(file)),
-  onUpload: (file) => dispatch(photoUpload.request(file)),
-  onCancel: () => dispatch(photoPreview.cancel())
+const mapDispatchToProps = (dispatch, { initiative }) => ({
+  onSelect: (file) => dispatch(initiativePhotoPreview.request(file)),
+  onUpload: (file) => dispatch(initiativePhotoUpdate.request(initiative.id, file)),
+  onCancel: () => dispatch(initiativePhotoPreview.cancel())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitiativeDetailCoverContainer)
