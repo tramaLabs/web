@@ -27,7 +27,8 @@ const Content = styled.section`
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
-  max-width: ${breakpoints.maxWidth};
+  max-width: calc(${breakpoints.maxWidth} + 2rem);
+  box-sizing: border-box;
 `
 
 const Heading = styled.section`
@@ -61,7 +62,7 @@ PageTemplate.propTypes = {
   header: PropTypes.any.isRequired,
   hero: PropTypes.any,
   heading: PropTypes.any,
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   footer: PropTypes.any.isRequired
 }
 
