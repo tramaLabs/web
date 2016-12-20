@@ -2,7 +2,6 @@ import * as selectors from './selectors'
 
 const initialState = {
   initiatives: {},
-  photos: {},
   tags: {},
   users: {}
 }
@@ -13,21 +12,13 @@ const normalizedState = {
       id: 1,
       user: 1,
       title: 'test initiative',
-      photo: 1,
       tags: [1]
     },
     2: {
       id: 2,
       user: 1,
       title: 'test initiative 2',
-      photo: 1,
       tags: [1, 2]
-    }
-  },
-  photos: {
-    1: {
-      id: 1,
-      title: 'test photo'
     }
   },
   tags: {
@@ -51,11 +42,9 @@ const normalizedState = {
 const denormalizedState = {
   initiatives: Object.keys(normalizedState.initiatives).map((i) => ({
     ...normalizedState.initiatives[i],
-    photo: { ...normalizedState.photos[normalizedState.initiatives[i].photo] },
     tags: normalizedState.initiatives[i].tags.map((id) => normalizedState.tags[id]),
     user: { ...normalizedState.users[normalizedState.initiatives[i].user] }
   })),
-  photos: Object.keys(normalizedState.photos).map((i) => normalizedState.photos[i]),
   tags: Object.keys(normalizedState.tags).map((i) => normalizedState.tags[i]),
   users: Object.keys(normalizedState.users).map((i) => normalizedState.users[i])
 }
@@ -69,13 +58,6 @@ test('getNormalizedInitiatives', () => {
   expect(selectors.getNormalizedInitiatives({})).toEqual({})
   expect(selectors.getNormalizedInitiatives(initialState)).toEqual(initialState.initiatives)
   expect(selectors.getNormalizedInitiatives(normalizedState)).toEqual(normalizedState.initiatives)
-})
-
-test('getNormalizedPhotos', () => {
-  expect(selectors.getNormalizedPhotos()).toEqual({})
-  expect(selectors.getNormalizedPhotos({})).toEqual({})
-  expect(selectors.getNormalizedPhotos(initialState)).toEqual(initialState.photos)
-  expect(selectors.getNormalizedPhotos(normalizedState)).toEqual(normalizedState.photos)
 })
 
 test('getNormalizedTags', () => {
@@ -106,22 +88,6 @@ test('getInitiative', () => {
   expect(selectors.getInitiative(initialState, 1)).toBeUndefined()
   expect(selectors.getInitiative(normalizedState)).toBeUndefined()
   expect(selectors.getInitiative(normalizedState, 1)).toEqual(denormalizedState.initiatives[0])
-})
-
-test('getPhotos', () => {
-  expect(selectors.getPhotos()).toEqual([])
-  expect(selectors.getPhotos({})).toEqual([])
-  expect(selectors.getPhotos(initialState)).toEqual([])
-  expect(selectors.getPhotos(normalizedState)).toEqual(denormalizedState.photos)
-  expect(selectors.getPhotos(normalizedState, [1])).toEqual([denormalizedState.photos[0]])
-})
-
-test('getPhoto', () => {
-  expect(selectors.getPhoto()).toBeUndefined()
-  expect(selectors.getPhoto(initialState)).toBeUndefined()
-  expect(selectors.getPhoto(initialState, 1)).toBeUndefined()
-  expect(selectors.getPhoto(normalizedState)).toBeUndefined()
-  expect(selectors.getPhoto(normalizedState, 1)).toEqual(denormalizedState.photos[0])
 })
 
 test('getTags', () => {
