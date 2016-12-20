@@ -41,6 +41,24 @@ describe('readTagList', () => {
   })
 })
 
+describe('extractTagList', () => {
+  const data = [1, 2, 3]
+
+  it('calls success', () => {
+    const generator = sagas.extractTagList('test')
+    expect(generator.next().value).toEqual(call(api.post, '/tags/extract', { text: 'test' }))
+    expect(generator.next({ data }).value)
+      .toEqual(put(actions.tagListExtract.success({ ...normalize(data, arrayOf(tag)), data })))
+  })
+
+  it('calls failure', () => {
+    const generator = sagas.extractTagList('test')
+    expect(generator.next().value).toEqual(call(api.post, '/tags/extract', { text: 'test' }))
+    expect(generator.throw('test').value)
+      .toEqual(put(actions.tagListExtract.failure('test')))
+  })
+})
+
 test('watchTagCreateRequest', () => {
   const payload = { data: 1 }
   const generator = sagas.watchTagCreateRequest()
@@ -57,8 +75,17 @@ test('watchTagListReadRequest', () => {
     .toEqual(call(sagas.readTagList, ...Object.values(payload)))
 })
 
+test('watchTagListExtractRequest', () => {
+  const payload = { text: 'test' }
+  const generator = sagas.watchTagListExtractRequest()
+  expect(generator.next().value).toEqual(take(actions.TAG_LIST_EXTRACT_REQUEST))
+  expect(generator.next(payload).value)
+    .toEqual(call(sagas.extractTagList, ...Object.values(payload)))
+})
+
 test('saga', () => {
   const generator = saga()
   expect(generator.next().value).toEqual(fork(sagas.watchTagCreateRequest))
   expect(generator.next().value).toEqual(fork(sagas.watchTagListReadRequest))
+  expect(generator.next().value).toEqual(fork(sagas.watchTagListExtractRequest))
 })

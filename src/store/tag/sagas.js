@@ -1,6 +1,13 @@
 import { arrayOf, normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
-import { tagCreate, tagListRead, TAG_CREATE_REQUEST, TAG_LIST_READ_REQUEST } from './actions'
+import {
+  tagCreate,
+  tagListRead,
+  tagListExtract,
+  TAG_CREATE_REQUEST,
+  TAG_LIST_READ_REQUEST,
+  TAG_LIST_EXTRACT_REQUEST
+} from './actions'
 import tag from './schema'
 import api from 'services/api'
 
@@ -22,6 +29,15 @@ export function* readTagList (params) {
   }
 }
 
+export function* extractTagList (text) {
+  try {
+    const { data } = yield call(api.post, '/tags/extract', { text })
+    yield put(tagListExtract.success({ ...normalize(data, arrayOf(tag)), data }))
+  } catch (error) {
+    yield put(tagListExtract.failure(error))
+  }
+}
+
 export function* watchTagCreateRequest () {
   while (true) {
     const { data } = yield take(TAG_CREATE_REQUEST)
@@ -36,7 +52,15 @@ export function* watchTagListReadRequest () {
   }
 }
 
+export function* watchTagListExtractRequest () {
+  while (true) {
+    const { text } = yield take(TAG_LIST_EXTRACT_REQUEST)
+    yield call(extractTagList, text)
+  }
+}
+
 export default function* () {
   yield fork(watchTagCreateRequest)
   yield fork(watchTagListReadRequest)
+  yield fork(watchTagListExtractRequest)
 }

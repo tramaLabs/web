@@ -38,3 +38,21 @@ test('tagListRead', () => {
     error: 'test'
   })
 })
+
+test('tagListExtract', () => {
+  expect(actions.tagListExtract.request('test')).toEqual({
+    type: actions.TAG_LIST_EXTRACT_REQUEST,
+    text: 'test'
+  })
+
+  expect(actions.tagListExtract.success({ result: [1, 2], entities: [1, 2] })).toEqual({
+    type: actions.TAG_LIST_EXTRACT_SUCCESS,
+    result: [1, 2],
+    entities: [1, 2]
+  })
+
+  expect(actions.tagListExtract.failure('test')).toEqual({
+    type: actions.TAG_LIST_EXTRACT_FAILURE,
+    error: 'test'
+  })
+})
