@@ -65,11 +65,12 @@ class Header extends Component {
     hideSearch: PropTypes.bool
   }
 
+  state = {
+    scrolled: false
+  }
+
   constructor (...args) {
     super(...args)
-    this.state = {
-      scrolled: false
-    }
     this.onScroll = this.onScroll.bind(this)
   }
 

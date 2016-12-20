@@ -3,11 +3,12 @@ import React, { Component } from 'react'
 import { Header, PageTemplate, HomeHero } from 'components'
 
 class HomePage extends Component {
+  state = {
+    scrolledBeyondHero: false
+  }
+
   constructor (...args) {
     super(...args)
-    this.state = {
-      scrolledBeyondHero: false
-    }
     this.onScroll = this.onScroll.bind(this)
   }
 

@@ -124,15 +124,16 @@ class InitiativeDetailCover extends Component {
     previewLoading: PropTypes.bool
   }
 
+  state = {
+    file: null,
+    filename: null
+  }
+
   constructor (...args) {
     super(...args)
     this.select = this.select.bind(this)
     this.cancel = this.cancel.bind(this)
     this.upload = this.upload.bind(this)
-    this.state = {
-      file: null,
-      filename: null
-    }
   }
 
   select (e) {
