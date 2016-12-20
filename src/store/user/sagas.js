@@ -1,6 +1,7 @@
 import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import { currentUserRead, CURRENT_USER_READ_REQUEST } from './actions'
+import { authLogout } from '../auth/actions'
 import user from './schema'
 import api from 'services/api'
 
@@ -10,6 +11,7 @@ export function* readCurrentUser () {
     yield put(currentUserRead.success({ ...normalize(data, user), data }))
   } catch (error) {
     yield put(currentUserRead.failure(error))
+    yield put(authLogout())
   }
 }
 
