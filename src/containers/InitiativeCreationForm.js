@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { reduxForm, SubmissionError } from 'redux-form'
-import { fromForm, fromUser } from 'store/selectors'
+import { fromUser } from 'store/selectors'
 import { initiativeCreate } from 'store/actions'
 import { createValidator, required, minLength, maxLength } from 'services/validation'
 
@@ -16,10 +15,6 @@ class InitiativeCreationFormContainer extends Component {
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
   dispatch(initiativeCreate.request(data, resolve, reject))
-}).then(({ data }) => {
-  const url = `/iniciativas/${data.id}/${data.slug}`
-  dispatch(push(url))
-  return url
 }).catch((error) => {
   if (error.status === 401) {
     throw new SubmissionError({ _error: 'Você precisa estar conectado para criar uma iniciativa' })
@@ -35,18 +30,11 @@ const validate = createValidator({
 })
 
 const mapStateToProps = (state) => ({
-  initialValues: {
-    _csrf: fromForm.getCsrfToken(state)
-  },
   connected: !!fromUser.getCurrentId(state)
 })
 
-export const config = {
+export default connect(mapStateToProps)(reduxForm({
   form: 'InitiativeCreationForm',
-  fields: ['title', 'description'],
-  destroyOnUnmount: false,
   onSubmit,
   validate
-}
-
-export default connect(mapStateToProps)(reduxForm(config)(InitiativeCreationFormContainer))
+})(InitiativeCreationFormContainer))
