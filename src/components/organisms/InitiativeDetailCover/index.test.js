@@ -27,11 +27,6 @@ it('does not render children when previewLoading is passed in', () => {
   expect(wrapper.findWhere((el) => el.text() === 'test').first()).toHaveLength(0)
 })
 
-it('does not render children when photo is passed in', () => {
-  const wrapper = wrap({ children: 'test', photo })
-  expect(wrapper.findWhere((el) => el.text() === 'test').first()).toHaveLength(0)
-})
-
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })
   expect(wrapper.find({ id: 'foo' })).toHaveLength(1)

@@ -6,13 +6,13 @@ import { IconButton, Button, UploadStatusBar, Spinner } from 'components'
 
 import defaultPhoto from './cover.jpg'
 
-const backgroundImage = ({ photo, preview, initiative }, size) => {
-  return preview || (photo ? photo[size] : initiative.photo ? initiative.photo[size] : defaultPhoto)
+const backgroundImage = ({ preview, initiative }, size) => {
+  return preview || (initiative.photo && initiative.photo[size] ? initiative.photo[size] : defaultPhoto)
 }
 
 const largeBackgroundImage = (props) => backgroundImage(props, 'large')
 const mediumBackgroundImage = (props) => backgroundImage(props, 'medium')
-const opacity = ({ previewLoading, photo }) => previewLoading || photo ? 1 : 0
+const opacity = ({ previewLoading }) => previewLoading ? 1 : 0
 
 const Wrapper = styled.div`
   position: relative;
@@ -107,16 +107,12 @@ class InitiativeDetailCover extends Component {
         id: PropTypes.any.isRequired
       }).isRequired,
       photo: PropTypes.shape({
-        medium: PropTypes.string.isRequired,
-        large: PropTypes.string.isRequired
+        medium: PropTypes.string,
+        large: PropTypes.string
       })
     }).isRequired,
     user: PropTypes.shape({
       id: PropTypes.any.isRequired
-    }),
-    photo: PropTypes.shape({
-      medium: PropTypes.string.isRequired,
-      large: PropTypes.string.isRequired
     }),
     children: PropTypes.any,
     onSelect: PropTypes.func.isRequired,
@@ -211,9 +207,9 @@ class InitiativeDetailCover extends Component {
   }
 
   render () {
-    const { initiative, user, preview, previewLoading, photo, children } = this.props
+    const { initiative, user, preview, previewLoading, children } = this.props
     const isAuthor = user && initiative.user.id === user.id
-    const isFetching = preview || previewLoading || photo
+    const isFetching = preview || previewLoading
     return (
       <Wrapper {...this.props}>
         <InnerWrapper>
