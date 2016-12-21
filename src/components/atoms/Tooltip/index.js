@@ -31,6 +31,7 @@ const styles = css`
     position: absolute;
     content: attr(data-title);
     font-family: ${fonts.primary};
+    white-space: nowrap;
     text-transform: none;
     font-size: 0.875rem;
     line-height: 1.5;
