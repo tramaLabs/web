@@ -6,7 +6,8 @@ import { Icon, Button } from 'components'
 
 const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => css`
   max-width: ${hasText && !collapsed ? '100%' : 'calc(3.3333em + 0.666em * 2)'};
-  padding: 0 0.666em;
+  width: ${hasText ? 'auto' : '3.3333em'};
+  padding: ${hasText ? '0 0.666em' : 0};
   ${collapsed && css`
     overflow: hidden;
     transition: max-width 250ms ease-in-out;
@@ -40,6 +41,8 @@ const textStyle = ({ responsive, breakpoint }) => css`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 100%;
 `
 
