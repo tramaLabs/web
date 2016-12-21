@@ -19,8 +19,3 @@ it('renders props when passed in', () => {
   const wrapper = wrap({ htmlFor: 'foo' })
   expect(wrapper.find({ htmlFor: 'foo' })).toHaveLength(1)
 })
-
-it('renders title when passed in', () => {
-  const wrapper = wrap({ title: 'test title' })
-  expect(wrapper.contains('test title')).toBe(true)
-})

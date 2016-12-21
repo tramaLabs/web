@@ -34,7 +34,7 @@ const ModalBox = styled(ReactModal)`
   font-family: ${fonts.primary};
   font-size: 1rem;
   background-color: #fff;
-  color: ${colors.grayscale[1]};
+  color: ${colors.grayscale[0]};
   top: calc(50% - 1rem);
   left: calc(50% - 1rem);
   right: auto;
@@ -47,11 +47,11 @@ const ModalBox = styled(ReactModal)`
   padding: 1rem;
   box-sizing: border-box;
   min-width: 320px;
-  max-width: 740px;
+  max-width: calc(640px - 1rem);
   max-height: calc(100% - 1rem);
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 640px) {
     width: calc(100% - 1rem);
-    height: 100%;
+    min-width: 0;
   }
   &[class*="after-open"] {
     transform: translate(-50%, -50%);
@@ -61,12 +61,9 @@ const ModalBox = styled(ReactModal)`
   }
 `
 
-const StyledReactModal = styled(({ className, ...props }) =>
-  <ModalBox overlayClassName={className} closeTimeoutMS={250} {...props} />
-)`${overlayStyles}`
-
 const Header = styled.header`
   display: flex;
+  align-items: center;
   margin-bottom: 1rem;
   > *:first-child {
     flex: 1;
@@ -75,24 +72,35 @@ const Header = styled.header`
 
 const StyledHeading = styled(Heading)`
   margin: 0 1rem 0 0;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
-const Modal = ({ children, title, onClose, ...props }) => {
+const StyledReactModal = styled(({ className, ...props }) =>
+  <ModalBox overlayClassName={className} closeTimeoutMS={250} {...props} />
+)`${overlayStyles}`
+
+const Modal = ({ children, title, closeable, onClose, ...props }) => {
   return (
     <StyledReactModal contentLabel={title || 'Modal'} onRequestClose={onClose} {...props}>
-      <Header>
+      {(title || closeable) && <Header>
         <StyledHeading level={2}>{title}</StyledHeading>
-        <IconButton icon="close" onClick={onClose} kind="alpha" light />
-      </Header>
+        {closeable && <IconButton icon="close" onClick={onClose} kind="alpha" light />}
+      </Header>}
       {children}
     </StyledReactModal>
   )
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
   children: PropTypes.node,
-  title: PropTypes.node
+  title: PropTypes.string,
+  closeable: PropTypes.bool,
+  onClose: PropTypes.func.isRequired
 }
 
 export default Modal
