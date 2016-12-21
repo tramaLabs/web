@@ -31,6 +31,8 @@ const overlayStyles = css`
 
 const ModalBox = styled(ReactModal)`
   position: absolute;
+  display: flex;
+  flex-direction: column;
   font-family: ${fonts.primary};
   font-size: 1rem;
   background-color: #fff;
@@ -40,11 +42,9 @@ const ModalBox = styled(ReactModal)`
   right: auto;
   bottom: auto;
   margin: 1rem calc(-50% + 1rem) 1rem 1rem;
-  overflow: auto;
   transform: translate(-50%, 100%);
-  transition: transform 300ms ease-in-out;
+  transition: transform 250ms ease-in-out;
   outline: none;
-  padding: 1rem;
   box-sizing: border-box;
   min-width: 320px;
   max-width: calc(640px - 1rem);
@@ -64,7 +64,7 @@ const ModalBox = styled(ReactModal)`
 const Header = styled.header`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  padding: 1rem;
   > *:first-child {
     flex: 1;
   }
@@ -80,6 +80,12 @@ const StyledHeading = styled(Heading)`
   white-space: nowrap;
 `
 
+const Content = styled.div`
+  overflow: auto;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+`
+
 const StyledReactModal = styled(({ className, ...props }) =>
   <ModalBox overlayClassName={className} closeTimeoutMS={250} {...props} />
 )`${overlayStyles}`
@@ -91,7 +97,9 @@ const Modal = ({ children, title, closeable, onClose, ...props }) => {
         <StyledHeading level={2}>{title}</StyledHeading>
         {closeable && <IconButton icon="close" onClick={onClose} kind="alpha" light />}
       </Header>}
-      {children}
+      <Content>
+        {children}
+      </Content>
     </StyledReactModal>
   )
 }
