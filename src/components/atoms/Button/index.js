@@ -29,7 +29,7 @@ const styles = ({ loading, disabled, transparent, light, kind, size }) => {
     pointer-events: ${disabled && 'none'};
     color: ${transparent
       ? (disabled ? color[2] : color[1])
-      : (light ? 'black' : 'white')
+      : (light ? colors.grayscale[0] : reverseColors.grayscale[0])
     };
 
     &:hover, &:focus, &:active {
