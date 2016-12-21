@@ -19,6 +19,10 @@ const MutatingWrapper = styled.div`
   }
 `
 
+const MutatingButton = styled(Button)`
+  width: 100%;
+`
+
 const isAuthor = (user, initiative) =>
   user && initiative.user.id === user.id
 
@@ -41,8 +45,10 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props }) =
   } else if (isCollaborator(user, initiative)) {
     return (
       <MutatingWrapper>
-        <Button kind="success" {...props}>Participando</Button>
-        <Button kind="danger" onClick={onLeave} {...props}>Cancelar participação</Button>
+        <MutatingButton kind="success" {...props}>Participando</MutatingButton>
+        <MutatingButton kind="danger" onClick={onLeave} {...props}>
+          Cancelar participação
+        </MutatingButton>
       </MutatingWrapper>
     )
   } else if (user) {
