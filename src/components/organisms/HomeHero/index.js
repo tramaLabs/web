@@ -40,11 +40,10 @@ const Main = styled.div`
 
 const StyledParagraph = styled(Paragraph)`
   color: ${reverseColors.grayscale[0]};
-  margin: 3rem auto;
+  margin: 3rem auto 2rem;
   max-width: 800px;
   font-size: 1.625rem;
-  line-height: 1.325em;
-  letter-spacing: 0.07em;
+  font-weight: 400;
   @media screen and (max-width: 640px) {
     font-size: 1rem;
   }
@@ -67,7 +66,7 @@ const HomeHero = (props) => {
       <Shadow />
       <Main>
         <StyledParagraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula felis, fringilla sit amet porta et, suscipit eget risus.
+          Nós acreditamos no poder de iniciativas que mobilizem pessoas, espaços e ações. Criamos conexões e catalisamos ações colaborativas através de uma rede, uma trama criativa.
         </StyledParagraph>
         <Button to="/iniciativas/criar" size={54}>Criar iniciativa</Button>
       </Main>
