@@ -16,7 +16,11 @@ const User = styled.div`
 
 const InitiativeUserListModal = ({ initiative, ...props }) => {
   return (
-    <Modal title="Participantes" name="initiativeUserList" closeable {...props}>
+    <Modal
+      title={`Participantes (${initiative.users.length})`}
+      name="initiativeUserList"
+      closeable
+      {...props}>
       {sortBy(initiative.users, 'name').map((user, key) =>
         <User key={key}>
           <img src={user.picture} alt={`Foto de ${user.name}`} width={38} />
