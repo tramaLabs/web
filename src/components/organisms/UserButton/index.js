@@ -12,6 +12,13 @@ const ButtonWrapper = styled.div`
   }
 `
 
+const UserName = styled.span`
+  display: block;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const UserButton = ({ user, onUserLogout, ...props }) => {
   if (user) {
     return (
@@ -19,7 +26,7 @@ const UserButton = ({ user, onUserLogout, ...props }) => {
         <IconButton type="menu" icon="down" right {...props}>
           <ButtonWrapper>
             <img src={user.picture} alt={user.name} width={24} height={24} />
-            <span>{user.name}</span>
+            <UserName>{user.name}</UserName>
           </ButtonWrapper>
         </IconButton>
         <Menu right>
