@@ -29,12 +29,7 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
           </Tooltip>
         )}
       </UserList>
-      <IconButton
-        icon="more"
-        kind="grayscale"
-        onClick={onOpenInitiativeUserListModal}
-        size={36}
-        light />
+      <IconButton icon="more" kind="grayscale" size={36} onClick={onOpenInitiativeUserListModal} />
       <InitiativeUserListModal initiative={initiative} />
     </Wrapper>
   )
