@@ -8,6 +8,7 @@ const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => 
   max-width: ${hasText && !collapsed ? '100%' : 'calc(3.3333em + 0.666em * 2)'};
   width: ${hasText ? 'auto' : '3.3333em'};
   padding: ${hasText ? '0 0.666em' : 0};
+  flex: 0 0 3.3333em;
   ${collapsed && css`
     overflow: hidden;
     transition: max-width 250ms ease-in-out;
