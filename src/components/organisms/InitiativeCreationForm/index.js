@@ -7,6 +7,7 @@ import { FacebookLoginButton } from 'containers'
 
 const Form = styled.form`
   width: 100%;
+  padding: 1rem;
   box-sizing: border-box;
 `
 

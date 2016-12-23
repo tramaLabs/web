@@ -26,14 +26,15 @@ const Hero = styled.section`
 const Content = styled.section`
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
   max-width: calc(${breakpoints.maxWidth} + 2rem);
   box-sizing: border-box;
 `
 
 const Heading = styled.section`
   margin: 7rem 0 3rem;
+  padding: 1rem;
   width: 70%;
+  box-sizing: border-box;
   @media screen and (max-width: 640px) {
     margin: 0;
     width: 100%;
