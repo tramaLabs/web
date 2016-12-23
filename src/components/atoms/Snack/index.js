@@ -48,7 +48,8 @@ Snack.propTypes = {
 }
 
 Snack.defaultProps = {
-  kind: 'success'
+  kind: 'success',
+  role: 'alert'
 }
 
 export default Snack

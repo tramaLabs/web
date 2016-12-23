@@ -40,7 +40,8 @@ Alert.propTypes = {
 }
 
 Alert.defaultProps = {
-  kind: 'alert'
+  kind: 'alert',
+  role: 'alert'
 }
 
 export default Alert
