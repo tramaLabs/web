@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { TagLink } from 'components'
 
 const Wrapper = styled.div`
-  list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -16,9 +15,6 @@ const Wrapper = styled.div`
       `calc(100% / ${limit > tags.length ? tags.length : limit} * ${lines})`
     };
     box-sizing: border-box;
-    @media screen and (max-width: 420px) {
-      display: none;
-    }
   }
 `
 
