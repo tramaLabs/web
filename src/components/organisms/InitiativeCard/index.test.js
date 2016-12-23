@@ -1,15 +1,30 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import InitiativeCard from '.'
 
-const wrap = (props = {}) => shallow(<InitiativeCard {...props} />).dive()
+const initiative = {
+  title: 'test initiative',
+  tags: [],
+  photo: {}
+}
 
-it('renders children when passed in', () => {
-  const wrapper = wrap({ children: 'test' })
-  expect(wrapper.contains('test')).toBe(true)
+const wrap = (props = {}) => shallow(<InitiativeCard initiative={initiative} {...props} />)
+
+it('mounts', () => {
+  mount(<InitiativeCard initiative={initiative} />)
 })
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })
   expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
+})
+
+it('renders photo when passed in', () => {
+  const wrapper = wrap({ initiative: { ...initiative, photo: { small: 'test.jpg' } } })
+  expect(wrapper.find({ src: 'test.jpg' })).toHaveLength(1)
+})
+
+it('renders title', () => {
+  const wrapper = wrap()
+  expect(wrapper.contains('test initiative')).toBe(true)
 })
