@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router'
 
 import { colors, fonts } from 'components/globals'
-import { LazyImage, Heading, TagList } from 'components'
+import { CoverImage, Heading, TagList } from 'components'
 
 const Wrapper = styled.div`
   position: relative;
@@ -37,12 +37,7 @@ const StyledLink = styled(Link)`
   z-index: 4;
 `
 
-const StyledLazyImage = styled(LazyImage)`
-  position: relative;
-  min-height: 100%;
-  min-width: 100%;
-  object-fit: cover;
-  object-position: center;
+const StyledCoverImage = styled(CoverImage)`
   transition: opacity 250ms ease-in-out, transform 500ms ease-in-out !important;
 `
 
@@ -73,7 +68,7 @@ const InitiativeCard = ({ initiative, ...props }) => {
   return (
     <Wrapper color={initiative.color} {...props}>
       <StyledLink to={`/iniciativas/${initiative.id}/${initiative.slug}`} />
-      {initiative.photo.small && <StyledLazyImage src={initiative.photo.small} />}
+      {initiative.photo.small && <StyledCoverImage src={initiative.photo.small} />}
       <Info>
         <StyledHeading level={2} light>{initiative.title}</StyledHeading>
         <StyledTagList tags={initiative.tags} limit={2} lines={1} />

@@ -2,27 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { breakpoints, reverseColors } from 'components/globals'
-import { IconButton, Button, UploadStatusBar, Spinner } from 'components'
+import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
 import defaultPhoto from './cover.jpg'
 
-const backgroundImage = ({ preview, initiative }, size) => {
-  return preview || (initiative.photo && initiative.photo[size] ? initiative.photo[size] : defaultPhoto)
-}
-
-const largeBackgroundImage = (props) => backgroundImage(props, 'large')
-const mediumBackgroundImage = (props) => backgroundImage(props, 'medium')
 const opacity = ({ previewLoading }) => previewLoading ? 1 : 0
 
 const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background: url(${mediumBackgroundImage}) no-repeat center top;
-  background-size: cover;
   height: 420px;
+  background-color: ${(props) => props.initiative.color};
   @media screen and (min-width: 640px) {
-    background-image: url(${largeBackgroundImage});
     & *[for=coverPhoto] {
       display: none;
     }
@@ -34,6 +26,7 @@ const Wrapper = styled.div`
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 2;
     background: radial-gradient(closest-corner at 50% 80%, transparent 80%, black 350%),
                 linear-gradient(transparent 45%, black 105%);
     @media screen and (max-width: 640px) {
@@ -61,6 +54,7 @@ const InnerWrapper = styled.div`
   margin: 5rem auto 0;
   height: 100%;
   color: white;
+  z-index: 3;
 `
 
 const ChangePhotoButton = styled(IconButton)`
@@ -109,7 +103,7 @@ class InitiativeDetailCover extends Component {
       photo: PropTypes.shape({
         medium: PropTypes.string,
         large: PropTypes.string
-      })
+      }).isRequired
     }).isRequired,
     user: PropTypes.shape({
       id: PropTypes.any.isRequired
@@ -213,6 +207,7 @@ class InitiativeDetailCover extends Component {
     const isFetching = preview || previewLoading
     return (
       <Wrapper {...this.props}>
+        <CoverImage src={preview || initiative.photo.large || defaultPhoto} />
         <InnerWrapper>
           {isAuthor && !isFetching && this.renderInput()}
           {isFetching && !preview && <StyledSpinner light />}

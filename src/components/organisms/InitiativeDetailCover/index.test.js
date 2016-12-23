@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import InitiativeDetailCover from '.'
 
-const initiative = { user: { id: 1 } }
+const initiative = { user: { id: 1 }, photo: {} }
 const photo = { medium: 'test.jpg', large: 'test.jpg' }
 const onSelect = jest.fn()
 const onUpload = jest.fn()
