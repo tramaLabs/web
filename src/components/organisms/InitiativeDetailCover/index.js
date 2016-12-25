@@ -28,7 +28,8 @@ const Wrapper = styled.div`
     top: 0; right: 0; bottom: 0; left: 0;
     z-index: 2;
     background: radial-gradient(closest-corner at 50% 80%, transparent 80%, black 350%),
-                linear-gradient(transparent 45%, black 105%);
+                linear-gradient(transparent 45%, black 125%);
+    mix-blend-mode: multiply;
     @media screen and (max-width: 640px) {
       background: radial-gradient(closest-corner at 50% 80%, transparent 80%, black 350%),
                   linear-gradient(transparent 45%, rgba(0, 0, 0, 0.5) 65%, black 105%);
@@ -109,9 +110,9 @@ class InitiativeDetailCover extends Component {
       id: PropTypes.any.isRequired
     }),
     children: PropTypes.any,
-    onSelect: PropTypes.func.isRequired,
-    onUpload: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onPhotoSelect: PropTypes.func.isRequired,
+    onPhotoUpload: PropTypes.func.isRequired,
+    onPreviewCancel: PropTypes.func.isRequired,
     uploadProgress: PropTypes.number,
     uploadLoading: PropTypes.bool,
     preview: PropTypes.string,
@@ -123,31 +124,24 @@ class InitiativeDetailCover extends Component {
     filename: null
   }
 
-  constructor (...args) {
-    super(...args)
-    this.select = this.select.bind(this)
-    this.cancel = this.cancel.bind(this)
-    this.upload = this.upload.bind(this)
-  }
-
-  select (e) {
+  handlePhotoSelect = (e) => {
     const file = e.target.files[0]
     if (file) {
       const filename = e.target.files[0].name
       this.setState({ file, filename })
-      this.props.onSelect(file)
+      this.props.onPhotoSelect(file)
     }
   }
 
-  upload () {
+  handlePhotoUpload = () => {
     if (this.state.file) {
-      this.props.onUpload(this.state.file)
+      this.props.onPhotoUpload(this.state.file)
     }
   }
 
-  cancel () {
+  handlePreviewCancel = () => {
     this.setState({ file: null, filename: null })
-    this.props.onCancel()
+    this.props.onPreviewCancel()
   }
 
   renderInput () {
@@ -159,7 +153,7 @@ class InitiativeDetailCover extends Component {
           style={{ display: 'none' }}
           accept="image/*"
           ref="input"
-          onChange={this.select} />
+          onChange={this.handlePhotoSelect} />
         <ChangePhotoButton
           component="label"
           htmlFor="coverPhoto"
@@ -186,13 +180,13 @@ class InitiativeDetailCover extends Component {
         <Button
           loading={uploadLoading || previewLoading}
           disabled={uploadLoading || previewLoading || !this.state.file}
-          onClick={this.upload}>
+          onClick={this.handlePhotoUpload}>
           Salvar como foto de capa
         </Button>
         <Button
           kind="grayscale"
           disabled={uploadLoading}
-          onClick={this.cancel}
+          onClick={this.handlePreviewCancel}
           light
           transparent>
           Cancelar

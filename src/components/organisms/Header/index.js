@@ -69,11 +69,6 @@ class Header extends Component {
     scrolled: false
   }
 
-  constructor (...args) {
-    super(...args)
-    this.onScroll = this.onScroll.bind(this)
-  }
-
   componentDidMount () {
     if (this.props.scrollsTranslucid) {
       const { userAgent } = window.navigator
@@ -83,16 +78,16 @@ class Header extends Component {
       if (isSafariOrIOS) {
         this.setState({ scrolled: true })
       } else {
-        window.addEventListener('scroll', this.onScroll)
+        window.addEventListener('scroll', this.handleScroll)
       }
     }
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
-  onScroll () {
+  handleScroll = () => {
     const scrollTop = window.scrollY
 
     if (scrollTop > 0 && !this.state.scrolled) {

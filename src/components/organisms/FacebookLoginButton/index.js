@@ -20,7 +20,7 @@ class FacebookLoginButton extends Component {
 
   constructor (props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   /* istanbul ignore next */
@@ -50,7 +50,7 @@ class FacebookLoginButton extends Component {
   }
 
   /* istanbul ignore next */
-  onClick (e) {
+  handleClick (e) {
     const { onSuccess, scope } = this.props
 
     window.FB.login(({ authResponse }) => {
@@ -63,11 +63,7 @@ class FacebookLoginButton extends Component {
   render () {
     const { loading, label, ...props } = this.props
     return (
-      <IconButton
-        onClick={this.onClick}
-        icon="facebook"
-        loading={loading}
-        {...props}>
+      <IconButton onClick={this.handleClick} icon="facebook" loading={loading} {...props}>
         {label}
       </IconButton>
     )

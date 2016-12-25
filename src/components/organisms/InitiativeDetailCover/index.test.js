@@ -4,12 +4,12 @@ import InitiativeDetailCover from '.'
 
 const initiative = { user: { id: 1 }, photo: {} }
 const photo = { medium: 'test.jpg', large: 'test.jpg' }
-const onSelect = jest.fn()
-const onUpload = jest.fn()
-const onCancel = jest.fn()
+const onPhotoSelect = jest.fn()
+const onPhotoUpload = jest.fn()
+const onPreviewCancel = jest.fn()
 
 const wrap = (props = {}) => mount(
-  <InitiativeDetailCover {...{ initiative, onSelect, onUpload, onCancel }} {...props} />
+  <InitiativeDetailCover {...{ initiative, onPhotoSelect, onPhotoUpload, onPreviewCancel }} {...props} />
 )
 
 it('renders children when passed in', () => {
@@ -51,48 +51,48 @@ it('renders when initiative photo is passed in', () => {
   wrap({ initiative: { ...initiative, photo } })
 })
 
-describe('select', () => {
+describe('handlePhotoSelect', () => {
   const event = { target: { files: [] } }
   const file = { name: 'test file' }
 
   it('does not select when there is no file', () => {
     const wrapper = wrap()
-    wrapper.instance().select(event)
+    wrapper.instance().handlePhotoSelect(event)
     expect(wrapper.state()).toEqual({ file: null, filename: null })
-    expect(onSelect).not.toBeCalled()
+    expect(onPhotoSelect).not.toBeCalled()
   })
 
   it('selects when file is passed in', () => {
     const e = { target: { files: [file] } }
     const wrapper = wrap()
-    wrapper.instance().select(e)
+    wrapper.instance().handlePhotoSelect(e)
     expect(wrapper.state()).toEqual({ file, filename: file.name })
-    expect(onSelect).toBeCalledWith(file)
+    expect(onPhotoSelect).toBeCalledWith(file)
   })
 })
 
-describe('upload', () => {
+describe('handlePhotoUpload', () => {
   it('does not upload when there is no file state', () => {
     const wrapper = wrap()
-    wrapper.instance().upload()
-    expect(onUpload).not.toBeCalled()
+    wrapper.instance().handlePhotoUpload()
+    expect(onPhotoUpload).not.toBeCalled()
   })
 
   it('uploads when there is file state', () => {
     const wrapper = wrap()
     wrapper.setState({ file: 1 })
-    wrapper.instance().upload()
-    expect(onUpload).toBeCalledWith(1)
+    wrapper.instance().handlePhotoUpload()
+    expect(onPhotoUpload).toBeCalledWith(1)
   })
 })
 
-describe('cancel', () => {
-  it('changes state and calls onCancel', () => {
+describe('handlePreviewCancel', () => {
+  it('changes state and calls onPreviewCancel', () => {
     const wrapper = wrap()
     wrapper.setState({ file: 1, filename: 1 })
     expect(wrapper.state()).toEqual({ file: 1, filename: 1 })
-    wrapper.instance().cancel()
+    wrapper.instance().handlePreviewCancel()
     expect(wrapper.state()).toEqual({ file: null, filename: null })
-    expect(onCancel).toBeCalled()
+    expect(onPreviewCancel).toBeCalled()
   })
 })

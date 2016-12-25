@@ -16,20 +16,15 @@ class HomePage extends Component {
     scrolledBeyondHero: false
   }
 
-  constructor (...args) {
-    super(...args)
-    this.onScroll = this.onScroll.bind(this)
-  }
-
   componentDidMount () {
-    window.addEventListener('scroll', this.onScroll)
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
-  onScroll () {
+  handleScroll = () => {
     const header = document.querySelector('#header')
     const hero = document.querySelector('#hero')
     const scrollTop = window.scrollY

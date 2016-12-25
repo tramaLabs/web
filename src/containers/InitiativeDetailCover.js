@@ -31,9 +31,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch, { initiative }) => ({
-  onSelect: (file) => dispatch(initiativePhotoPreview.request(file)),
-  onUpload: (file) => dispatch(initiativePhotoUpdate.request(initiative.id, file)),
-  onCancel: () => dispatch(initiativePhotoPreview.cancel())
+  onPhotoSelect: (file) => dispatch(initiativePhotoPreview.request(file)),
+  onPhotoUpload: (file) => dispatch(initiativePhotoUpdate.request(initiative.id, file)),
+  onPreviewCancel: () => dispatch(initiativePhotoPreview.cancel())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitiativeDetailCoverContainer)
