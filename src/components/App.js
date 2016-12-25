@@ -34,7 +34,7 @@ class App extends Component {
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:300,400,700' }
           ]} />
         {children}
-        <Snack />
+        <Snack light />
       </div>
     )
   }
