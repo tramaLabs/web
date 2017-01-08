@@ -1,25 +1,23 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link as RouterLink } from 'react-router'
+import { font, color } from 'arc-theme'
 
-import { colors, reverseColors, fonts } from 'components/globals'
+const styles = css`
+  font-family: ${font('primary')};
+  text-decoration: none;
+  font-weight: 500;
+  color: ${color({ grayscale: 0 }, 1)};
 
-const styles = ({ light, kind }) => {
-  const color = light ? reverseColors[kind] : colors[kind]
-  return css`
-    font-family: ${fonts.primary};
-    text-decoration: none;
-    font-weight: 500;
-    color: ${color[1]};
+  &:hover {
+    text-decoration: underline;
+    color: ${color(0)};
+  }
+`
 
-    &:hover {
-      text-decoration: underline;
-      color: ${color[0]};
-    }
-  `
-}
-
-const StyledLink = styled(({ light, kind, ...props }) => <RouterLink {...props} />)`${styles}`
+const StyledLink = styled(({ theme, reverse, color, ...props }) =>
+  <RouterLink {...props} />
+)`${styles}`
 const Anchor = styled.a`${styles}`
 
 const Link = ({ ...props, to }) => {
@@ -30,13 +28,13 @@ const Link = ({ ...props, to }) => {
 }
 
 Link.propTypes = {
-  kind: PropTypes.oneOf(Object.keys(colors)),
-  light: PropTypes.bool,
+  color: PropTypes.string,
+  reverse: PropTypes.bool,
   to: PropTypes.string
 }
 
 Link.defaultProps = {
-  kind: 'primary'
+  color: 'primary'
 }
 
 export default Link

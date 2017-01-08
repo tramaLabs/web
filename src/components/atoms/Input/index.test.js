@@ -1,14 +1,8 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import Input from '.'
 
 const wrap = (props = {}) => shallow(<Input {...props} />).dive()
-
-it('mounts with different combination of props', () => {
-  mount(<Input />)
-  mount(<Input invalid />)
-  mount(<Input borderless />)
-})
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ type: 'text' })
@@ -18,6 +12,11 @@ it('renders props when passed in', () => {
 it('renders input by default', () => {
   const wrapper = wrap()
   expect(wrapper.find('input')).toHaveLength(1)
+})
+
+it('renders select when type is select', () => {
+  const wrapper = wrap({ type: 'select' })
+  expect(wrapper.find('select')).toHaveLength(1)
 })
 
 it('renders textarea when type is textarea', () => {

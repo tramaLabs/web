@@ -10,8 +10,8 @@ it('renders children when passed in', () => {
 })
 
 it('renders props when passed in', () => {
-  const wrapper = wrap({ htmlFor: 'foo' })
-  expect(wrapper.find({ htmlFor: 'foo' })).toHaveLength(1)
+  const wrapper = wrap({ id: 'foo' })
+  expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
 })
 
 it('renders when right is passed in', () => {

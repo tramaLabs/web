@@ -1,14 +1,8 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import Link from '.'
 
 const wrap = (props = {}) => shallow(<Link {...props} />).dive()
-
-it('mounts with different combination of props', () => {
-  mount(<Link />)
-  mount(<Link light />)
-  mount(<Link light>test</Link>)
-})
 
 it('renders children when passed in', () => {
   const wrapper = wrap({ children: 'test' })
