@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
 
-import { Header, PageTemplate, HomeHero, InitiativeCardList, Heading } from 'components'
+import { Header, PageTemplate, HomeHero, InitiativeCardList, Heading, RichTextEditor } from 'components'
 
 const StyledHeading = styled(Heading)`
   margin: 3rem 1rem 1rem;
@@ -45,6 +45,7 @@ class HomePage extends Component {
         header={<Header id="header" hideSearch={!scrolledBeyondHero} scrollsTranslucid />}
         hero={<HomeHero id="hero" />}
         footer={<div />}>
+        <RichTextEditor />
         <StyledHeading level={2}>Iniciativas em destaque</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>

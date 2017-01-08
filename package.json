@@ -67,6 +67,7 @@
     "csurf": "^1.9.0",
     "del-cli": "^0.2.0",
     "denormalizr": "^0.4.0",
+    "draft-js": "^0.9.1",
     "express": "^4.14.0",
     "express-force-ssl": "^0.3.2",
     "file-loader": "^0.9.0",
