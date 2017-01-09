@@ -26,11 +26,6 @@ it('renders props when passed in', () => {
   expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
 })
 
-it('passes height to icon', () => {
-  const wrapper = wrap({ height: 20 })
-  expect(wrapper.find({ height: 20 / 2.5 })).toHaveLength(1)
-})
-
 it('renders icon on left by default', () => {
   const wrapper = wrap({ children: 'test' })
   const icon = wrapper.find({ icon: 'close' })
