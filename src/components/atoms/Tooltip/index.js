@@ -56,7 +56,6 @@ const styles = css`
     text-align: center;
     color: ${ifProps('reverse', 'black', 'white')};
     background-color: ${backgroundColor};
-    border-radius: 0.15384em;
     padding: 0.75em 1em;
     ${opposite}: calc(100% + 2rem);
     ${({ align }) => {

@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
+import { color, reverseColor, key, ifProps } from 'arc-theme'
 
-import { breakpoints, reverseColors } from 'components/globals'
 import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
 import defaultPhoto from './cover.jpg'
-
-const opacity = ({ previewLoading }) => previewLoading ? 1 : 0
 
 const Wrapper = styled.div`
   position: relative;
@@ -27,22 +25,24 @@ const Wrapper = styled.div`
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     z-index: 2;
-    background: radial-gradient(closest-corner at 50% 80%, transparent 80%, black 350%),
-                linear-gradient(transparent 45%, black 125%);
-    mix-blend-mode: multiply;
-    @media screen and (max-width: 640px) {
-      background: radial-gradient(closest-corner at 50% 80%, transparent 80%, black 350%),
-                  linear-gradient(transparent 45%, rgba(0, 0, 0, 0.5) 65%, black 105%);
-    }
+    background: radial-gradient(
+      closest-corner at 50% 80%,
+      transparent 80%,
+      ${color('grayscale', 0)} 350%
+    ), linear-gradient(
+      transparent 45%,
+      ${color('grayscale', 0)} 100%
+    );
   }
   &:after {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
-    background-color: ${reverseColors.alpha[4]};
+    background-color: ${reverseColor('alpha', 3)};
     pointer-events: none;
-    opacity: ${opacity};
+    opacity: ${ifProps('previewLoading', 1, 0)};
     transition: opacity 500ms;
+    z-index: 2;
   }
 `
 
@@ -51,10 +51,10 @@ const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: calc(${breakpoints.maxWidth} + 2rem);
+  max-width: calc(${key('sizes.maxWidth')} + 2rem);
   margin: 5rem auto 0;
   height: 100%;
-  color: white;
+  color: ${reverseColor('grayscale', 0)};
   z-index: 3;
 `
 
@@ -104,7 +104,8 @@ class InitiativeDetailCover extends Component {
       photo: PropTypes.shape({
         medium: PropTypes.string,
         large: PropTypes.string
-      }).isRequired
+      }).isRequired,
+      color: PropTypes.string
     }).isRequired,
     user: PropTypes.shape({
       id: PropTypes.any.isRequired
@@ -116,7 +117,8 @@ class InitiativeDetailCover extends Component {
     uploadProgress: PropTypes.number,
     uploadLoading: PropTypes.bool,
     preview: PropTypes.string,
-    previewLoading: PropTypes.bool
+    previewLoading: PropTypes.bool,
+    reverse: PropTypes.bool
   }
 
   state = {
@@ -158,9 +160,9 @@ class InitiativeDetailCover extends Component {
           component="label"
           htmlFor="coverPhoto"
           icon="camera"
-          kind="alpha"
-          size={32}
-          light
+          color="alpha"
+          height={32}
+          reverse={!this.props.reverse}
           responsive
           collapsed>
           Mudar foto de capa
@@ -170,13 +172,14 @@ class InitiativeDetailCover extends Component {
   }
 
   renderPreviewOptions () {
-    const { previewLoading, uploadLoading, uploadProgress } = this.props
+    const { previewLoading, uploadLoading, uploadProgress, reverse } = this.props
     const { filename } = this.state
     return (
       <OptionsWrapper>
         <StyledUploadStatusBar
           filename={filename}
-          progress={uploadProgress} />
+          progress={uploadProgress}
+          reverse={reverse} />
         <Button
           loading={uploadLoading || previewLoading}
           disabled={uploadLoading || previewLoading || !this.state.file}
@@ -184,10 +187,10 @@ class InitiativeDetailCover extends Component {
           Salvar como foto de capa
         </Button>
         <Button
-          kind="grayscale"
+          color="grayscale"
           disabled={uploadLoading}
           onClick={this.handlePreviewCancel}
-          light
+          reverse={!reverse}
           transparent>
           Cancelar
         </Button>
@@ -202,9 +205,9 @@ class InitiativeDetailCover extends Component {
     return (
       <Wrapper {...this.props}>
         <CoverImage src={preview || initiative.photo.large || defaultPhoto} />
-        <InnerWrapper>
+        <InnerWrapper reverse={this.props.reverse}>
           {isAuthor && !isFetching && this.renderInput()}
-          {isFetching && !preview && <StyledSpinner light />}
+          {isFetching && !preview && <StyledSpinner reverse />}
           <Body>
             {isAuthor && preview && this.renderPreviewOptions()}
             {!isFetching && children}

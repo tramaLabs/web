@@ -18,11 +18,11 @@ const Wrapper = styled.div`
   }
 `
 
-const TagList = ({ ...props, tags, limit }) => {
+const TagList = ({ reverse, ...props, tags, limit }) => {
   return (
     <Wrapper {...props}>
       {tags.slice(0, limit).map((tag, key) =>
-        <TagLink key={key}>{tag.name}</TagLink>
+        <TagLink key={key} reverse={reverse}>{tag.name}</TagLink>
       )}
     </Wrapper>
   )
@@ -33,7 +33,8 @@ TagList.propTypes = {
     name: PropTypes.string.isRequired
   })).isRequired,
   limit: PropTypes.number,
-  lines: PropTypes.number
+  lines: PropTypes.number,
+  reverse: PropTypes.bool
 }
 
 TagList.defaultProps = {

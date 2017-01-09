@@ -17,13 +17,13 @@ storiesOf('Block', module)
       Officia aliqua reprehenderit fugiat occaecat quis non eiusmod.
     </Block>
   ))
-  .add('color transparent', () => (
-    <Block color="primary" transparent>
+  .add('color opaque', () => (
+    <Block color="primary" opaque>
       Officia aliqua reprehenderit fugiat occaecat quis non eiusmod.
     </Block>
   ))
-  .add('color transparent reverse', () => (
-    <Block color="primary" transparent reverse>
+  .add('color opaque reverse', () => (
+    <Block color="primary" opaque reverse>
       Officia aliqua reprehenderit fugiat occaecat quis non eiusmod.
     </Block>
   ))

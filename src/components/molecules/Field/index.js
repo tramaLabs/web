@@ -18,16 +18,16 @@ const Wrapper = styled.div`
   }
 `
 
-const Field = ({ error, name, invalid, label, type, ...props }) => {
+const Field = ({ error, name, invalid, label, type, ...props, reverse }) => {
   const inputProps = { id: name, name, type, invalid, 'aria-describedby': `${name}Error`, ...props }
   const renderInputFirst = type === 'checkbox' || type === 'radio'
   return (
     <Wrapper>
       {renderInputFirst && <Input {...inputProps} />}
-      {label && <Label htmlFor={inputProps.id}>{label}</Label>}
+      {label && <Label htmlFor={inputProps.id} reverse={reverse}>{label}</Label>}
       {renderInputFirst || <Input {...inputProps} />}
       {invalid && error &&
-        <Error id={`${name}Error`} role="alert" color="danger" transparent>
+        <Error id={`${name}Error`} role="alert" color="danger">
           {error}
         </Error>
       }
@@ -40,7 +40,8 @@ Field.propTypes = {
   invalid: PropTypes.bool,
   error: PropTypes.string,
   label: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 Field.defaultProps = {

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
+import { color } from 'arc-theme'
 
-import { reverseColors } from 'components/globals'
 import { Paragraph, Heading, Button } from 'components'
 import { SearchForm } from 'containers'
 import background from './background.jpg'
@@ -31,7 +31,11 @@ const Shadow = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: radial-gradient(closest-corner at 50% 25%, transparent -100%, black 300%);
+  background: radial-gradient(
+    closest-corner at 50% 25%,
+    transparent -100%,
+    ${color('grayscale', 0)} 300%
+  );
 `
 
 const Main = styled.div`
@@ -39,7 +43,6 @@ const Main = styled.div`
 `
 
 const StyledParagraph = styled(Paragraph)`
-  color: ${reverseColors.grayscale[0]};
   margin: 3rem auto 2rem;
   max-width: 800px;
   font-size: 1.625rem;
@@ -56,26 +59,26 @@ const SearchBox = styled.div`
   max-width: 600px;
 `
 
-const StyledHeading = styled(Heading)`
-  color: white;
-`
-
-const HomeHero = (props) => {
+const HomeHero = ({ ...props, reverse }) => {
   return (
     <Wrapper {...props}>
-      <Shadow />
+      <Shadow reverse={reverse} />
       <Main>
-        <StyledParagraph>
+        <StyledParagraph reverse={!reverse}>
           Nós acreditamos no poder de iniciativas que mobilizem pessoas, espaços e ações. Criamos conexões e catalisamos ações colaborativas através de uma rede, uma trama criativa.
         </StyledParagraph>
-        <Button to="/iniciativas/criar" size={54}>Criar iniciativa</Button>
+        <Button to="/iniciativas/criar" height={54}>Criar iniciativa</Button>
       </Main>
       <SearchBox>
-        <StyledHeading level={2}>Colabore com iniciativas</StyledHeading>
-        <SearchForm kind="grayscale" transparent light borderless />
+        <Heading level={2} reverse={!reverse}>Colabore com iniciativas</Heading>
+        <SearchForm color="grayscale" transparent reverse />
       </SearchBox>
     </Wrapper>
   )
+}
+
+HomeHero.propTypes = {
+  reverse: PropTypes.bool
 }
 
 export default HomeHero

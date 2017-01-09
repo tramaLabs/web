@@ -1,15 +1,12 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
-import { Caption } from 'components'
+import { Block, Caption } from 'components'
 import { InitiativeUserList } from 'containers'
 
-const Wrapper = styled.div`
+const Wrapper = styled(Block)`
   display: flex;
   flex-direction: column;
-  font-family: ${fonts.primary};
-  color: ${colors.grayscale[0]};
 `
 
 const UserWrapper = styled.div`
@@ -21,18 +18,18 @@ const UserInfo = styled.div`
   margin-left: 0.5rem;
 `
 
-const InitiativeDetailUser = ({ initiative, ...props }) => {
+const InitiativeDetailUser = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <UserWrapper>
         <img height={60} src={initiative.user.picture} alt={`Foto de ${initiative.user.name}`} />
         <UserInfo>
-          <Caption>Organização</Caption>
-          <div>{initiative.user.name}</div>
+          <Caption reverse={reverse}>Organização</Caption>
+          <Block reverse={reverse}>{initiative.user.name}</Block>
         </UserInfo>
       </UserWrapper>
-      <Caption>Participando</Caption>
-      <InitiativeUserList initiative={initiative} />
+      <Caption reverse={reverse}>Participando</Caption>
+      <InitiativeUserList reverse={reverse} initiative={initiative} />
     </Wrapper>
   )
 }
@@ -43,7 +40,8 @@ InitiativeDetailUser.propTypes = {
       name: PropTypes.string,
       picture: PropTypes.string
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeDetailUser

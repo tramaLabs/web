@@ -11,17 +11,17 @@ const Form = styled.form`
   box-sizing: border-box;
 `
 
-const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error }) => {
+const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error, reverse }) => {
   return (
     <Form method="post" onSubmit={handleSubmit}>
-      {error && <Alert kind="danger">{error}</Alert>}
-      <Field name="_csrf" type="hidden" component="input" />
+      {error && <Alert color="danger" reverse={reverse}>{error}</Alert>}
       <Field
         name="title"
         label="Título"
         placeholder="ex: Aula de violão na praia"
         maxLength={120}
-        component={ReduxField} />
+        component={ReduxField}
+        reverse={reverse} />
       <Field
         name="description"
         label="Proposta"
@@ -29,7 +29,8 @@ const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error }) 
         type="textarea"
         rows={8}
         maxLength={2048}
-        component={ReduxField} />
+        component={ReduxField}
+        reverse={reverse} />
       <Alert>
         Ao criar uma iniciativa você concorda com os <Link to="/termos">Termos de Uso</Link>.
       </Alert>
@@ -47,7 +48,8 @@ InitiativeCreationForm.propTypes = {
   connected: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
-  error: PropTypes.any
+  error: PropTypes.any,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeCreationForm

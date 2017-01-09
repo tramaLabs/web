@@ -64,7 +64,7 @@ const StyledButton = styled(({ hasText, right, responsive, collapsed, breakpoint
 const Text = styled.span`${textStyle}`
 
 const IconButton = ({ icon, children, ...props, breakpoint, right, responsive, height }) => {
-  const iconElement = <StyledIcon height={height / 2.5} icon={icon} />
+  const iconElement = <StyledIcon icon={icon} />
   return (
     <StyledButton hasText={!!children} {...props}>
       <Wrapper>

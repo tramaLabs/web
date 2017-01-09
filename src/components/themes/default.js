@@ -9,6 +9,7 @@ theme.colors = {
   alert: ['#ffa000', '#ffc107', '#ffd761', '#ffecb3'],
   success: ['#388e3c', '#4caf50', '#7cc47f', '#c8e6c9'],
   grayscale: ['#212121', '#616161', '#9e9e9e', '#bdbdbd', '#e0e0e0', '#eeeeee', '#ffffff'],
+  black: ['#333', '#212121', '#212121', '#fff', '#fff', '#eee'],
   alpha: [0.9, 0.6, 0.3, 0.1, 0].map((alpha) => `rgba(0, 0, 0, ${alpha})`)
 }
 

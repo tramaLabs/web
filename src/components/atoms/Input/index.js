@@ -18,7 +18,6 @@ const styles = css`
   border: 1px solid ${ifProps(
     'invalid', color('danger', 2), ifProps('borderless', 'transparent', color('grayscale', 3))
   )};
-  border-radius: 2px;
 
   &[type=checkbox], &[type=radio] {
     display: inline-block;

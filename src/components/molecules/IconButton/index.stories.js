@@ -27,3 +27,6 @@ storiesOf('IconButton', module)
   .add('height', () => (
     <IconButton icon="close" height={100}>Hello</IconButton>
   ))
+  .add('collapsed with height', () => (
+    <IconButton icon="close" height={30} collapsed>Hello</IconButton>
+  ))

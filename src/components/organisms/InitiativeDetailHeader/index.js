@@ -35,19 +35,19 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, ...props }) => {
+const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
-        <StyledHeading kind="grayscale" light>{initiative.title}</StyledHeading>
-        <TagList tags={initiative.tags} />
+        <StyledHeading color="grayscale" reverse={reverse}>{initiative.title}</StyledHeading>
+        <TagList tags={initiative.tags} reverse={reverse} />
       </Title>
       <InitiativeJoinButton initiative={initiative} />
       <IconButton
         icon="share"
-        kind="grayscale"
+        color="grayscale"
         breakpoint={840}
-        light
+        reverse={reverse}
         transparent
         responsive>
         Compartilhar
@@ -60,7 +60,8 @@ InitiativeDetailHeader.propTypes = {
   initiative: PropTypes.shape({
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired
-  }).isRequired
+  }).isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeDetailHeader

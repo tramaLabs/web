@@ -6,6 +6,9 @@ storiesOf('Field', module)
   .add('default', () => (
     <Field name="field" />
   ))
+  .add('reverse', () => (
+    <Field name="field" reverse />
+  ))
   .add('with label', () => (
     <Field name="field" label="Label" />
   ))

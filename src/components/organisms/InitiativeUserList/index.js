@@ -19,17 +19,29 @@ const UserList = styled.div`
   }
 `
 
-const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...props }) => {
+const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <UserList>
         {initiative.users.map((user, key) =>
-          <Tooltip key={key} data-title={user.name}>
+          <Tooltip
+            key={key}
+            data-title={user.name}
+            reverse={reverse}
+            align={key === 0 ? 'start' : 'center'}>
             <div><img height={36} src={user.picture} alt={`Foto de ${user.name}`} /></div>
           </Tooltip>
         )}
       </UserList>
-      <IconButton icon="more" kind="grayscale" size={36} onClick={onOpenInitiativeUserListModal} />
+      <Tooltip data-title="Todos os membros" reverse={reverse} align="end">
+        <IconButton
+          icon="more"
+          color="grayscale"
+          height={36}
+          transparent
+          reverse={reverse}
+          onClick={onOpenInitiativeUserListModal} />
+      </Tooltip>
       <InitiativeUserListModal initiative={initiative} />
     </Wrapper>
   )
@@ -42,7 +54,8 @@ InitiativeUserList.propTypes = {
       picture: PropTypes.string
     })).isRequired
   }).isRequired,
-  onOpenInitiativeUserListModal: PropTypes.func.isRequired
+  onOpenInitiativeUserListModal: PropTypes.func.isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeUserList

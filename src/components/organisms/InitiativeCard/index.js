@@ -1,27 +1,29 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router'
+import { color } from 'arc-theme'
 
-import { colors, fonts } from 'components/globals'
-import { CoverImage, Heading, TagList } from 'components'
+import { Block, CoverImage, Heading, TagList } from 'components'
 
-const Wrapper = styled.div`
+const Wrapper = styled(Block)`
   position: relative;
   display: flex;
   justify-content: center;
-  font-family: ${fonts.primary};
-  color: ${colors.grayscale[1]};
   background-color: ${(props) => props.color};
   font-weight: 300;
   font-style: normal;
-  margin-top: 0.4rem;
   overflow: hidden;
+  height: 300px;
   &:before {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     z-index: 2;
-    background: radial-gradient(closest-corner at 50% 20%, transparent 0%, black 350%);
+    background: radial-gradient(
+      closest-corner at 50% 20%,
+      transparent 0%,
+      ${color('grayscale', 0)} 350%
+    );
   }
   &:hover img {
     transform: scale(1.2);
@@ -64,14 +66,14 @@ const StyledTagList = styled((props) => <TagList {...props} />)`
   }
 `
 
-const InitiativeCard = ({ initiative, ...props }) => {
+const InitiativeCard = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper color={initiative.color} {...props}>
       <StyledLink to={`/iniciativas/${initiative.id}/${initiative.slug}`} />
       {initiative.photo.small && <StyledCoverImage src={initiative.photo.small} />}
       <Info>
-        <StyledHeading level={2} light>{initiative.title}</StyledHeading>
-        <StyledTagList tags={initiative.tags} limit={2} lines={1} />
+        <StyledHeading level={2} reverse={!reverse}>{initiative.title}</StyledHeading>
+        <StyledTagList tags={initiative.tags} reverse={!reverse} limit={2} lines={1} />
       </Info>
     </Wrapper>
   )
@@ -85,7 +87,8 @@ InitiativeCard.propTypes = {
     photo: PropTypes.shape({
       small: PropTypes.string
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeCard
