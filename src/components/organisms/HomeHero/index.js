@@ -71,7 +71,7 @@ const HomeHero = ({ ...props, reverse }) => {
       </Main>
       <SearchBox>
         <Heading level={2} reverse={!reverse}>Colabore com iniciativas</Heading>
-        <SearchForm color="grayscale" transparent reverse />
+        <SearchForm color="grayscale" transparent reverse={!reverse} />
       </SearchBox>
     </Wrapper>
   )
