@@ -1,27 +1,35 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
-import { Label, Input } from 'components'
+import { Label, Input, Block } from 'components'
 
-const Error = styled.div`
-  font-family: ${fonts.primary};
-  color: ${colors.danger[1]};
+const Error = styled(Block)`
   margin: 0.5rem 0 0;
 `
 
 const Wrapper = styled.div`
   margin-bottom: 1rem;
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+  label {
+    vertical-align: middle;
+  }
 `
 
 const Field = ({ error, name, invalid, label, type, ...props }) => {
   const inputProps = { id: name, name, type, invalid, 'aria-describedby': `${name}Error`, ...props }
+  const renderInputFirst = type === 'checkbox' || type === 'radio'
   return (
     <Wrapper>
+      {renderInputFirst && <Input {...inputProps} />}
       {label && <Label htmlFor={inputProps.id}>{label}</Label>}
-      <Input {...inputProps} />
+      {renderInputFirst || <Input {...inputProps} />}
       {invalid && error &&
-        <Error id={`${name}Error`} role="alert">{error}</Error>
+        <Error id={`${name}Error`} role="alert" color="danger" transparent>
+          {error}
+        </Error>
       }
     </Wrapper>
   )
