@@ -9,10 +9,9 @@ test('tagCreate', () => {
     }
   })
 
-  expect(actions.tagCreate.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.tagCreate.success(1)).toEqual({
     type: actions.TAG_CREATE_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.tagCreate.failure('test')).toEqual({
@@ -27,10 +26,9 @@ test('tagListRead', () => {
     params: { limit: 3 }
   })
 
-  expect(actions.tagListRead.success({ result: [1, 2], entities: [1, 2] })).toEqual({
+  expect(actions.tagListRead.success([1, 2])).toEqual({
     type: actions.TAG_LIST_READ_SUCCESS,
-    result: [1, 2],
-    entities: [1, 2]
+    list: [1, 2]
   })
 
   expect(actions.tagListRead.failure('test')).toEqual({
@@ -45,10 +43,9 @@ test('tagListExtract', () => {
     text: 'test'
   })
 
-  expect(actions.tagListExtract.success({ result: [1, 2], entities: [1, 2] })).toEqual({
+  expect(actions.tagListExtract.success([1, 2])).toEqual({
     type: actions.TAG_LIST_EXTRACT_SUCCESS,
-    result: [1, 2],
-    entities: [1, 2]
+    list: [1, 2]
   })
 
   expect(actions.tagListExtract.failure('test')).toEqual({

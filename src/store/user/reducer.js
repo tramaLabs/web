@@ -7,12 +7,12 @@ export default (state = initialState, action) => {
   case CURRENT_USER_READ_SUCCESS:
     return {
       ...state,
-      currentId: action.result
+      currentDetail: action.detail
     }
   case AUTH_LOGOUT:
     return {
       ...state,
-      currentId: initialState.currentId
+      currentDetail: initialState.currentDetail
     }
   default:
     return state

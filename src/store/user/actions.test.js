@@ -5,9 +5,9 @@ test('currentUserRead', () => {
     type: actions.CURRENT_USER_READ_REQUEST
   })
 
-  expect(actions.currentUserRead.success({ result: 1 })).toEqual({
+  expect(actions.currentUserRead.success(1)).toEqual({
     type: actions.CURRENT_USER_READ_SUCCESS,
-    result: 1
+    detail: 1
   })
 
   expect(actions.currentUserRead.failure('test')).toEqual({

@@ -23,7 +23,7 @@ class InitiativeDetailCoverContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: fromEntities.getUser(state, fromUser.getCurrentId(state)),
+  user: fromEntities.getDetail(state, 'user', fromUser.getCurrentDetail(state)),
   uploadLoading: fromStatus.isLoading(state, INITIATIVE_PHOTO_UPDATE),
   uploadProgress: fromInitiative.getPhotoUpdateProgress(state),
   preview: fromInitiative.getPhotoPreviewUrl(state),

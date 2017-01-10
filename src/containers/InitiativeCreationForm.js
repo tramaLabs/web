@@ -30,7 +30,7 @@ const validate = createValidator({
 })
 
 const mapStateToProps = (state) => ({
-  connected: !!fromUser.getCurrentId(state)
+  connected: !!fromUser.getCurrentDetail(state)
 })
 
 export default connect(mapStateToProps)(reduxForm({

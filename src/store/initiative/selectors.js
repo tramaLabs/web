@@ -1,12 +1,12 @@
 export const initialState = {
-  ids: [],
-  id: null,
+  list: [],
+  detail: null,
   photoUpdateProgress: 0,
   photoPreviewUrl: null
 }
 
-export const getIds = (state = initialState) => state.ids || initialState.ids
-export const getId = (state = initialState) => state.id || initialState.id
+export const getList = (state = initialState) => state.list || initialState.list
+export const getDetail = (state = initialState) => state.detail || initialState.detail
 export const getPhotoUpdateProgress = (state = initialState) =>
   state.photoUpdateProgress || initialState.photoUpdateProgress
 export const getPhotoPreviewUrl = (state = initialState) =>

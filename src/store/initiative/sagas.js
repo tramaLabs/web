@@ -1,4 +1,3 @@
-import { arrayOf, normalize } from 'normalizr'
 import { push } from 'react-router-redux'
 import { eventChannel, END } from 'redux-saga'
 import { take, put, call, fork, select } from 'redux-saga/effects'
@@ -22,7 +21,6 @@ import {
 } from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
-import initiative from './schema'
 import api from 'services/api'
 
 const maxMegaBytes = 2
@@ -71,7 +69,7 @@ export function* createInitiative (newData) {
     yield call(extractTagList, `${newData.title}\n\n${newData.description}`)
     newData.tags = yield select(fromTag.getIds)
     const { data } = yield call(api.post, '/initiatives', newData)
-    yield put(initiativeCreate.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeCreate.success(data))
     yield put(push(`/iniciativas/${data.id}/${data.slug}`))
   } catch (error) {
     yield put(initiativeCreate.failure(error))
@@ -81,7 +79,7 @@ export function* createInitiative (newData) {
 export function* readInitiativeList (params) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
-    yield put(initiativeListRead.success({ ...normalize(data, arrayOf(initiative)), data }))
+    yield put(initiativeListRead.success(data))
   } catch (error) {
     yield put(initiativeListRead.failure(error))
   }
@@ -90,7 +88,7 @@ export function* readInitiativeList (params) {
 export function* readInitiativeDetail (id) {
   try {
     const { data } = yield call(api.get, `/initiatives/${id}`)
-    yield put(initiativeDetailRead.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeDetailRead.success(data))
   } catch (error) {
     yield put(initiativeDetailRead.failure(error))
   }
@@ -99,7 +97,7 @@ export function* readInitiativeDetail (id) {
 export function* updateInitiative (id, newData) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
-    yield put(initiativeUpdate.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeUpdate.success(data))
   } catch (error) {
     yield put(initiativeUpdate.failure(error))
   }
@@ -108,7 +106,7 @@ export function* updateInitiative (id, newData) {
 export function* joinInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/join`)
-    yield put(initiativeJoin.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeJoin.success(data))
   } catch (error) {
     yield put(initiativeJoin.failure(error))
   }
@@ -117,7 +115,7 @@ export function* joinInitiative (id) {
 export function* leaveInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
-    yield put(initiativeLeave.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeLeave.success(data))
   } catch (error) {
     yield put(initiativeLeave.failure(error))
   }
@@ -135,7 +133,7 @@ export function* updatePhotoInitiative (id, file) {
     const [ upload, chan ] = yield call(createUploader)
     yield fork(watchInitiativePhotoUpdateProgress, chan)
     const { data } = yield call(upload, `/initiatives/${id}/photo`, file)
-    yield put(initiativePhotoUpdate.success({ ...normalize(data, initiative), data }))
+    yield put(initiativePhotoUpdate.success(data))
   } catch (error) {
     yield put(initiativePhotoUpdate.failure(error))
     yield put(initiativePhotoPreview.cancel())

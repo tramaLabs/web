@@ -1,4 +1,3 @@
-import { arrayOf, normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import {
   tagCreate,
@@ -8,13 +7,12 @@ import {
   TAG_LIST_READ_REQUEST,
   TAG_LIST_EXTRACT_REQUEST
 } from './actions'
-import tag from './schema'
 import api from 'services/api'
 
 export function* createTag (newData) {
   try {
     const { data } = yield call(api.post, '/tags', newData)
-    yield put(tagCreate.success({ ...normalize(data, tag), data }))
+    yield put(tagCreate.success(data))
   } catch (error) {
     yield put(tagCreate.failure(error))
   }
@@ -23,7 +21,7 @@ export function* createTag (newData) {
 export function* readTagList (params) {
   try {
     const { data } = yield call(api.get, '/tags', { params })
-    yield put(tagListRead.success({ ...normalize(data, arrayOf(tag)), data }))
+    yield put(tagListRead.success(data))
   } catch (error) {
     yield put(tagListRead.failure(error))
   }
@@ -32,7 +30,7 @@ export function* readTagList (params) {
 export function* extractTagList (text) {
   try {
     const { data } = yield call(api.post, '/tags/extract', { text })
-    yield put(tagListExtract.success({ ...normalize(data, arrayOf(tag)), data }))
+    yield put(tagListExtract.success(data))
   } catch (error) {
     yield put(tagListExtract.failure(error))
   }

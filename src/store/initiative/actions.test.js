@@ -9,10 +9,9 @@ test('initiativeCreate', () => {
     }
   })
 
-  expect(actions.initiativeCreate.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativeCreate.success(1)).toEqual({
     type: actions.INITIATIVE_CREATE_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativeCreate.failure('test')).toEqual({
@@ -27,10 +26,9 @@ test('initiativeListRead', () => {
     params: { limit: 3 }
   })
 
-  expect(actions.initiativeListRead.success({ result: [1, 2], entities: [1, 2] })).toEqual({
+  expect(actions.initiativeListRead.success([1, 2])).toEqual({
     type: actions.INITIATIVE_LIST_READ_SUCCESS,
-    result: [1, 2],
-    entities: [1, 2]
+    list: [1, 2]
   })
 
   expect(actions.initiativeListRead.failure('test')).toEqual({
@@ -45,10 +43,9 @@ test('initiativeDetailRead', () => {
     id: 3
   })
 
-  expect(actions.initiativeDetailRead.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativeDetailRead.success(1)).toEqual({
     type: actions.INITIATIVE_DETAIL_READ_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativeDetailRead.failure('test')).toEqual({
@@ -64,10 +61,9 @@ test('initiativeUpdate', () => {
     data: { id: 1 }
   })
 
-  expect(actions.initiativeUpdate.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativeUpdate.success(1)).toEqual({
     type: actions.INITIATIVE_UPDATE_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativeUpdate.failure('test')).toEqual({
@@ -82,10 +78,9 @@ test('initiativeJoin', () => {
     id: 3
   })
 
-  expect(actions.initiativeJoin.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativeJoin.success(1)).toEqual({
     type: actions.INITIATIVE_JOIN_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativeJoin.failure('test')).toEqual({
@@ -100,10 +95,9 @@ test('initiativeLeave', () => {
     id: 3
   })
 
-  expect(actions.initiativeLeave.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativeLeave.success(1)).toEqual({
     type: actions.INITIATIVE_LEAVE_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativeLeave.failure('test')).toEqual({
@@ -119,10 +113,9 @@ test('initiativePhotoUpdate', () => {
     data: 'file'
   })
 
-  expect(actions.initiativePhotoUpdate.success({ result: 1, entities: 1 })).toEqual({
+  expect(actions.initiativePhotoUpdate.success(1)).toEqual({
     type: actions.INITIATIVE_PHOTO_UPDATE_SUCCESS,
-    result: 1,
-    entities: 1
+    detail: 1
   })
 
   expect(actions.initiativePhotoUpdate.failure('test')).toEqual({

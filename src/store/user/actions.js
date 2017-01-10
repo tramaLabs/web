@@ -5,6 +5,6 @@ export const CURRENT_USER_READ_FAILURE = 'CURRENT_USER_READ_FAILURE'
 
 export const currentUserRead = {
   request: (resolve, reject) => ({ type: CURRENT_USER_READ_REQUEST, resolve, reject }),
-  success: (data) => ({ type: CURRENT_USER_READ_SUCCESS, ...data }),
+  success: (detail) => ({ type: CURRENT_USER_READ_SUCCESS, detail }),
   failure: (error) => ({ type: CURRENT_USER_READ_FAILURE, error })
 }

@@ -1,9 +1,7 @@
-import { normalize, arrayOf } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
-import tag from './schema'
 
 describe('createTag', () => {
   const data = { id: 1, title: 'test' }
@@ -11,8 +9,7 @@ describe('createTag', () => {
   it('calls success', () => {
     const generator = sagas.createTag(data)
     expect(generator.next().value).toEqual(call(api.post, '/tags', data))
-    expect(generator.next({ data }).value)
-      .toEqual(put(actions.tagCreate.success({ ...normalize(data, tag), data })))
+    expect(generator.next({ data }).value).toEqual(put(actions.tagCreate.success(data)))
   })
 
   it('calls failure', () => {
@@ -30,7 +27,7 @@ describe('readTagList', () => {
     const generator = sagas.readTagList({ limit: 1 })
     expect(generator.next().value).toEqual(call(api.get, '/tags', { params: { limit: 1 } }))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.tagListRead.success({ ...normalize(data, arrayOf(tag)), data })))
+      .toEqual(put(actions.tagListRead.success(data)))
   })
 
   it('calls failure', () => {
@@ -48,7 +45,7 @@ describe('extractTagList', () => {
     const generator = sagas.extractTagList('test')
     expect(generator.next().value).toEqual(call(api.post, '/tags/extract', { text: 'test' }))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.tagListExtract.success({ ...normalize(data, arrayOf(tag)), data })))
+      .toEqual(put(actions.tagListExtract.success(data)))
   })
 
   it('calls failure', () => {

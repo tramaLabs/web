@@ -1,4 +1,3 @@
-import { normalize, arrayOf } from 'normalizr'
 import { push } from 'react-router-redux'
 import { take, put, call, fork, select } from 'redux-saga/effects'
 import * as actions from '../actions'
@@ -6,7 +5,6 @@ import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
-import initiative from './schema'
 
 describe('createInitiative', () => {
   const data = { id: 1, title: 'test', slug: 'test', description: 'description' }
@@ -19,9 +17,7 @@ describe('createInitiative', () => {
       ...data,
       tags: [1, 2]
     }))
-    expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeCreate.success({ ...normalize(data, initiative), data }))
-    )
+    expect(generator.next({ data }).value).toEqual(put(actions.initiativeCreate.success(data)))
     expect(generator.next().value).toEqual(put(push('/iniciativas/1/test')))
   })
 
@@ -44,9 +40,7 @@ describe('readInitiativeList', () => {
   it('calls success', () => {
     const generator = sagas.readInitiativeList({ limit: 1 })
     expect(generator.next().value).toEqual(call(api.get, '/initiatives', { params: { limit: 1 } }))
-    expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeListRead.success({ ...normalize(data, arrayOf(initiative)), data }))
-    )
+    expect(generator.next({ data }).value).toEqual(put(actions.initiativeListRead.success(data)))
   })
 
   it('calls failure', () => {
@@ -64,7 +58,7 @@ describe('readInitiativeDetail', () => {
     const generator = sagas.readInitiativeDetail(1)
     expect(generator.next().value).toEqual(call(api.get, '/initiatives/1'))
     expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeDetailRead.success({ ...normalize(data, initiative), data }))
+      put(actions.initiativeDetailRead.success(data))
     )
   })
 
@@ -83,7 +77,7 @@ describe('updateInitiative', () => {
     const generator = sagas.updateInitiative(1, data)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1', data))
     expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeUpdate.success({ ...normalize(data, initiative), data }))
+      put(actions.initiativeUpdate.success(data))
     )
   })
 
@@ -102,7 +96,7 @@ describe('joinInitiative', () => {
     const generator = sagas.joinInitiative(1)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/join'))
     expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeJoin.success({ ...normalize(data, initiative), data }))
+      put(actions.initiativeJoin.success(data))
     )
   })
 
@@ -121,7 +115,7 @@ describe('leaveInitiative', () => {
     const generator = sagas.leaveInitiative(1)
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/leave'))
     expect(generator.next({ data }).value).toEqual(
-      put(actions.initiativeLeave.success({ ...normalize(data, initiative), data }))
+      put(actions.initiativeLeave.success(data))
     )
   })
 
@@ -150,7 +144,7 @@ describe('updatePhotoInitiative', () => {
       .toEqual(fork(sagas.watchInitiativePhotoUpdateProgress, chan))
     expect(generator.next().value).toEqual(call(upload, '/initiatives/1/photo', data))
     expect(generator.next({ data }).value)
-      .toEqual(put(actions.initiativePhotoUpdate.success({ ...normalize(data, initiative), data })))
+      .toEqual(put(actions.initiativePhotoUpdate.success(data)))
   })
 
   it('calls failure', () => {

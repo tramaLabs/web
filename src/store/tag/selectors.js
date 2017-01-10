@@ -1,5 +1,5 @@
 export const initialState = {
-  ids: []
+  list: []
 }
 
-export const getIds = (state = initialState) => state.ids || initialState.ids
+export const getList = (state = initialState) => state.list || initialState.list

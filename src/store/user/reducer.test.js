@@ -5,7 +5,7 @@ import reducer from './reducer'
 
 const altState = {
   ...initialState,
-  currentId: 5
+  currentDetail: 5
 }
 
 it('returns the initial state', () => {
@@ -13,13 +13,16 @@ it('returns the initial state', () => {
 })
 
 it('handles CURRENT_USER_READ_SUCCESS', () => {
-  const action = { type: actions.CURRENT_USER_READ_SUCCESS, result: 1 }
-  expect(reducer(initialState, action)).toEqual({ ...initialState, currentId: 1 })
-  expect(reducer(altState, action)).toEqual({ ...altState, currentId: 1 })
+  const action = { type: actions.CURRENT_USER_READ_SUCCESS, detail: 1 }
+  expect(reducer(initialState, action)).toEqual({ ...initialState, currentDetail: 1 })
+  expect(reducer(altState, action)).toEqual({ ...altState, currentDetail: 1 })
 })
 
 it('handles AUTH_LOGOUT', () => {
   const action = { type: AUTH_LOGOUT }
   expect(reducer(initialState, action)).toEqual(initialState)
-  expect(reducer(altState, action)).toEqual({ ...altState, currentId: initialState.currentId })
+  expect(reducer(altState, action)).toEqual({
+    ...altState,
+    currentDetail: initialState.currentDetail
+  })
 })

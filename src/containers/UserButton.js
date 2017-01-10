@@ -12,7 +12,7 @@ class UserButtonContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: fromEntities.getUser(state, fromUser.getCurrentId(state))
+  user: fromEntities.getDetail(state, 'user', fromUser.getCurrentDetail(state))
 })
 
 const mapDispatchToProps = {

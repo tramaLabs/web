@@ -20,18 +20,18 @@ export default (state = initialState, action) => {
   case INITIATIVE_LIST_READ_REQUEST:
     return {
       ...state,
-      ids: initialState.ids
+      list: initialState.list
     }
   case INITIATIVE_LIST_READ_SUCCESS:
     return {
       ...state,
-      ids: action.result
+      list: action.list
     }
   case INITIATIVE_DETAIL_READ_REQUEST:
   case INITIATIVE_DETAIL_READ_SUCCESS:
     return {
       ...state,
-      id: action.id || action.result
+      detail: action.id || action.detail
     }
   default:
     return photo(state, action)
