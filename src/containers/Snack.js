@@ -12,7 +12,7 @@ class SnackContainer extends Component {
 
 const mapStateToProps = (state) => ({
   show: fromSnack.toShow(state),
-  kind: fromSnack.getKind(state),
+  color: fromSnack.getColor(state),
   children: fromSnack.getMessage(state)
 })
 

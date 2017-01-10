@@ -3,7 +3,7 @@ import * as selectors from './selectors'
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
     message: undefined,
-    kind: undefined,
+    color: undefined,
     show: false
   })
 })
@@ -14,10 +14,10 @@ test('getMessage', () => {
   expect(selectors.getMessage(selectors.initialState)).toEqual(selectors.initialState.message)
 })
 
-test('getKind', () => {
-  expect(selectors.getKind()).toEqual(selectors.initialState.kind)
-  expect(selectors.getKind({})).toEqual(selectors.initialState.kind)
-  expect(selectors.getKind(selectors.initialState)).toEqual(selectors.initialState.kind)
+test('getColor', () => {
+  expect(selectors.getColor()).toEqual(selectors.initialState.color)
+  expect(selectors.getColor({})).toEqual(selectors.initialState.color)
+  expect(selectors.getColor(selectors.initialState)).toEqual(selectors.initialState.color)
 })
 
 test('toShow', () => {
