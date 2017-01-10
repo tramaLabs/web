@@ -1,7 +1,7 @@
 import { normalize, arrayOf } from 'normalizr'
 import { push } from 'react-router-redux'
 import { take, put, call, fork, select } from 'redux-saga/effects'
-import * as actions from './actions'
+import * as actions from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
 import api from 'services/api'
@@ -23,8 +23,6 @@ describe('createInitiative', () => {
       put(actions.initiativeCreate.success({ ...normalize(data, initiative), data }))
     )
     expect(generator.next().value).toEqual(put(push('/iniciativas/1/test')))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
@@ -37,8 +35,6 @@ describe('createInitiative', () => {
     }))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativeCreate.failure('test')))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -89,8 +85,6 @@ describe('updateInitiative', () => {
     expect(generator.next({ data }).value).toEqual(
       put(actions.initiativeUpdate.success({ ...normalize(data, initiative), data }))
     )
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
@@ -98,8 +92,6 @@ describe('updateInitiative', () => {
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1', data))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativeUpdate.failure('test')))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -112,8 +104,6 @@ describe('joinInitiative', () => {
     expect(generator.next({ data }).value).toEqual(
       put(actions.initiativeJoin.success({ ...normalize(data, initiative), data }))
     )
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
@@ -121,8 +111,6 @@ describe('joinInitiative', () => {
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/join'))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativeJoin.failure('test')))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -135,8 +123,6 @@ describe('leaveInitiative', () => {
     expect(generator.next({ data }).value).toEqual(
       put(actions.initiativeLeave.success({ ...normalize(data, initiative), data }))
     )
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
@@ -144,8 +130,6 @@ describe('leaveInitiative', () => {
     expect(generator.next().value).toEqual(call(api.put, '/initiatives/1/leave'))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativeLeave.failure('test')))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -167,8 +151,6 @@ describe('updatePhotoInitiative', () => {
     expect(generator.next().value).toEqual(call(upload, '/initiatives/1/photo', data))
     expect(generator.next({ data }).value)
       .toEqual(put(actions.initiativePhotoUpdate.success({ ...normalize(data, initiative), data })))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 
   it('calls failure', () => {
@@ -179,8 +161,6 @@ describe('updatePhotoInitiative', () => {
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativePhotoUpdate.failure('test')))
     expect(generator.next().value).toEqual(put(actions.initiativePhotoPreview.cancel()))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
   })
 })
 
@@ -191,8 +171,7 @@ describe('previewPhotoInitiative', () => {
   it('calls failure when file size is greater than the allowed', () => {
     const generator = sagas.previewPhotoInitiative({ size: 999999999 })
     expect(generator.next().value).toEqual(put(actions.initiativePhotoPreview.failure()))
-    expect(generator.next().done).toBe(false)
-    expect(generator.next().done).toBe(true)
+    generator.next()
   })
 
   it('calls success', () => {

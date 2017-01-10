@@ -33,15 +33,13 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
           </Tooltip>
         )}
       </UserList>
-      <Tooltip data-title="Todos os membros" reverse={reverse} align="end">
-        <IconButton
-          icon="more"
-          color="grayscale"
-          height={36}
-          transparent
-          reverse={reverse}
-          onClick={onOpenInitiativeUserListModal} />
-      </Tooltip>
+      <IconButton
+        icon="more"
+        color="grayscale"
+        height={36}
+        transparent
+        reverse={reverse}
+        onClick={onOpenInitiativeUserListModal} />
       <InitiativeUserListModal initiative={initiative} />
     </Wrapper>
   )

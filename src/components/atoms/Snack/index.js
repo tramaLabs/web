@@ -18,7 +18,7 @@ const Snack = styled.div`
   white-space: nowrap;
   box-sizing: border-box;
   opacity: ${ifProps('show', 1, 0)};
-  transform: translate(-50%, ${ifProps('show', 0, -key('sizes.headerHeight'))});
+  transform: translate(-50%, -${ifProps('show', 0, key('sizes.headerHeight'))});
   transition: transform 200ms ease-out, opacity 100ms ease-out;
   color: ${reverseColor('grayscale', 0)};
   background-color: ${color(1)};

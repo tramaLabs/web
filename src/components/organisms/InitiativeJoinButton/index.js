@@ -29,12 +29,12 @@ const isAuthor = (user, initiative) =>
 const isCollaborator = (user, initiative) =>
   user && initiative.users.find((u) => u.id === user.id)
 
-const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props }) => {
+const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props, reverse }) => {
   if (isAuthor(user, initiative)) {
     return (
-      <Tooltip data-title="Você é o criador da iniciativa">
+      <Tooltip data-title="Você é o criador da iniciativa" reverse={reverse}>
         <Button
-          kind="success"
+          color="success"
           {...props}
           loading={false}
           style={{ cursor: 'default' }}>
@@ -45,8 +45,8 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props }) =
   } else if (isCollaborator(user, initiative)) {
     return (
       <MutatingWrapper>
-        <MutatingButton kind="success" {...props}>Participando</MutatingButton>
-        <MutatingButton kind="danger" onClick={onLeave} {...props}>
+        <MutatingButton color="success" {...props}>Participando</MutatingButton>
+        <MutatingButton color="danger" onClick={onLeave} {...props}>
           Cancelar participação
         </MutatingButton>
       </MutatingWrapper>
@@ -55,7 +55,7 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props }) =
     return <Button onClick={onJoin} {...props}>Participar</Button>
   }
   return (
-    <FacebookLoginButton label="Participar" onSuccess={onJoin} {...props} />
+    <FacebookLoginButton onSuccess={onJoin} {...props}>Participar</FacebookLoginButton>
   )
 }
 
@@ -71,7 +71,8 @@ InitiativeJoinButton.propTypes = {
   }).isRequired,
   onLeave: PropTypes.func.isRequired,
   onJoin: PropTypes.func.isRequired,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeJoinButton

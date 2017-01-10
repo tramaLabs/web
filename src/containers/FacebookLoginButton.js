@@ -1,24 +1,34 @@
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { fromStatus } from 'store/selectors'
-import { authFacebook, AUTH, CURRENT_USER_READ } from 'store/actions'
+import { authLogin, AUTH_LOGIN, CURRENT_USER_READ } from 'store/actions'
 import { fbAppId } from 'config'
 
-import { FacebookLoginButton } from 'components'
+import { IconButton } from 'components'
 
 class FacebookLoginButtonContainer extends Component {
+  static propTypes = {
+    prepareAuth: PropTypes.func.isRequired
+  }
+
+  componentDidMount () {
+    this.props.prepareAuth()
+  }
+
   render () {
-    return <FacebookLoginButton {...this.props} />
+    // eslint-disable-next-line no-unused-vars
+    const { prepareAuth, ...props } = this.props
+    return <IconButton icon="facebook" {...props} />
   }
 }
 
 const mapStateToProps = (state) => ({
-  loading: fromStatus.isLoading(state, [AUTH, CURRENT_USER_READ]),
-  appId: fbAppId
+  loading: fromStatus.isLoading(state, [AUTH_LOGIN, CURRENT_USER_READ])
 })
 
 const mapDispatchToProps = (dispatch, { onSuccess }) => ({
-  onSuccess: (fbToken) => dispatch(authFacebook.request(fbToken, onSuccess))
+  prepareAuth: () => dispatch(authLogin.prepare('facebook', { appId: fbAppId })),
+  onClick: () => dispatch(authLogin.request('facebook', onSuccess))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FacebookLoginButtonContainer)

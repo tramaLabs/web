@@ -1,9 +1,9 @@
 import { initialState } from './selectors'
-import { AUTH_SUCCESS, AUTH_LOGOUT } from './actions'
+import { AUTH_LOGIN_SUCCESS, AUTH_LOGOUT } from './actions'
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case AUTH_SUCCESS:
+  case AUTH_LOGIN_SUCCESS:
     return {
       ...state,
       token: action.token
