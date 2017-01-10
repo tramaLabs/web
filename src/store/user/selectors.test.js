@@ -2,11 +2,12 @@ import * as selectors from './selectors'
 
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
-    currentId: null
+    currentDetail: null
   })
 })
 
-test('getCurrentId', () => {
-  expect(selectors.getCurrentId()).toEqual(selectors.initialState.currentId)
-  expect(selectors.getCurrentId(selectors.initialState)).toEqual(selectors.initialState.currentId)
+test('getCurrentDetail', () => {
+  expect(selectors.getCurrentDetail()).toEqual(selectors.initialState.currentDetail)
+  expect(selectors.getCurrentDetail(selectors.initialState))
+    .toEqual(selectors.initialState.currentDetail)
 })

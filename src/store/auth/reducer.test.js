@@ -4,15 +4,15 @@ import reducer from './reducer'
 
 const altState = {
   ...initialState,
-  token: 2
+  token: 5
 }
 
 it('returns the initial state', () => {
   expect(reducer(undefined, {})).toEqual(initialState)
 })
 
-it('handles AUTH_SUCCESS', () => {
-  const action = { type: actions.AUTH_SUCCESS, token: 1 }
+it('handles AUTH_LOGIN_SUCCESS', () => {
+  const action = { type: actions.AUTH_LOGIN_SUCCESS, token: 1 }
   expect(reducer(initialState, action)).toEqual({ ...initialState, token: 1 })
   expect(reducer(altState, action)).toEqual({ ...altState, token: 1 })
 })

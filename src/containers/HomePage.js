@@ -27,7 +27,7 @@ class HomePageContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  initiatives: fromEntities.getInitiatives(state)
+  initiatives: fromEntities.getList(state, 'initiative')
 })
 
 const mapDispatchToProps = (dispatch) => ({

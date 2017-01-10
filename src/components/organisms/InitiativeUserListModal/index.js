@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
 
+import { Block } from 'components'
 import { Modal } from 'containers'
 
 const User = styled.div`
@@ -14,7 +15,7 @@ const User = styled.div`
   }
 `
 
-const InitiativeUserListModal = ({ initiative, ...props }) => {
+const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
   return (
     <Modal
       title={`Participantes (${initiative.users.length})`}
@@ -23,8 +24,8 @@ const InitiativeUserListModal = ({ initiative, ...props }) => {
       {...props}>
       {sortBy(initiative.users, 'name').map((user, key) =>
         <User key={key}>
-          <img src={user.picture} alt={`Foto de ${user.name}`} width={38} />
-          <span>{user.name}</span>
+          <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
+          <Block reverse={reverse}>{user.name}</Block>
         </User>
       )}
     </Modal>
@@ -37,7 +38,8 @@ InitiativeUserListModal.propTypes = {
       name: PropTypes.string,
       picture: PropTypes.string
     })).isRequired
-  }).isRequired
+  }).isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeUserListModal

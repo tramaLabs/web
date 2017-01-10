@@ -36,7 +36,7 @@ const UserButton = ({ user, onUserLogout, ...props }) => {
     )
   } else {
     return (
-      <FacebookLoginButton {...props} />
+      <FacebookLoginButton {...props}>Entrar</FacebookLoginButton>
     )
   }
 }

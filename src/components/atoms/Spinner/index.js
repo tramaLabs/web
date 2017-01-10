@@ -1,7 +1,6 @@
 import { PropTypes } from 'react'
 import styled, { keyframes } from 'styled-components'
-
-import { colors, reverseColors } from 'components/globals'
+import { color } from 'arc-theme'
 
 const loading = keyframes`
   0% { transform: rotate(90deg); }
@@ -17,18 +16,16 @@ const Spinner = styled.div`
   width: 1em;
   height: 1em;
   animation: ${loading} 1.5s infinite ease-in-out;
-  background-color: ${(props) =>
-    props.light ? reverseColors[props.kind][1] : colors[props.kind][1]
-  };
+  background-color: ${color(1)};
 `
 
 Spinner.propTypes = {
-  kind: PropTypes.oneOf(Object.keys(colors)),
-  light: PropTypes.bool
+  color: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 Spinner.defaultProps = {
-  kind: 'alpha'
+  color: 'alpha'
 }
 
 export default Spinner

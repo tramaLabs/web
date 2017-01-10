@@ -1,22 +1,15 @@
-export const AUTH = 'AUTH'
-export const AUTH_REQUEST = 'AUTH_REQUEST'
-export const AUTH_SUCCESS = 'AUTH_SUCCESS'
-export const AUTH_FAILURE = 'AUTH_FAILURE'
+export const AUTH_LOGIN = 'AUTH_LOGIN'
+export const AUTH_LOGIN_PREPARE = 'AUTH_LOGIN_PREPARE'
+export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST'
+export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS'
+export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
-export const auth = {
-  success: (token) => ({ type: AUTH_SUCCESS, token }),
-  failure: (error) => ({ type: AUTH_FAILURE, error })
-}
-
-export const authFacebook = {
-  request: (accessToken, resolve, reject) => ({
-    type: AUTH_REQUEST,
-    service: 'facebook',
-    accessToken,
-    resolve,
-    reject
-  })
+export const authLogin = {
+  prepare: (service, options) => ({ type: AUTH_LOGIN_PREPARE, service, options }),
+  request: (service, resolve, reject) => ({ type: AUTH_LOGIN_REQUEST, service, resolve, reject }),
+  success: (token) => ({ type: AUTH_LOGIN_SUCCESS, token }),
+  failure: (error) => ({ type: AUTH_LOGIN_FAILURE, error })
 }
 
 export const authLogout = () => ({ type: AUTH_LOGOUT })

@@ -35,46 +35,46 @@ export const INITIATIVE_PHOTO_PREVIEW_CANCEL = 'INITIATIVE_PHOTO_PREVIEW_CANCEL'
 
 export const initiativeCreate = {
   request: (data, resolve, reject) => ({ type: INITIATIVE_CREATE_REQUEST, data, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_CREATE_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_CREATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_CREATE_FAILURE, error })
 }
 
 export const initiativeListRead = {
   request: (params, resolve, reject) =>
     ({ type: INITIATIVE_LIST_READ_REQUEST, params, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_LIST_READ_SUCCESS, ...data }),
+  success: (list) => ({ type: INITIATIVE_LIST_READ_SUCCESS, list }),
   failure: (error) => ({ type: INITIATIVE_LIST_READ_FAILURE, error })
 }
 
 export const initiativeDetailRead = {
   request: (id, resolve, reject) => ({ type: INITIATIVE_DETAIL_READ_REQUEST, id, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_DETAIL_READ_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_DETAIL_READ_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_DETAIL_READ_FAILURE, error })
 }
 
 export const initiativeUpdate = {
   request: (id, data, resolve, reject) =>
   ({ type: INITIATIVE_UPDATE_REQUEST, id, data, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_UPDATE_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_UPDATE_FAILURE, error })
 }
 
 export const initiativeJoin = {
   request: (id, resolve, reject) => ({ type: INITIATIVE_JOIN_REQUEST, id, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_JOIN_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_JOIN_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_JOIN_FAILURE, error })
 }
 
 export const initiativeLeave = {
   request: (id, resolve, reject) => ({ type: INITIATIVE_LEAVE_REQUEST, id, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_LEAVE_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_LEAVE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_LEAVE_FAILURE, error })
 }
 
 export const initiativePhotoUpdate = {
   request: (id, data, resolve, reject) =>
     ({ type: INITIATIVE_PHOTO_UPDATE_REQUEST, id, data, resolve, reject }),
-  success: (data) => ({ type: INITIATIVE_PHOTO_UPDATE_SUCCESS, ...data }),
+  success: (detail) => ({ type: INITIATIVE_PHOTO_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_PHOTO_UPDATE_FAILURE, error }),
   progress: (progress) => ({ type: INITIATIVE_PHOTO_UPDATE_PROGRESS, progress })
 }

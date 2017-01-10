@@ -1,22 +1,13 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import Button from '.'
 
 const wrap = (props = {}) => shallow(<Button {...props} />).dive()
 
-it('mounts with different combination of props', () => {
-  mount(<Button disabled />)
-  mount(<Button transparent />)
-  mount(<Button transparent disabled />)
-  mount(<Button light />)
-  mount(<Button kind="secondary" />)
-  mount(<Button size={100} />)
-  mount(<Button disabled>test</Button>)
-  mount(<Button transparent>test</Button>)
-  mount(<Button transparent disabled>test</Button>)
-  mount(<Button light>test</Button>)
-  mount(<Button kind="secondary">test</Button>)
-  mount(<Button size={100}>test</Button>)
+it('renders with different combination of props', () => {
+  wrap({ disabled: true })
+  wrap({ transparent: true })
+  wrap({ disabled: true, transparent: true })
 })
 
 it('renders children when passed in', () => {

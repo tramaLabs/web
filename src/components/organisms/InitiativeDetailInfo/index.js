@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
+import { reverseColor, key } from 'arc-theme'
 
-import { reverseColors, breakpoints } from 'components/globals'
 import { Caption, Paragraph, InitiativeDetailUser } from 'components'
 
 const Wrapper = styled.div`
-  background-color: ${reverseColors.grayscale[1]};
+  background-color: ${reverseColor('grayscale', 1)};
 `
 
 const InnerWrapper = styled.div`
   display: flex;
   width: 100%;
-  max-width: calc(${breakpoints.maxWidth} + 2rem);
+  max-width: calc(${key('sizes.maxWidth')} + 2rem);
   margin: 0 auto;
   padding: 2rem 0;
   box-sizing: border-box;
@@ -39,15 +39,15 @@ const StyledInitiativeDetailUser = styled((props) => <InitiativeDetailUser {...p
   width: 320px;
 `
 
-const InitiativeDetailInfo = ({ initiative, ...props }) => {
+const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <InnerWrapper>
         <Summary>
-          <Caption>Resumo</Caption>
-          <SummaryParagraph>{initiative.summary}</SummaryParagraph>
+          <Caption reverse={reverse}>Resumo</Caption>
+          <SummaryParagraph reverse={reverse}>{initiative.summary}</SummaryParagraph>
         </Summary>
-        <StyledInitiativeDetailUser initiative={initiative} />
+        <StyledInitiativeDetailUser initiative={initiative} reverse={reverse} />
       </InnerWrapper>
     </Wrapper>
   )
@@ -56,7 +56,8 @@ const InitiativeDetailInfo = ({ initiative, ...props }) => {
 InitiativeDetailInfo.propTypes = {
   initiative: PropTypes.shape({
     summary: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeDetailInfo

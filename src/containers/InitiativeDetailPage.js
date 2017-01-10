@@ -31,8 +31,8 @@ class InitiativeDetailPageContainer extends Component {
 
 const mapStateToProps = (state) => ({
   loading: fromStatus.isLoading(state, INITIATIVE_DETAIL_READ),
-  initiative: fromEntities.getInitiative(state, fromInitiative.getId(state)),
-  user: fromEntities.getUser(state, fromUser.getCurrentId(state))
+  initiative: fromEntities.getDetail(state, 'initiative', fromInitiative.getDetail(state)),
+  user: fromEntities.getDetail(state, 'user', fromUser.getCurrentDetail(state))
 })
 
 const mapDispatchToProps = (dispatch) => ({

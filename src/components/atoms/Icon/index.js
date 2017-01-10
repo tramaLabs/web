@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { color, ifProps } from 'arc-theme'
 
-const styles = ({ size, color }) => css`
+export const fontSize = ({ height }) => height ? `${height / 10.66667}rem` : '1.5em'
+
+const Wrapper = styled.span`
   display: inline-block;
-  width: ${size ? size / 10.66667 + 'rem' : '1.5em'};
-  height: ${size ? size / 10.66667 + 'rem' : '1.5em'};
-  padding: ${size ? size / 128 + 'rem' : '0.125em'};
+  font-size: ${fontSize};
+  color: ${ifProps('color', color({ grayscale: 0 }, 1), 'currentcolor')};
+  width: 1em;
+  height: 1em;
+  margin: 0.1em;
   box-sizing: border-box;
-  color: ${color};
 
   & > svg {
     width: 100%;
@@ -17,8 +21,6 @@ const styles = ({ size, color }) => css`
   }
 `
 
-const Wrapper = styled.span`${styles}`
-
 const Icon = ({ icon, ...props }) => {
   const svg = require(`raw!./icons/${icon}.svg`)
   return <Wrapper {...props} dangerouslySetInnerHTML={{ __html: svg }} />
@@ -26,8 +28,9 @@ const Icon = ({ icon, ...props }) => {
 
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  color: PropTypes.string
+  height: PropTypes.number,
+  color: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 export default Icon

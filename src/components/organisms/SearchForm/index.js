@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import { Field } from 'redux-form'
 import styled from 'styled-components'
 
-import { colors } from 'components/globals'
 import { ReduxField, Button } from 'components'
 
 const Form = styled.form`
@@ -21,20 +20,20 @@ const Form = styled.form`
   }
 `
 
-const SearchForm = ({ handleSubmit, borderless, kind, transparent, light, ...props }) => {
+const SearchForm = ({ handleSubmit, color, transparent, reverse, ...props }) => {
   return (
     <Form method="get" action="/iniciativas" onSubmit={handleSubmit} {...props}>
       <Field
         name="q"
         type="search"
         placeholder="Use tags para pesquisar (ex: música, rio de janeiro)"
-        borderless={borderless}
-        component={ReduxField} />
+        component={ReduxField}
+        borderless={reverse} />
       <Button
         type="submit"
-        kind={kind}
+        color={color}
         transparent={transparent}
-        light={light}>
+        reverse={reverse}>
         Explorar
       </Button>
     </Form>
@@ -43,10 +42,9 @@ const SearchForm = ({ handleSubmit, borderless, kind, transparent, light, ...pro
 
 SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  borderless: PropTypes.bool,
-  kind: PropTypes.oneOf(Object.keys(colors)),
+  color: PropTypes.string,
   transparent: PropTypes.bool,
-  light: PropTypes.bool
+  reverse: PropTypes.bool
 }
 
 export default SearchForm

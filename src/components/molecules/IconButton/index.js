@@ -1,14 +1,20 @@
 import React, { PropTypes } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
-import { animations } from 'components/globals'
 import { Icon, Button } from 'components'
 
+const fadeIn = keyframes`
+  0% { display: none; opacity: 0; }
+  1% { display: block: opacity: 0; }
+  100% { display: block; opacity: 1; }
+`
+
 const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => css`
-  max-width: ${hasText && !collapsed ? '100%' : 'calc(3.3333em + 0.666em * 2)'};
+  max-width: ${hasText && !collapsed ? '100%' : '3.3333em'};
   width: ${hasText ? 'auto' : '3.3333em'};
-  padding: ${hasText ? '0 0.666em' : 0};
+  padding: ${hasText ? '0 0.6em' : 0};
   flex: 0 0 3.3333em;
+  box-sizing: border-box;
   ${collapsed && css`
     overflow: hidden;
     transition: max-width 250ms ease-in-out;
@@ -20,7 +26,7 @@ const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => 
       max-width: 100%;
       & .text {
         display: block;
-        animation: ${animations.fadeIn} 250ms;
+        animation: ${fadeIn} 250ms;
       }
     }
   `}
@@ -33,7 +39,7 @@ const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => 
 `
 
 const textStyle = ({ responsive, breakpoint }) => css`
-  padding: 0.666em;
+  padding: 0.6em;
   @media screen and (max-width: ${breakpoint}px) {
     display: ${responsive && 'none !important'};
   }
@@ -47,14 +53,18 @@ const Wrapper = styled.div`
   height: 100%;
 `
 
+const StyledIcon = styled(Icon)`
+  flex: none;
+`
+
 const StyledButton = styled(({ hasText, right, responsive, collapsed, breakpoint, ...props }) =>
   <Button {...props} />
 )`${buttonStyles}`
 
 const Text = styled.span`${textStyle}`
 
-const IconButton = ({ color, icon, children, ...props, breakpoint, right, responsive, size }) => {
-  const iconElement = <Icon size={size && size / 2.5 || 16} icon={icon} color={color} />
+const IconButton = ({ icon, children, ...props, breakpoint, right, responsive, height }) => {
+  const iconElement = <StyledIcon icon={icon} />
   return (
     <StyledButton hasText={!!children} {...props}>
       <Wrapper>
@@ -74,8 +84,7 @@ IconButton.propTypes = {
   breakpoint: PropTypes.number,
   collapsed: PropTypes.bool,
   right: PropTypes.bool,
-  size: PropTypes.number,
-  color: PropTypes.string,
+  height: PropTypes.number,
   children: PropTypes.any
 }
 

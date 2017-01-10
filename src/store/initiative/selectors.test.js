@@ -2,23 +2,23 @@ import * as selectors from './selectors'
 
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
-    ids: [],
-    id: null,
+    list: [],
+    detail: null,
     photoUpdateProgress: 0,
     photoPreviewUrl: null
   })
 })
 
-test('getIds', () => {
-  expect(selectors.getIds()).toEqual(selectors.initialState.ids)
-  expect(selectors.getIds({})).toEqual(selectors.initialState.ids)
-  expect(selectors.getIds(selectors.initialState)).toEqual(selectors.initialState.ids)
+test('getList', () => {
+  expect(selectors.getList()).toEqual(selectors.initialState.list)
+  expect(selectors.getList({})).toEqual(selectors.initialState.list)
+  expect(selectors.getList(selectors.initialState)).toEqual(selectors.initialState.list)
 })
 
-test('getId', () => {
-  expect(selectors.getId()).toEqual(selectors.initialState.id)
-  expect(selectors.getId({})).toEqual(selectors.initialState.id)
-  expect(selectors.getId(selectors.initialState)).toEqual(selectors.initialState.id)
+test('getDetail', () => {
+  expect(selectors.getDetail()).toEqual(selectors.initialState.detail)
+  expect(selectors.getDetail({})).toEqual(selectors.initialState.detail)
+  expect(selectors.getDetail(selectors.initialState)).toEqual(selectors.initialState.detail)
 })
 
 test('getPhotoUpdateProgress', () => {

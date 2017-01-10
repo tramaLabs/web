@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import styled, { css, injectGlobal } from 'styled-components'
 import ReactModal from 'react-modal'
+import { font, color, reverseColor, ifProps } from 'arc-theme'
 
-import { colors, fonts } from 'components/globals'
 import { Heading, IconButton } from 'components'
 
 injectGlobal`
@@ -33,10 +33,10 @@ const ModalBox = styled(ReactModal)`
   position: absolute;
   display: flex;
   flex-direction: column;
-  font-family: ${fonts.primary};
+  font-family: ${font('primary')};
   font-size: 1rem;
-  background-color: #fff;
-  color: ${colors.grayscale[0]};
+  background-color: ${reverseColor('grayscale', 0)};
+  color: ${color('grayscale', 0)};
   top: calc(50% - 1rem);
   left: calc(50% - 1rem);
   right: auto;
@@ -49,6 +49,7 @@ const ModalBox = styled(ReactModal)`
   min-width: 320px;
   max-width: calc(640px - 1rem);
   max-height: calc(100% - 1rem);
+  padding-top: ${ifProps('hasHeader', 0, '1rem')};
   @media screen and (max-width: 640px) {
     width: calc(100% - 1rem);
     min-width: 0;
@@ -90,13 +91,22 @@ const StyledReactModal = styled(({ className, ...props }) =>
   <ModalBox overlayClassName={className} closeTimeoutMS={250} {...props} />
 )`${overlayStyles}`
 
-const Modal = ({ children, title, closeable, onClose, ...props }) => {
+const Modal = ({ children, title, closeable, onClose, ...props, reverse }) => {
+  const hasHeader = title || closeable
   return (
-    <StyledReactModal contentLabel={title || 'Modal'} onRequestClose={onClose} {...props}>
-      {(title || closeable) && <Header>
-        <StyledHeading level={2}>{title}</StyledHeading>
-        {closeable && <IconButton icon="close" onClick={onClose} kind="alpha" light />}
-      </Header>}
+    <StyledReactModal
+      contentLabel={title || 'Modal'}
+      onRequestClose={onClose}
+      hasHeader={hasHeader}
+      {...props}>
+      {hasHeader &&
+        <Header>
+          <StyledHeading level={2} reverse={reverse}>{title}</StyledHeading>
+          {closeable &&
+            <IconButton icon="close" onClick={onClose} color="black" reverse={!reverse} />
+          }
+        </Header>
+      }
       <Content>
         {children}
       </Content>
@@ -108,6 +118,7 @@ Modal.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string,
   closeable: PropTypes.bool,
+  reverse: PropTypes.bool,
   onClose: PropTypes.func.isRequired
 }
 

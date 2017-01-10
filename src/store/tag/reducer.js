@@ -7,12 +7,12 @@ export default (state = initialState, action) => {
   case LOCATION_CHANGE:
     return {
       ...state,
-      ids: initialState.ids
+      list: initialState.list
     }
   case TAG_LIST_EXTRACT_SUCCESS:
     return {
       ...state,
-      ids: action.result
+      list: action.list
     }
   default:
     return state

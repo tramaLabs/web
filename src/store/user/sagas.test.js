@@ -1,10 +1,8 @@
-import { normalize } from 'normalizr'
 import { take, put, call, fork } from 'redux-saga/effects'
 import * as actions from './actions'
 import { authLogout } from '../auth/actions'
 import api from 'services/api'
 import saga, * as sagas from './sagas'
-import user from './schema'
 
 describe('readCurrentUser', () => {
   const data = { id: 1, title: 'test' }
@@ -12,8 +10,7 @@ describe('readCurrentUser', () => {
   it('calls success and resolve', () => {
     const generator = sagas.readCurrentUser()
     expect(generator.next().value).toEqual(call(api.get, '/users/me'))
-    expect(generator.next({ data }).value)
-      .toEqual(put(actions.currentUserRead.success({ ...normalize(data, user), data })))
+    expect(generator.next({ data }).value).toEqual(put(actions.currentUserRead.success(data)))
   })
 
   it('calls failure and reject', () => {

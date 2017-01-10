@@ -20,18 +20,19 @@ const Wrapper = styled.div`
   }
 `
 
-const InitiativeCardList = ({ initiatives, ...props }) => {
+const InitiativeCardList = ({ initiatives, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       {initiatives.map((initiative, i) =>
-        <InitiativeCard key={i} initiative={initiative} />
+        <InitiativeCard key={i} initiative={initiative} reverse={reverse} />
       )}
     </Wrapper>
   )
 }
 
 InitiativeCardList.propTypes = {
-  initiatives: PropTypes.array.isRequired
+  initiatives: PropTypes.array.isRequired,
+  reverse: PropTypes.bool
 }
 
 export default InitiativeCardList

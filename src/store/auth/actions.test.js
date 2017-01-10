@@ -1,22 +1,25 @@
 import * as actions from './actions'
 
-test('auth', () => {
-  expect(actions.auth.success(3)).toEqual({
-    type: actions.AUTH_SUCCESS,
-    token: 3
-  })
-
-  expect(actions.auth.failure('test')).toEqual({
-    type: actions.AUTH_FAILURE,
-    error: 'test'
-  })
-})
-
-test('authFacebook', () => {
-  expect(actions.authFacebook.request(3)).toEqual({
-    type: actions.AUTH_REQUEST,
+test('authLogin', () => {
+  expect(actions.authLogin.prepare('facebook', 1)).toEqual({
+    type: actions.AUTH_LOGIN_PREPARE,
     service: 'facebook',
-    accessToken: 3
+    options: 1
+  })
+
+  expect(actions.authLogin.request('facebook')).toEqual({
+    type: actions.AUTH_LOGIN_REQUEST,
+    service: 'facebook'
+  })
+
+  expect(actions.authLogin.success(1)).toEqual({
+    type: actions.AUTH_LOGIN_SUCCESS,
+    token: 1
+  })
+
+  expect(actions.authLogin.failure('test')).toEqual({
+    type: actions.AUTH_LOGIN_FAILURE,
+    error: 'test'
   })
 })
 

@@ -2,18 +2,18 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import IconButton from '.'
 
-const wrap = (props = {}) => shallow(<IconButton icon="github" {...props} />)
+const wrap = (props = {}) => shallow(<IconButton icon="close" {...props} />)
 
 it('mounts with different combination of props', () => {
-  mount(<IconButton icon="github">test</IconButton>)
-  mount(<IconButton icon="github" right>test</IconButton>)
-  mount(<IconButton icon="github" responsive>test</IconButton>)
-  mount(<IconButton icon="github" collapsed>test</IconButton>)
-  mount(<IconButton icon="github" right responsive>test</IconButton>)
-  mount(<IconButton icon="github" />)
-  mount(<IconButton icon="github" right />)
-  mount(<IconButton icon="github" responsive />)
-  mount(<IconButton icon="github" right responsive />)
+  mount(<IconButton icon="close">test</IconButton>)
+  mount(<IconButton icon="close" right>test</IconButton>)
+  mount(<IconButton icon="close" responsive>test</IconButton>)
+  mount(<IconButton icon="close" collapsed>test</IconButton>)
+  mount(<IconButton icon="close" right responsive>test</IconButton>)
+  mount(<IconButton icon="close" />)
+  mount(<IconButton icon="close" right />)
+  mount(<IconButton icon="close" responsive />)
+  mount(<IconButton icon="close" right responsive />)
 })
 
 it('renders children when passed in', () => {
@@ -26,21 +26,16 @@ it('renders props when passed in', () => {
   expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
 })
 
-it('passes size to icon', () => {
-  const wrapper = wrap({ size: 20 })
-  expect(wrapper.find({ size: 20 / 2.5 })).toHaveLength(1)
-})
-
 it('renders icon on left by default', () => {
   const wrapper = wrap({ children: 'test' })
-  const icon = wrapper.find({ icon: 'github' })
+  const icon = wrapper.find({ icon: 'close' })
   const parent = icon.parent()
-  expect(parent.children().first().prop('icon')).toBe('github')
+  expect(parent.children().first().prop('icon')).toBe('close')
 })
 
 it('renders icon on right when prop is passed in', () => {
   const wrapper = wrap({ children: 'test', right: true })
-  const icon = wrapper.find({ icon: 'github' })
+  const icon = wrapper.find({ icon: 'close' })
   const parent = icon.parent()
-  expect(parent.children().last().prop('icon')).toBe('github')
+  expect(parent.children().last().prop('icon')).toBe('close')
 })

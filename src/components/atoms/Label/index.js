@@ -1,12 +1,16 @@
+import { PropTypes } from 'react'
 import styled from 'styled-components'
-
-import { colors, fonts } from 'components/globals'
+import { font, color } from 'arc-theme'
 
 const Label = styled.label`
-  font-family: ${fonts.primary};
+  font-family: ${font('primary')};
+  color: ${color('grayscale', 1)};
   font-size: 1rem;
   line-height: 2em;
-  color: ${colors.grayscale[1]};
 `
+
+Label.propTypes = {
+  reverse: PropTypes.bool
+}
 
 export default Label

@@ -1,18 +1,13 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-
-import { colors, reverseColors, fonts } from 'components/globals'
+import { font, color, reverseColor, ifProps } from 'arc-theme'
 
 const Wrapper = styled.div`
   position: relative;
-  font-family: ${fonts.primary};
-  background-color: ${reverseColors.grayscale[0]};
+  font-family: ${font('primary')};
+  background-color: ${reverseColor('grayscale', 0)};
   height: 2.5rem;
 `
-
-const color = ({ filled }) => filled ? reverseColors.grayscale[0] : colors.grayscale[0]
-const backgroundColor = ({ filled }) => filled ? colors.alert[1] : reverseColors.grayscale[0]
-const clipPath = ({ progress }) => progress * 100
 
 const Text = styled.div`
   position: absolute;
@@ -26,26 +21,27 @@ const Text = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   white-space: nowrap;
-  color: ${color};
-  background-color: ${backgroundColor};
-  clip-path: inset(0 0 0 ${clipPath}%);
+  color: ${ifProps('filled', reverseColor('grayscale', 0), color('grayscale', 0))};
+  background-color: ${ifProps('filled', color('alert', 1), reverseColor('grayscale', 0))};
+  clip-path: inset(0 0 0 ${({ progress }) => progress * 100}%);
   will-change: clip-path;
   transition: clip-path 250ms;
 `
 
-const UploadStatusBar = ({ filename, progress, ...props }) => {
+const UploadStatusBar = ({ filename, progress, ...props, reverse }) => {
   const text = progress > 0 ? 'Enviando...' : filename
   return (
     <Wrapper {...props}>
-      <Text filled>{text}</Text>
-      <Text progress={progress}>{text}</Text>
+      <Text reverse={reverse} filled>{text}</Text>
+      <Text reverse={reverse} progress={progress}>{text}</Text>
     </Wrapper>
   )
 }
 
 UploadStatusBar.propTypes = {
   filename: PropTypes.string.isRequired,
-  progress: PropTypes.number
+  progress: PropTypes.number,
+  reverse: PropTypes.bool
 }
 
 export default UploadStatusBar

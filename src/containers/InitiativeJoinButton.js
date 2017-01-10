@@ -19,7 +19,7 @@ class InitiativeJoinButtonContainer extends Component {
 
 const mapStateToProps = (state) => ({
   loading: fromStatus.isLoading(state, [INITIATIVE_JOIN, INITIATIVE_LEAVE]),
-  user: fromEntities.getUser(state, fromUser.getCurrentId(state))
+  user: fromEntities.getDetail(state, 'user', fromUser.getCurrentDetail(state))
 })
 
 const mapDispatchToProps = (dispatch, { initiative }) => ({

@@ -1,4 +1,3 @@
-import { arrayOf, normalize } from 'normalizr'
 import { push } from 'react-router-redux'
 import { eventChannel, END } from 'redux-saga'
 import { take, put, call, fork, select } from 'redux-saga/effects'
@@ -19,11 +18,9 @@ import {
   INITIATIVE_LEAVE_REQUEST,
   INITIATIVE_PHOTO_UPDATE_REQUEST,
   INITIATIVE_PHOTO_PREVIEW_REQUEST
-} from './actions'
-import { snackShow } from '../snack/actions'
+} from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
-import initiative from './schema'
 import api from 'services/api'
 
 const maxMegaBytes = 2
@@ -72,19 +69,17 @@ export function* createInitiative (newData) {
     yield call(extractTagList, `${newData.title}\n\n${newData.description}`)
     newData.tags = yield select(fromTag.getIds)
     const { data } = yield call(api.post, '/initiatives', newData)
-    yield put(initiativeCreate.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeCreate.success(data))
     yield put(push(`/iniciativas/${data.id}/${data.slug}`))
-    yield put(snackShow('Iniciativa aberta! Bora tramar!', 'success'))
   } catch (error) {
     yield put(initiativeCreate.failure(error))
-    yield put(snackShow('Ops! Não foi possível criar a iniciativa.', 'danger'))
   }
 }
 
 export function* readInitiativeList (params) {
   try {
     const { data } = yield call(api.get, '/initiatives', { params })
-    yield put(initiativeListRead.success({ ...normalize(data, arrayOf(initiative)), data }))
+    yield put(initiativeListRead.success(data))
   } catch (error) {
     yield put(initiativeListRead.failure(error))
   }
@@ -93,7 +88,7 @@ export function* readInitiativeList (params) {
 export function* readInitiativeDetail (id) {
   try {
     const { data } = yield call(api.get, `/initiatives/${id}`)
-    yield put(initiativeDetailRead.success({ ...normalize(data, initiative), data }))
+    yield put(initiativeDetailRead.success(data))
   } catch (error) {
     yield put(initiativeDetailRead.failure(error))
   }
@@ -102,33 +97,27 @@ export function* readInitiativeDetail (id) {
 export function* updateInitiative (id, newData) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}`, newData)
-    yield put(initiativeUpdate.success({ ...normalize(data, initiative), data }))
-    yield put(snackShow('Iniciativa atualizadíssima!', 'success'))
+    yield put(initiativeUpdate.success(data))
   } catch (error) {
     yield put(initiativeUpdate.failure(error))
-    yield put(snackShow('Ops! Não foi possível atualizar a iniciativa.', 'danger'))
   }
 }
 
 export function* joinInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/join`)
-    yield put(initiativeJoin.success({ ...normalize(data, initiative), data }))
-    yield put(snackShow('Boa! Agora você está participando da iniciativa!', 'success'))
+    yield put(initiativeJoin.success(data))
   } catch (error) {
     yield put(initiativeJoin.failure(error))
-    yield put(snackShow('Ops! Não foi possível participar da iniciativa.', 'danger'))
   }
 }
 
 export function* leaveInitiative (id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
-    yield put(initiativeLeave.success({ ...normalize(data, initiative), data }))
-    yield put(snackShow('Você deixou a iniciativa.', 'success'))
+    yield put(initiativeLeave.success(data))
   } catch (error) {
     yield put(initiativeLeave.failure(error))
-    yield put(snackShow('Ops! Não foi possível deixar a iniciativa.', 'danger'))
   }
 }
 
@@ -144,22 +133,16 @@ export function* updatePhotoInitiative (id, file) {
     const [ upload, chan ] = yield call(createUploader)
     yield fork(watchInitiativePhotoUpdateProgress, chan)
     const { data } = yield call(upload, `/initiatives/${id}/photo`, file)
-    yield put(initiativePhotoUpdate.success({ ...normalize(data, initiative), data }))
-    yield put(snackShow('Foto de capa atualizada!', 'success'))
+    yield put(initiativePhotoUpdate.success(data))
   } catch (error) {
     yield put(initiativePhotoUpdate.failure(error))
     yield put(initiativePhotoPreview.cancel())
-    yield put(snackShow('Ops! Não foi possível enviar a foto.', 'danger'))
   }
 }
 
 export function* previewPhotoInitiative (file) {
   if (file.size > maxFileSize) {
     yield put(initiativePhotoPreview.failure())
-    yield put(snackShow(
-      `Ops! Arquivo muito pesado. Tente não ultrapassar ${maxMegaBytes}MB.`,
-      'danger'
-    ))
     return
   }
   const chan = yield call(createPreviewer, file)

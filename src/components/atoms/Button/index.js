@@ -3,56 +3,59 @@ import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
 import { Button as MenuButton } from 'react-aria-menubutton'
+import { font, color, reverseColor, ifProps } from 'arc-theme'
 
-import { colors, reverseColors, fonts } from 'components/globals'
 import { Spinner } from 'components'
 
-const styles = ({ loading, disabled, transparent, light, kind, size }) => {
-  const color = light ? reverseColors[kind] : colors[kind]
-  return css`
-    display: inline-flex;
-    font-family: ${fonts.primary};
-    align-items: center;
-    white-space: nowrap;
-    font-size: ${size ? size / 53.33333 + 'rem' : '0.75rem'};
-    font-weight: 500;
-    background-color: ${transparent ? 'transparent' : (disabled ? color[2] : color[1])};
-    border: 2px solid ${transparent ? 'currentcolor' : 'transparent'};
-    height: 3.33333em;
-    justify-content: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    cursor: ${disabled ? 'default' : 'pointer'};
-    appearance: none;
-    padding: 0 1.3333em;
-    box-sizing: border-box;
-    pointer-events: ${disabled && 'none'};
-    color: ${transparent
-      ? (disabled ? color[2] : color[1])
-      : (light ? colors.grayscale[0] : reverseColors.grayscale[0])
-    };
+const fontSize = ({ height }) => `${height / 53.33333}rem`
 
-    &:hover, &:focus, &:active {
-      background-color: ${disabled ||
-        transparent && 'rgba(255, 255, 255, 0.4)' ||
-        color[0]};
-      color: ${disabled || transparent && color[0]};
-    }
+const backgroundColor = ({ transparent, disabled }) =>
+  transparent ? 'transparent' : color(disabled ? 2 : 1)
 
-    &:focus {
-      outline: none
-    }
+const foregroundColor = ({ transparent, disabled }) =>
+  transparent ? color(disabled ? 2 : 1) : reverseColor('grayscale', 0)
 
-    & > span > .children {
-      display: block;
-      visibility: hidden;
-      height: 0;
-    }
-  `
-}
+const hoverBackgroundColor = ({ disabled, transparent }) =>
+  !disabled && !transparent && color(0) || 'rgba(255, 255, 255, 0.4)'
 
-const propsToOmit = ['component', 'disabled', 'loading', 'transparent', 'light', 'kind', 'size']
-const omitProps = (props) => omit(props, propsToOmit)
+const hoverForegroundColor = ({ disabled, transparent }) => !disabled && transparent && color(0)
+
+const styles = css`
+  display: inline-flex;
+  font-family: ${font('primary')};
+  align-items: center;
+  white-space: nowrap;
+  font-size: ${fontSize};
+  border: 2px solid ${ifProps('transparent', 'currentcolor', 'transparent')};
+  height: 3.3333em;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: ${ifProps('disabled', 'default', 'pointer')};
+  appearance: none;
+  padding: 0 1.3333em;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  pointer-events: ${ifProps('disabled', 'none', 'auto')};
+  transition: background-color 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
+  background-color: ${backgroundColor};
+  color: ${foregroundColor};
+  &:hover, &:focus, &:active {
+    background-color: ${hoverBackgroundColor};
+    color: ${hoverForegroundColor};
+  }
+  &:focus {
+    outline: none
+  }
+  > span > .children {
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
+`
+
+const excluded = ['component', 'disabled', 'loading', 'transparent', 'reverse', 'color', 'height']
+const omitProps = (props) => omit(props, excluded)
 
 const Component = styled(({ component, ...props }) =>
   React.createElement(component, omitProps(props))
@@ -64,10 +67,10 @@ const Anchor = styled.a`${styles}`
 const StyledButton = styled.button`${styles}`
 
 // eslint-disable-next-line react/prop-types
-const renderChildrenWithSpinner = ({ children, light }) => (
+const renderChildrenWithSpinner = ({ children, reverse }) => (
   <span>
     <span className="children">{children}</span>
-    <Spinner light={!light} kind="alpha" />
+    <Spinner reverse={!reverse} color="alpha" />
   </span>
 )
 
@@ -91,12 +94,12 @@ const Button = ({ type, ...props, component, to, href }) => {
 
 Button.propTypes = {
   children: PropTypes.any,
-  kind: PropTypes.oneOf(Object.keys(colors)),
+  color: PropTypes.string,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   transparent: PropTypes.bool,
-  light: PropTypes.bool,
-  size: PropTypes.number,
+  reverse: PropTypes.bool,
+  height: PropTypes.number,
   type: PropTypes.string,
   to: PropTypes.string,
   href: PropTypes.string,
@@ -104,8 +107,9 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  kind: 'primary',
-  type: 'button'
+  color: 'primary',
+  type: 'button',
+  height: 40
 }
 
 export default Button

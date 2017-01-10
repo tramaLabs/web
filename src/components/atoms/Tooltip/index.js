@@ -1,19 +1,25 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
+import { font, ifProps } from 'arc-theme'
 
-import { fonts } from 'components/globals'
+const opposites = {
+  top: 'bottom',
+  right: 'left',
+  bottom: 'top',
+  left: 'right'
+}
 
-export const pos = ({ right, bottom, left }) =>
-  right ? 'right' : bottom ? 'bottom' : left ? 'left' : 'top'
+export const opposite = ({ position }) => opposites[position]
 
-export const opposite = ({ right, bottom, left }) =>
-  right ? 'left' : bottom ? 'top' : left ? 'right' : 'bottom'
+export const perpendicular = ({ position }) =>
+  position === 'left' || position === 'right' ? 'top' : 'left'
 
-export const perpendicular = ({ left, right }) =>
-  left || right ? 'top' : 'left'
+export const perpendicularOpposite = (props) => opposites[perpendicular(props)]
 
-export const perpendicularAxis = ({ left, right }) =>
-  left || right ? 'Y' : 'X'
+export const perpendicularAxis = ({ position }) =>
+  position === 'left' || position === 'right' ? 'Y' : 'X'
+
+const backgroundColor = ifProps('reverse', 'rgba(255, 255, 255, 0.85)', 'rgba(0, 0, 0, 0.85)')
 
 const styles = css`
   position: relative;
@@ -42,47 +48,60 @@ const styles = css`
 
   &:before {
     content: attr(data-title);
-    font-family: ${fonts.primary};
+    font-family: ${font('primary')};
     white-space: nowrap;
     text-transform: none;
     font-size: 0.8125rem;
     line-height: 1.5;
     text-align: center;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.85);
+    color: ${ifProps('reverse', 'black', 'white')};
+    background-color: ${backgroundColor};
     padding: 0.75em 1em;
-    ${opposite}: 1rem;
-    ${perpendicular}: 50%;
-    transform: translate${perpendicularAxis}(-50%);
+    ${opposite}: calc(100% + 2rem);
+    ${({ align }) => {
+      switch (align) {
+      case 'start': return css`
+        ${perpendicular}: 0;
+      `
+      case 'center': return css`
+        ${perpendicular}: 50%;
+        transform: translate${perpendicularAxis}(-50%);
+      `
+      case 'end': return css`
+        ${perpendicularOpposite}: 0;
+      `
+      }
+    }}
   }
 
   &:after {
-    ${opposite}: 0;
+    ${opposite}: calc(100% + 1rem);
     ${perpendicular}: 50%;
     border: solid transparent;
     content: '';
     height: 0;
     width: 0;
-    border-${pos}-color: rgba(0, 0, 0, 0.85);
+    border-${({ position }) => position}-color: ${backgroundColor};
     border-width: 0.5rem;
     margin-${perpendicular}: -0.5rem;
   }
 `
 
-const Tooltip = styled(({ top, right, bottom, left, children, ...props }) =>
-  React.cloneElement(children, {
-    tabIndex: 0,
-    ...props
-  })
+const Tooltip = styled(({ position, align, reverse, children, theme, ...props }) =>
+  React.cloneElement(children, { tabIndex: 0, ...props })
 )`${styles}`
 
 Tooltip.propTypes = {
-  top: PropTypes.bool,
-  right: PropTypes.bool,
-  bottom: PropTypes.bool,
-  left: PropTypes.bool,
+  position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
+  align: PropTypes.oneOf(['start', 'center', 'end']),
+  reverse: PropTypes.bool,
   'data-title': PropTypes.string.isRequired,
   children: PropTypes.element.isRequired
+}
+
+Tooltip.defaultProps = {
+  position: 'top',
+  align: 'center'
 }
 
 export default Tooltip

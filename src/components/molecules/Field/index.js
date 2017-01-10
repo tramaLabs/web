@@ -1,27 +1,35 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { colors, fonts } from 'components/globals'
-import { Label, Input } from 'components'
+import { Label, Input, Block } from 'components'
 
-const Error = styled.div`
-  font-family: ${fonts.primary};
-  color: ${colors.danger[1]};
+const Error = styled(Block)`
   margin: 0.5rem 0 0;
 `
 
 const Wrapper = styled.div`
   margin-bottom: 1rem;
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+  label {
+    vertical-align: middle;
+  }
 `
 
-const Field = ({ error, name, invalid, label, type, ...props }) => {
+const Field = ({ error, name, invalid, label, type, ...props, reverse }) => {
   const inputProps = { id: name, name, type, invalid, 'aria-describedby': `${name}Error`, ...props }
+  const renderInputFirst = type === 'checkbox' || type === 'radio'
   return (
     <Wrapper>
-      {label && <Label htmlFor={inputProps.id}>{label}</Label>}
-      <Input {...inputProps} />
+      {renderInputFirst && <Input {...inputProps} />}
+      {label && <Label htmlFor={inputProps.id} reverse={reverse}>{label}</Label>}
+      {renderInputFirst || <Input {...inputProps} />}
       {invalid && error &&
-        <Error id={`${name}Error`} role="alert">{error}</Error>
+        <Error id={`${name}Error`} role="alert" color="danger">
+          {error}
+        </Error>
       }
     </Wrapper>
   )
@@ -32,7 +40,8 @@ Field.propTypes = {
   invalid: PropTypes.bool,
   error: PropTypes.string,
   label: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 Field.defaultProps = {

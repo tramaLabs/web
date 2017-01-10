@@ -1,36 +1,33 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
+import { font, color } from 'arc-theme'
 
-import { colors, reverseColors, fonts } from 'components/globals'
+export const fontSize = ({ level }) => `${1 + 1.625 * (1 / level)}rem`
 
-const styles = ({ kind, light, level }) => {
-  const index = kind === 'grayscale' ? 0 : 1
-  const color = light ? reverseColors[kind][index] : colors[kind][index]
-  return css`
-    font-family: ${fonts.primary};
-    font-weight: 700;
-    font-size: ${1 + 1.625 * (1 / level)}rem;
-    margin: 0;
-    margin-top: ${1 + 0.5 * (1 / level)}rem;
-    margin-bottom: ${0.5 + 0.5 * (1 / level)}rem;
-    color: ${color};
-  `
-}
+const styles = css`
+  font-family: ${font('primary')};
+  font-weight: 500;
+  font-size: ${fontSize};
+  margin: 0;
+  margin-top: 0.85714em;
+  margin-bottom: 0.57142em;
+  color: ${color({ grayscale: 0 }, 1)};
+`
 
-const Heading = styled(({ level, children, light, ...props }) => {
+const Heading = styled(({ level, children, reverse, theme, ...props }) => {
   return React.createElement(`h${level}`, props, children)
 })`${styles}`
 
 Heading.propTypes = {
   level: PropTypes.number,
-  children: PropTypes.any,
-  kind: PropTypes.oneOf(Object.keys(colors)),
-  light: PropTypes.bool
+  children: PropTypes.node,
+  color: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 Heading.defaultProps = {
   level: 1,
-  kind: 'grayscale'
+  color: 'grayscale'
 }
 
 export default Heading

@@ -2,12 +2,12 @@ import * as selectors from './selectors'
 
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
-    ids: []
+    list: []
   })
 })
 
-test('getIds', () => {
-  expect(selectors.getIds()).toEqual(selectors.initialState.ids)
-  expect(selectors.getIds({})).toEqual(selectors.initialState.ids)
-  expect(selectors.getIds(selectors.initialState)).toEqual(selectors.initialState.ids)
+test('getList', () => {
+  expect(selectors.getList()).toEqual(selectors.initialState.list)
+  expect(selectors.getList({})).toEqual(selectors.initialState.list)
+  expect(selectors.getList(selectors.initialState)).toEqual(selectors.initialState.list)
 })

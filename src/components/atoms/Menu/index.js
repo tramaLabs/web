@@ -1,23 +1,23 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Menu } from 'react-aria-menubutton'
+import { font, color, reverseColor, ifProps } from 'arc-theme'
 
-import { colors, fonts } from 'components/globals'
-
-const StyledMenu = styled(({ right, ...props }) => <Menu {...props} />)`
+const StyledMenu = styled(({ right, theme, ...props }) => <Menu {...props} />)`
   position: absolute;
-  font-family: ${fonts.primary};
-  color: ${colors.grayscale[0]};
-  background-color: white;
+  font-family: ${font('primary')};
+  color: ${color('grayscale', 0)};
+  background-color: ${reverseColor('grayscale', 0)};
   min-width: 100%;
-  right: ${(props) => props.right ? 0 : 'auto'};
-  border: 1px solid ${colors.grayscale[3]};
+  right: ${ifProps('right', 0, 'auto')};
+  border: 1px solid ${color('grayscale', 3)};
   box-sizing: border-box;
   z-index: 999;
 `
 
 StyledMenu.propTypes = {
-  right: PropTypes.bool
+  right: PropTypes.bool,
+  reverse: PropTypes.bool
 }
 
 export default StyledMenu

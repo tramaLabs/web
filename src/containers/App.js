@@ -27,7 +27,7 @@ class AppContainer extends Component {
 
 const mapStateToProps = (state) => ({
   token: fromAuth.getToken(state),
-  user: fromUser.getCurrentId(state)
+  user: fromUser.getCurrentDetail(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

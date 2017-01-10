@@ -7,7 +7,6 @@ test('initialState', () => {
 })
 
 test('getToken', () => {
-  expect(selectors.getToken()).toBeNull()
-  expect(selectors.getToken({})).toBeNull()
+  expect(selectors.getToken()).toEqual(selectors.initialState.token)
   expect(selectors.getToken(selectors.initialState)).toEqual(selectors.initialState.token)
 })

@@ -1,13 +1,17 @@
+import { PropTypes } from 'react'
 import styled from 'styled-components'
-
-import { colors, fonts } from 'components/globals'
+import { font, color } from 'arc-theme'
 
 const Paragraph = styled.p`
-  font-family: ${fonts.primary};
-  color: ${colors.grayscale[0]};
+  font-family: ${font('primary')};
+  color: ${color('grayscale', 0)};
   font-size: 1rem;
   line-height: 1.42857;
-  margin: 0 0 1rem;
+  margin: 1rem 0 0;
 `
+
+Paragraph.propTypes = {
+  reverse: PropTypes.bool
+}
 
 export default Paragraph
