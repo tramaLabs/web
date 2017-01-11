@@ -3,22 +3,22 @@ import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
 import { Button as MenuButton } from 'react-aria-menubutton'
-import { font, color, reverseColor, ifProps } from 'arc-theme'
+import { font, palette, ifProp } from 'styled-theme'
 
 import { Spinner } from 'components'
 
 const fontSize = ({ height }) => `${height / 53.33333}rem`
 
 const backgroundColor = ({ transparent, disabled }) =>
-  transparent ? 'transparent' : color(disabled ? 2 : 1)
+  transparent ? 'transparent' : palette(disabled ? 2 : 1)
 
 const foregroundColor = ({ transparent, disabled }) =>
-  transparent ? color(disabled ? 2 : 1) : reverseColor('grayscale', 0)
+  transparent ? palette(disabled ? 2 : 1) : palette('grayscale', 0, true)
 
 const hoverBackgroundColor = ({ disabled, transparent }) =>
-  !disabled && !transparent && color(0) || 'rgba(255, 255, 255, 0.4)'
+  !disabled && !transparent && palette(0) || 'rgba(255, 255, 255, 0.4)'
 
-const hoverForegroundColor = ({ disabled, transparent }) => !disabled && transparent && color(0)
+const hoverForegroundColor = ({ disabled, transparent }) => !disabled && transparent && palette(0)
 
 const styles = css`
   display: inline-flex;
@@ -26,18 +26,18 @@ const styles = css`
   align-items: center;
   white-space: nowrap;
   font-size: ${fontSize};
-  border: 2px solid ${ifProps('transparent', 'currentcolor', 'transparent')};
+  border: 2px solid ${ifProp('transparent', 'currentcolor', 'transparent')};
   height: 3.3333em;
   justify-content: center;
   text-decoration: none;
   font-weight: 500;
-  cursor: ${ifProps('disabled', 'default', 'pointer')};
+  cursor: ${ifProp('disabled', 'default', 'pointer')};
   appearance: none;
   padding: 0 1.3333em;
   box-sizing: border-box;
   text-transform: uppercase;
-  pointer-events: ${ifProps('disabled', 'none', 'auto')};
-  transition: background-color 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out;
+  pointer-events: ${ifProp('disabled', 'none', 'auto')};
+  transition: background-color 250ms ease-out, palette 250ms ease-out, border-color 250ms ease-out;
   background-color: ${backgroundColor};
   color: ${foregroundColor};
   &:hover, &:focus, &:active {
@@ -54,7 +54,7 @@ const styles = css`
   }
 `
 
-const excluded = ['component', 'disabled', 'loading', 'transparent', 'reverse', 'color', 'height']
+const excluded = ['component', 'disabled', 'loading', 'transparent', 'reverse', 'palette', 'height']
 const omitProps = (props) => omit(props, excluded)
 
 const Component = styled(({ component, ...props }) =>
@@ -70,7 +70,7 @@ const StyledButton = styled.button`${styles}`
 const renderChildrenWithSpinner = ({ children, reverse }) => (
   <span>
     <span className="children">{children}</span>
-    <Spinner reverse={!reverse} color="alpha" />
+    <Spinner reverse={!reverse} palette="alpha" />
   </span>
 )
 
@@ -94,7 +94,7 @@ const Button = ({ type, ...props, component, to, href }) => {
 
 Button.propTypes = {
   children: PropTypes.any,
-  color: PropTypes.string,
+  palette: PropTypes.string,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   transparent: PropTypes.bool,
@@ -107,7 +107,7 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  color: 'primary',
+  palette: 'primary',
   type: 'button',
   height: 40
 }

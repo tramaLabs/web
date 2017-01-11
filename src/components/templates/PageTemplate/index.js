@@ -1,32 +1,31 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-
-import { breakpoints, headerHeight } from 'components/globals'
+import { size } from 'styled-theme'
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
-  padding-top: ${headerHeight};
+  padding-top: ${size('headerHeight')};
 `
 
 const Header = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  height: ${headerHeight};
+  height: ${size('headerHeight')};
   z-index: 999;
 `
 
 const Hero = styled.section`
-  margin-top: -${headerHeight};
+  margin-top: -${size('headerHeight')};
 `
 
 const Content = styled.section`
   width: 100%;
   margin: 0 auto;
-  max-width: calc(${breakpoints.maxWidth} + 2rem);
+  max-width: calc(${size('maxWidth')} + 2rem);
   box-sizing: border-box;
 `
 

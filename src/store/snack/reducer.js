@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       message: action.message,
-      color: action.color,
+      color: action.palette,
       show: true
     }
   case SNACK_HIDE:

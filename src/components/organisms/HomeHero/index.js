@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { color } from 'arc-theme'
+import { palette } from 'styled-theme'
 
 import { Paragraph, Heading, Button } from 'components'
 import { SearchForm } from 'containers'
@@ -34,7 +34,7 @@ const Shadow = styled.div`
   background: radial-gradient(
     closest-corner at 50% 25%,
     transparent -100%,
-    ${color('grayscale', 0)} 300%
+    ${palette('grayscale', 0)} 300%
   );
 `
 
@@ -71,7 +71,7 @@ const HomeHero = ({ ...props, reverse }) => {
       </Main>
       <SearchBox>
         <Heading level={2} reverse={!reverse}>Colabore com iniciativas</Heading>
-        <SearchForm color="grayscale" transparent reverse={!reverse} />
+        <SearchForm palette="grayscale" transparent reverse={!reverse} />
       </SearchBox>
     </Wrapper>
   )

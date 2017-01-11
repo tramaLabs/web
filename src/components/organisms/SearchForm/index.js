@@ -20,7 +20,7 @@ const Form = styled.form`
   }
 `
 
-const SearchForm = ({ handleSubmit, color, transparent, reverse, ...props }) => {
+const SearchForm = ({ handleSubmit, palette, transparent, reverse, ...props }) => {
   return (
     <Form method="get" action="/iniciativas" onSubmit={handleSubmit} {...props}>
       <Field
@@ -31,7 +31,7 @@ const SearchForm = ({ handleSubmit, color, transparent, reverse, ...props }) => 
         borderless={reverse} />
       <Button
         type="submit"
-        color={color}
+        palette={palette}
         transparent={transparent}
         reverse={reverse}>
         Explorar
@@ -42,7 +42,7 @@ const SearchForm = ({ handleSubmit, color, transparent, reverse, ...props }) => 
 
 SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  color: PropTypes.string,
+  palette: PropTypes.string,
   transparent: PropTypes.bool,
   reverse: PropTypes.bool
 }

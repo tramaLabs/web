@@ -9,8 +9,8 @@ storiesOf('Alert', module)
   .add('reverse', () => (
     <Alert reverse>Hello</Alert>
   ))
-  .add('another color', () => (
-    <Alert color="danger">Hello</Alert>
+  .add('another palette', () => (
+    <Alert palette="danger">Hello</Alert>
   ))
   .add('with left thing', () => (
     <Alert left="Hi">Hello</Alert>

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router'
-import { color } from 'arc-theme'
+import { palette } from 'styled-theme'
 
 import { Block, CoverImage, Heading, TagList } from 'components'
 
@@ -22,7 +22,7 @@ const Wrapper = styled(Block)`
     background: radial-gradient(
       closest-corner at 50% 20%,
       transparent 0%,
-      ${color('grayscale', 0)} 350%
+      ${palette('grayscale', 0)} 350%
     );
   }
   &:hover img {
@@ -68,7 +68,7 @@ const StyledTagList = styled((props) => <TagList {...props} />)`
 
 const InitiativeCard = ({ initiative, ...props, reverse }) => {
   return (
-    <Wrapper color={initiative.color} {...props}>
+    <Wrapper palette={initiative.color} {...props}>
       <StyledLink to={`/iniciativas/${initiative.id}/${initiative.slug}`} />
       {initiative.photo.small && <StyledCoverImage src={initiative.photo.small} />}
       <Info>
@@ -83,7 +83,7 @@ InitiativeCard.propTypes = {
   initiative: PropTypes.shape({
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired,
-    color: PropTypes.string,
+    palette: PropTypes.string,
     photo: PropTypes.shape({
       small: PropTypes.string
     }).isRequired

@@ -34,7 +34,7 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props, rev
     return (
       <Tooltip data-title="Você é o criador da iniciativa" reverse={reverse}>
         <Button
-          color="success"
+          palette="success"
           {...props}
           loading={false}
           style={{ cursor: 'default' }}>
@@ -45,8 +45,8 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props, rev
   } else if (isCollaborator(user, initiative)) {
     return (
       <MutatingWrapper>
-        <MutatingButton color="success" {...props}>Participando</MutatingButton>
-        <MutatingButton color="danger" onClick={onLeave} {...props}>
+        <MutatingButton palette="success" {...props}>Participando</MutatingButton>
+        <MutatingButton palette="danger" onClick={onLeave} {...props}>
           Cancelar participação
         </MutatingButton>
       </MutatingWrapper>

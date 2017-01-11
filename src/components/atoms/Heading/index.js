@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
-import { font, color } from 'arc-theme'
+import { font, palette } from 'styled-theme'
 
 export const fontSize = ({ level }) => `${1 + 1.625 * (1 / level)}rem`
 
@@ -11,7 +11,7 @@ const styles = css`
   margin: 0;
   margin-top: 0.85714em;
   margin-bottom: 0.57142em;
-  color: ${color({ grayscale: 0 }, 1)};
+  color: ${palette({ grayscale: 0 }, 1)};
 `
 
 const Heading = styled(({ level, children, reverse, theme, ...props }) => {
@@ -21,13 +21,13 @@ const Heading = styled(({ level, children, reverse, theme, ...props }) => {
 Heading.propTypes = {
   level: PropTypes.number,
   children: PropTypes.node,
-  color: PropTypes.string,
+  palette: PropTypes.string,
   reverse: PropTypes.bool
 }
 
 Heading.defaultProps = {
   level: 1,
-  color: 'grayscale'
+  palette: 'grayscale'
 }
 
 export default Heading

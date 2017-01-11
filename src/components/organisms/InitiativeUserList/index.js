@@ -35,7 +35,7 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
       </UserList>
       <IconButton
         icon="more"
-        color="grayscale"
+        palette="grayscale"
         height={36}
         transparent
         reverse={reverse}

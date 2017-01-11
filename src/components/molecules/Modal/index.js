@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled, { css, injectGlobal } from 'styled-components'
 import ReactModal from 'react-modal'
-import { font, color, reverseColor, ifProps } from 'arc-theme'
+import { font, palette, ifProp } from 'styled-theme'
 
 import { Heading, IconButton } from 'components'
 
@@ -35,8 +35,8 @@ const ModalBox = styled(ReactModal)`
   flex-direction: column;
   font-family: ${font('primary')};
   font-size: 1rem;
-  background-color: ${reverseColor('grayscale', 0)};
-  color: ${color('grayscale', 0)};
+  background-color: ${palette('grayscale', 0, true)};
+  color: ${palette('grayscale', 0)};
   top: calc(50% - 1rem);
   left: calc(50% - 1rem);
   right: auto;
@@ -49,7 +49,7 @@ const ModalBox = styled(ReactModal)`
   min-width: 320px;
   max-width: calc(640px - 1rem);
   max-height: calc(100% - 1rem);
-  padding-top: ${ifProps('hasHeader', 0, '1rem')};
+  padding-top: ${ifProp('hasHeader', 0, '1rem')};
   @media screen and (max-width: 640px) {
     width: calc(100% - 1rem);
     min-width: 0;
@@ -103,7 +103,7 @@ const Modal = ({ children, title, closeable, onClose, ...props, reverse }) => {
         <Header>
           <StyledHeading level={2} reverse={reverse}>{title}</StyledHeading>
           {closeable &&
-            <IconButton icon="close" onClick={onClose} color="black" reverse={!reverse} />
+            <IconButton icon="close" onClick={onClose} palette="black" reverse={!reverse} />
           }
         </Header>
       }

@@ -9,6 +9,6 @@ storiesOf('Snack', module)
   .add('reverse', () => (
     <Snack show reverse>Hello</Snack>
   ))
-  .add('another color', () => (
-    <Snack show color="danger">Hello</Snack>
+  .add('another palette', () => (
+    <Snack show palette="danger">Hello</Snack>
   ))

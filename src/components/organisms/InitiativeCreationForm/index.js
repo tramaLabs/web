@@ -14,7 +14,7 @@ const Form = styled.form`
 const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error, reverse }) => {
   return (
     <Form method="post" onSubmit={handleSubmit}>
-      {error && <Alert color="danger" reverse={reverse}>{error}</Alert>}
+      {error && <Alert palette="danger" reverse={reverse}>{error}</Alert>}
       <Field
         name="title"
         label="Título"
@@ -35,11 +35,7 @@ const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error, re
         Ao criar uma iniciativa você concorda com os <Link to="/termos">Termos de Uso</Link>.
       </Alert>
       {connected && <Button type="submit" disabled={submitting}>Criar iniciativa</Button>}
-      {connected ||
-        <Alert left={<FacebookLoginButton />}>
-          Você precisa estar conectado para criar uma iniciativa
-        </Alert>
-      }
+      {connected || <FacebookLoginButton>Entrar para criar iniciativa</FacebookLoginButton>}
     </Form>
   )
 }

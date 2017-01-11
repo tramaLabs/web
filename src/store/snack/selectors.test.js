@@ -3,7 +3,7 @@ import * as selectors from './selectors'
 test('initialState', () => {
   expect(selectors.initialState).toEqual({
     message: undefined,
-    color: undefined,
+    palette: undefined,
     show: false
   })
 })
@@ -14,10 +14,10 @@ test('getMessage', () => {
   expect(selectors.getMessage(selectors.initialState)).toEqual(selectors.initialState.message)
 })
 
-test('getColor', () => {
-  expect(selectors.getColor()).toEqual(selectors.initialState.color)
-  expect(selectors.getColor({})).toEqual(selectors.initialState.color)
-  expect(selectors.getColor(selectors.initialState)).toEqual(selectors.initialState.color)
+test('getPalette', () => {
+  expect(selectors.getPalette()).toEqual(selectors.initialState.palette)
+  expect(selectors.getPalette({})).toEqual(selectors.initialState.palette)
+  expect(selectors.getPalette(selectors.initialState)).toEqual(selectors.initialState.palette)
 })
 
 test('toShow', () => {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, color } from 'arc-theme'
+import { font, palette } from 'styled-theme'
 
 import { Link } from 'components'
 
@@ -16,7 +16,7 @@ const Square = styled.span`
   width: 0.75em;
   height: 0.75em;
   margin-right: 0.5em;
-  background-color: ${color('primary', 1)};
+  background-color: ${palette('primary', 1)};
 `
 
 const Text = styled.span`
@@ -28,7 +28,7 @@ const Text = styled.span`
 
 const TagLink = ({ children, ...props }) => {
   return (
-    <StyledLink to={`/iniciativas?q=${children}`} color="grayscale" {...props}>
+    <StyledLink to={`/iniciativas?q=${children}`} palette="grayscale" {...props}>
       <Square />
       <Text>{children}</Text>
     </StyledLink>

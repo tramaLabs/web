@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
-import { color, key, ifProps } from 'arc-theme'
+import { palette, size, ifProp } from 'styled-theme'
 
 import { Block, LogoLink, Link } from 'components'
 import { SearchForm, UserButton } from 'containers'
@@ -14,7 +14,7 @@ const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  max-width: ${key('sizes.maxWidth')};
+  max-width: ${size('maxWidth')};
   margin: 0 auto;
   padding: 0 1rem;
   @media screen and (max-width: 640px) {
@@ -30,9 +30,9 @@ const StyledLogoLink = styled(LogoLink)`
 const StyledSearchForm = styled((props) => <SearchForm {...props} />)`
   flex: 1;
   margin: 0 2rem;
-  color: ${color('grayscale', 0)};
-  visibility: ${ifProps('hideSearch', 'hidden', 'visible')};
-  opacity: ${ifProps('hideSearch', 0, 1)};
+  color: ${palette('grayscale', 0)};
+  visibility: ${ifProp('hideSearch', 'hidden', 'visible')};
+  opacity: ${ifProp('hideSearch', 0, 1)};
   transition: opacity 250ms ease-in-out;
   @media screen and (max-width: 640px) {
     margin: 0;
@@ -106,12 +106,12 @@ class Header extends Component {
           <StyledLogoLink height={35} reverse={reverse} />
           <StyledSearchForm
             hideSearch={hideSearch}
-            color="grayscale"
+            palette="grayscale"
             transparent
             reverse={!reverse} />
           <Nav>
-            <UserButton color="alpha" reverse={!reverse} responsive />
-            <StyledLink to="/" color="grayscale" reverse={!reverse}>Manifesto</StyledLink>
+            <UserButton palette="alpha" reverse={!reverse} responsive />
+            <StyledLink to="/" palette="grayscale" reverse={!reverse}>Manifesto</StyledLink>
           </Nav>
         </InnerWrapper>
       </Wrapper>
