@@ -3,7 +3,7 @@ import { coolors, reversePalette } from 'styled-theme/composer'
 const theme = {}
 
 theme.palette = {
-  primary: ['#d06e04', '#fe8604', '#feb25f', '#fec88c', '#fedeba'],
+  primary: coolors('https://coolors.co/d06e04-fe8604-feb25f-fec88c-fedeba'),
   secondary: coolors('https://coolors.co/c2185b-e91e63-f06292-f48caf-f8bbd0'),
   danger: coolors('https://coolors.co/d32f2f-f44336-f8877f-f9a7a1-ffcdd2'),
   alert: coolors('https://coolors.co/ffa000-ffc107-ffd761-ffecb3-fff2ce'),
