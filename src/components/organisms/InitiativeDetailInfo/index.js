@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { reverseColor, key } from 'arc-theme'
+import { key, palette } from 'styled-theme'
 
 import { Caption, Paragraph, InitiativeDetailUser } from 'components'
 
 const Wrapper = styled.div`
-  background-color: ${reverseColor('grayscale', 1)};
+  background-color: ${palette('grayscale', 1, true)};
 `
 
 const InnerWrapper = styled.div`

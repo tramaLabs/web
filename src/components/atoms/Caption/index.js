@@ -1,10 +1,10 @@
 import { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, color } from 'arc-theme'
+import { font, palette } from 'styled-theme'
 
 const Caption = styled.span`
   font-family: ${font('primary')};
-  color: ${color('grayscale', 2)};
+  color: ${palette('grayscale', 2)};
   display: block;
   font-size: 1rem;
   margin-bottom: 0.3rem;

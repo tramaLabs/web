@@ -39,13 +39,13 @@ const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
-        <StyledHeading color="grayscale" reverse={reverse}>{initiative.title}</StyledHeading>
+        <StyledHeading palette="grayscale" reverse={reverse}>{initiative.title}</StyledHeading>
         <TagList tags={initiative.tags} reverse={reverse} />
       </Title>
       <InitiativeJoinButton initiative={initiative} />
       <IconButton
         icon="share"
-        color="grayscale"
+        palette="grayscale"
         breakpoint={840}
         reverse={reverse}
         transparent

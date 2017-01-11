@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, color, reverseColor } from 'arc-theme'
+import { font, palette } from 'styled-theme'
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,9 +9,9 @@ const Wrapper = styled.div`
   font-size: 1rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  color: ${color('grayscale', 0)};
-  background-color: ${reverseColor(0)};
-  border: 1px solid ${reverseColor(1)};
+  color: ${palette('grayscale', 0)};
+  background-color: ${palette(0, true)};
+  border: 1px solid ${palette(1, true)};
   & > * {
     margin: 0.5rem;
   }
@@ -35,11 +35,11 @@ Alert.propTypes = {
   children: PropTypes.any,
   left: PropTypes.any,
   right: PropTypes.any,
-  color: PropTypes.string
+  palette: PropTypes.string
 }
 
 Alert.defaultProps = {
-  color: 'alert',
+  palette: 'alert',
   role: 'alert'
 }
 

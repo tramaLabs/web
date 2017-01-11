@@ -1,6 +1,6 @@
 import { PropTypes } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { color } from 'arc-theme'
+import { palette } from 'styled-theme'
 
 const loading = keyframes`
   0% { transform: rotate(90deg); }
@@ -16,16 +16,16 @@ const Spinner = styled.div`
   width: 1em;
   height: 1em;
   animation: ${loading} 1.5s infinite ease-in-out;
-  background-color: ${color(1)};
+  background-color: ${palette(1)};
 `
 
 Spinner.propTypes = {
-  color: PropTypes.string,
+  palette: PropTypes.string,
   reverse: PropTypes.bool
 }
 
 Spinner.defaultProps = {
-  color: 'alpha'
+  palette: 'alpha'
 }
 
 export default Spinner

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
-import { color, reverseColor, key, ifProps } from 'arc-theme'
+import { palette, size, ifProp } from 'styled-theme'
 
 import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
@@ -28,19 +28,19 @@ const Wrapper = styled.div`
     background: radial-gradient(
       closest-corner at 50% 80%,
       transparent 80%,
-      ${color('grayscale', 0)} 350%
+      ${palette('grayscale', 0)} 350%
     ), linear-gradient(
       transparent 45%,
-      ${color('grayscale', 0)} 100%
+      ${palette('grayscale', 0)} 100%
     );
   }
   &:after {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
-    background-color: ${reverseColor('alpha', 3)};
+    background-color: ${palette('alpha', 3, true)};
     pointer-events: none;
-    opacity: ${ifProps('previewLoading', 1, 0)};
+    opacity: ${ifProp('previewLoading', 1, 0)};
     transition: opacity 500ms;
     z-index: 2;
   }
@@ -51,10 +51,10 @@ const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: calc(${key('sizes.maxWidth')} + 2rem);
+  max-width: calc(${size('maxWidth')} + 2rem);
   margin: 5rem auto 0;
   height: 100%;
-  color: ${reverseColor('grayscale', 0)};
+  color: ${palette('grayscale', 0, true)};
   z-index: 3;
 `
 
@@ -105,7 +105,7 @@ class InitiativeDetailCover extends Component {
         medium: PropTypes.string,
         large: PropTypes.string
       }).isRequired,
-      color: PropTypes.string
+      palette: PropTypes.string
     }).isRequired,
     user: PropTypes.shape({
       id: PropTypes.any.isRequired
@@ -160,7 +160,7 @@ class InitiativeDetailCover extends Component {
           component="label"
           htmlFor="coverPhoto"
           icon="camera"
-          color="alpha"
+          palette="alpha"
           height={32}
           reverse={!this.props.reverse}
           responsive
@@ -187,7 +187,7 @@ class InitiativeDetailCover extends Component {
           Salvar como foto de capa
         </Button>
         <Button
-          color="grayscale"
+          palette="grayscale"
           disabled={uploadLoading}
           onClick={this.handlePreviewCancel}
           reverse={!reverse}

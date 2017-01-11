@@ -13,5 +13,5 @@ storiesOf('SearchForm', module)
     <SearchForm transparent />
   ))
   .add('transparent grayscale', () => (
-    <SearchForm color="grayscale" transparent />
+    <SearchForm palette="grayscale" transparent />
   ))

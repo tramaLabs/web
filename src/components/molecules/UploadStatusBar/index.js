@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, color, reverseColor, ifProps } from 'arc-theme'
+import { font, palette, ifProp } from 'styled-theme'
 
 const Wrapper = styled.div`
   position: relative;
   font-family: ${font('primary')};
-  background-color: ${reverseColor('grayscale', 0)};
+  background-color: ${palette('grayscale', 0, true)};
   height: 2.5rem;
 `
 
@@ -21,8 +21,8 @@ const Text = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   white-space: nowrap;
-  color: ${ifProps('filled', reverseColor('grayscale', 0), color('grayscale', 0))};
-  background-color: ${ifProps('filled', color('alert', 1), reverseColor('grayscale', 0))};
+  color: ${ifProp('filled', palette('grayscale', 0, true), palette('grayscale', 0))};
+  background-color: ${ifProp('filled', palette('alert', 1), palette('grayscale', 0, true))};
   clip-path: inset(0 0 0 ${({ progress }) => progress * 100}%);
   will-change: clip-path;
   transition: clip-path 250ms;

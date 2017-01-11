@@ -5,7 +5,7 @@ import reducer from './reducer'
 const altState = {
   ...initialState,
   message: 'test message',
-  color: 'test color',
+  palette: 'test palette',
   show: true
 }
 
@@ -17,12 +17,12 @@ it('handles SNACK_SHOW', () => {
   const action = {
     type: actions.SNACK_SHOW,
     message: 'foo',
-    color: 'bar'
+    palette: 'bar'
   }
   const state = {
     ...initialState,
     message: 'foo',
-    color: 'bar',
+    palette: 'bar',
     show: true
   }
   expect(reducer(initialState, action)).toEqual(state)

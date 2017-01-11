@@ -1,6 +1,6 @@
 import { PropTypes } from 'react'
 import styled from 'styled-components'
-import { key, font, color, reverseColor, ifProps } from 'arc-theme'
+import { font, size, palette, ifProp } from 'styled-theme'
 
 const Snack = styled.div`
   position: fixed;
@@ -11,17 +11,17 @@ const Snack = styled.div`
   font-size: 0.875rem;
   padding: 0 1.14em;
   margin: 0 1rem;
-  top: ${key('sizes.headerHeight')};
+  top: ${size('headerHeight')};
   left: calc(50% - 1rem);
   height: 2.8571em;
   max-width: calc(100% - 2rem);
   white-space: nowrap;
   box-sizing: border-box;
-  opacity: ${ifProps('show', 1, 0)};
-  transform: translate(-50%, -${ifProps('show', 0, key('sizes.headerHeight'))});
+  opacity: ${ifProp('show', 1, 0)};
+  transform: translate(-50%, -${ifProp('show', 0, size('headerHeight'))});
   transition: transform 200ms ease-out, opacity 100ms ease-out;
-  color: ${reverseColor('grayscale', 0)};
-  background-color: ${color(1)};
+  color: ${palette('grayscale', 0, true)};
+  background-color: ${palette(1)};
   z-index: 999;
   pointer-events: none;
   @media screen and (max-width: 640px) {
@@ -36,13 +36,13 @@ const Snack = styled.div`
 `
 
 Snack.propTypes = {
-  color: PropTypes.string,
+  palette: PropTypes.string,
   reverse: PropTypes.bool,
   show: PropTypes.bool
 }
 
 Snack.defaultProps = {
-  color: 'success',
+  palette: 'success',
   role: 'alert'
 }
 

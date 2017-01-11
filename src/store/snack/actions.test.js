@@ -4,7 +4,7 @@ test('snackShow', () => {
   expect(actions.snackShow('test', 'primary')).toEqual({
     type: actions.SNACK_SHOW,
     message: 'test',
-    color: 'primary'
+    palette: 'primary'
   })
 })
 
