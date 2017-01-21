@@ -1,6 +1,7 @@
 import { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, size, palette, ifProp } from 'styled-theme'
+import { font, size, palette } from 'styled-theme'
+import { ifProp } from 'styled-tools'
 
 const Snack = styled.div`
   position: fixed;

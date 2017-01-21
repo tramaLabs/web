@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { font, palette, ifProp } from 'styled-theme'
+import { font, palette } from 'styled-theme'
+import { ifProp } from 'styled-tools'
 
 const Wrapper = styled.div`
   position: relative;

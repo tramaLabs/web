@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Menu } from 'react-aria-menubutton'
-import { font, palette, ifProp } from 'styled-theme'
+import { font, palette } from 'styled-theme'
+import { ifProp } from 'styled-tools'
 
 const StyledMenu = styled(({ right, theme, ...props }) => <Menu {...props} />)`
   position: absolute;

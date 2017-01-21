@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import styled, { css, injectGlobal } from 'styled-components'
 import ReactModal from 'react-modal'
-import { font, palette, ifProp } from 'styled-theme'
+import { font, palette } from 'styled-theme'
+import { ifProp } from 'styled-tools'
 
 import { Heading, IconButton } from 'components'
 
