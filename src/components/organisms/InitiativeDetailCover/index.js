@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
-import { palette, size, ifProp } from 'styled-theme'
+import { palette, size } from 'styled-theme'
+import { ifProp } from 'styled-tools'
 
 import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
