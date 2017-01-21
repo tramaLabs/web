@@ -1,4 +1,5 @@
 import { take, put, call, fork } from 'redux-saga/effects'
+import api from 'services/api'
 import {
   tagCreate,
   tagListRead,
@@ -7,9 +8,8 @@ import {
   TAG_LIST_READ_REQUEST,
   TAG_LIST_EXTRACT_REQUEST
 } from './actions'
-import api from 'services/api'
 
-export function* createTag (newData) {
+export function* createTag(newData) {
   try {
     const { data } = yield call(api.post, '/tags', newData)
     yield put(tagCreate.success(data))
@@ -18,7 +18,7 @@ export function* createTag (newData) {
   }
 }
 
-export function* readTagList (params) {
+export function* readTagList(params) {
   try {
     const { data } = yield call(api.get, '/tags', { params })
     yield put(tagListRead.success(data))
@@ -27,7 +27,7 @@ export function* readTagList (params) {
   }
 }
 
-export function* extractTagList (text) {
+export function* extractTagList(text) {
   try {
     const { data } = yield call(api.post, '/tags/extract', { text })
     yield put(tagListExtract.success(data))
@@ -36,21 +36,21 @@ export function* extractTagList (text) {
   }
 }
 
-export function* watchTagCreateRequest () {
+export function* watchTagCreateRequest() {
   while (true) {
     const { data } = yield take(TAG_CREATE_REQUEST)
     yield call(createTag, data)
   }
 }
 
-export function* watchTagListReadRequest () {
+export function* watchTagListReadRequest() {
   while (true) {
     const { params } = yield take(TAG_LIST_READ_REQUEST)
     yield call(readTagList, params)
   }
 }
 
-export function* watchTagListExtractRequest () {
+export function* watchTagListExtractRequest() {
   while (true) {
     const { text } = yield take(TAG_LIST_EXTRACT_REQUEST)
     yield call(extractTagList, text)

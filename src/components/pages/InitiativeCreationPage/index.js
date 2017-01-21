@@ -15,7 +15,8 @@ const InitiativeCreationPage = () => {
           </Paragraph>
         </div>
       }
-      footer={<div />}>
+      footer={<div />}
+    >
       <InitiativeCreationForm />
     </PageTemplate>
   )

@@ -10,18 +10,18 @@ class HomePageContainer extends Component {
     readInitiativeList: PropTypes.func.isRequired
   }
 
-  static all ({ store }) {
+  static all({ store }) {
     return new Promise((resolve, reject) => {
       store.dispatch(initiativeListRead.request({}, resolve, reject))
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { readInitiativeList } = this.props
     readInitiativeList()
   }
 
-  render () {
+  render() {
     return <HomePage {...this.props} />
   }
 }

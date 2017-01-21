@@ -21,9 +21,10 @@ const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
       title={`Participantes (${initiative.users.length})`}
       name="initiativeUserList"
       closeable
-      {...props}>
-      {sortBy(initiative.users, 'name').map((user, key) =>
-        <User key={key}>
+      {...props}
+    >
+      {sortBy(initiative.users, 'name').map(user =>
+        <User key={user.id}>
           <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
           <Block reverse={reverse}>{user.name}</Block>
         </User>
@@ -35,6 +36,7 @@ const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
 InitiativeUserListModal.propTypes = {
   initiative: PropTypes.shape({
     users: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.any,
       name: PropTypes.string,
       picture: PropTypes.string
     })).isRequired

@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 
 import { SearchForm } from 'components'
 
-class SearchFormContainer extends Component {
-  render () {
-    return <SearchForm {...this.props} />
-  }
-}
+const SearchFormContainer = props => <SearchForm {...props} />
 
 const onSubmit = ({ q }, dispatch) => dispatch(push('/iniciativas', { q }))
 

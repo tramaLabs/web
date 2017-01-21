@@ -32,7 +32,7 @@ export const appendFbRoot = () => {
 export const serviceAction = (suffix, service) => (action) =>
   action.type === `AUTH_LOGIN_${suffix}` && action.service === service
 
-export function* loginFacebook ({ scope = 'public_profile,email' } = {}) {
+export function* loginFacebook({ scope = 'public_profile,email' } = {}) {
   try {
     const { accessToken } = yield call(promises.fbLogin, { scope })
     const { data } = yield call(api.post, '/auth/facebook', { access_token: accessToken })
@@ -43,13 +43,13 @@ export function* loginFacebook ({ scope = 'public_profile,email' } = {}) {
   }
 }
 
-export function* prepareFacebook ({ appId, version = 'v2.8', ...options }) {
+export function* prepareFacebook({ appId, version = 'v2.8', ...options }) {
   yield call(appendFbRoot)
   yield call(promises.loadScript, '//connect.facebook.net/en_US/sdk.js')
   yield call([window.FB, window.FB.init], { appId, version, ...options })
 }
 
-export function* watchAuthLoginFacebook () {
+export function* watchAuthLoginFacebook() {
   const { options } = yield take(serviceAction('PREPARE', 'facebook'))
   yield call(prepareFacebook, options)
   while (true) {
@@ -58,7 +58,7 @@ export function* watchAuthLoginFacebook () {
   }
 }
 
-export function* watchAuthLoginSuccess () {
+export function* watchAuthLoginSuccess() {
   while (true) {
     const { token } = yield take(AUTH_LOGIN_SUCCESS)
     yield [
@@ -68,7 +68,7 @@ export function* watchAuthLoginSuccess () {
   }
 }
 
-export function* watchAuthLogout () {
+export function* watchAuthLogout() {
   while (true) {
     yield take(AUTH_LOGOUT)
     yield [

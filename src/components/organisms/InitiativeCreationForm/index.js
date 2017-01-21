@@ -21,7 +21,8 @@ const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error, re
         placeholder="ex: Aula de violão na praia"
         maxLength={120}
         component={ReduxField}
-        reverse={reverse} />
+        reverse={reverse}
+      />
       <Field
         name="description"
         label="Proposta"
@@ -30,7 +31,8 @@ const InitiativeCreationForm = ({ connected, handleSubmit, submitting, error, re
         rows={8}
         maxLength={2048}
         component={ReduxField}
-        reverse={reverse} />
+        reverse={reverse}
+      />
       <Alert>
         Ao criar uma iniciativa você concorda com os <Link to="/termos">Termos de Uso</Link>.
       </Alert>

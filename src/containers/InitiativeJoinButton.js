@@ -1,20 +1,16 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fromStatus, fromUser, fromEntities } from 'store/selectors'
 import { initiativeJoin, initiativeLeave, INITIATIVE_JOIN, INITIATIVE_LEAVE } from 'store/actions'
 
 import { InitiativeJoinButton } from 'components'
 
-class InitiativeJoinButtonContainer extends Component {
-  static propTypes = {
-    initiative: PropTypes.shape({
-      id: PropTypes.any
-    }).isRequired
-  }
+const InitiativeJoinButtonContainer = props => <InitiativeJoinButton {...props} />
 
-  render () {
-    return <InitiativeJoinButton {...this.props} />
-  }
+InitiativeJoinButtonContainer.propTypes = {
+  initiative: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
 }
 
 const mapStateToProps = (state) => ({

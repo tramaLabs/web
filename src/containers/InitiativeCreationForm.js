@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, SubmissionError } from 'redux-form'
 import { fromUser } from 'store/selectors'
@@ -7,11 +7,7 @@ import { createValidator, required, minLength, maxLength } from 'services/valida
 
 import { InitiativeCreationForm } from 'components'
 
-class InitiativeCreationFormContainer extends Component {
-  render () {
-    return <InitiativeCreationForm {...this.props} />
-  }
-}
+const InitiativeCreationFormContainer = props => <InitiativeCreationForm {...props} />
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
   dispatch(initiativeCreate.request(data, resolve, reject))

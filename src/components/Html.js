@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
 
@@ -6,7 +7,7 @@ const Html = ({ styles, assets, state, content }) => {
   const attrs = helmet.htmlAttributes.toComponent()
 
   return (
-    <html lang="pt-br" {...attrs}>
+    <html lang="pt" {...attrs}>
       <head>
         <meta charSet="utf-8" />
         {helmet.title.toComponent()}

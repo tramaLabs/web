@@ -16,13 +16,13 @@ beforeEach(() => {
 test('setToken', () => {
   expect(defaults.headers.common).toEqual({})
   api.setToken(1)
-  expect(defaults.headers.common['Authorization']).toBe('Bearer 1')
+  expect(defaults.headers.common.Authorization).toBe('Bearer 1')
 })
 
 test('unsetToken', () => {
-  defaults.headers.common['Authorization'] = 1
+  defaults.headers.common.Authorization = 1
   api.unsetToken()
-  expect(defaults.headers.common['Authorization']).toBeUndefined()
+  expect(defaults.headers.common.Authorization).toBeUndefined()
 })
 
 test('get', () => {

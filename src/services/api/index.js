@@ -14,11 +14,11 @@ api.interceptors.response.use(
 facade.request = (config) => api.request(config)
 
 facade.setToken = (token) => {
-  api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  api.defaults.headers.common.Authorization = `Bearer ${token}`
 }
 
 facade.unsetToken = () => {
-  delete api.defaults.headers.common['Authorization']
+  delete api.defaults.headers.common.Authorization
 }
 
 ;['delete', 'get', 'head'].forEach((method) => {

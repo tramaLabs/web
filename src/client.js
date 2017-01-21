@@ -11,6 +11,7 @@ import api from 'services/api'
 
 import routes from 'routes'
 
+// eslint-disable-next-line no-underscore-dangle
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store)

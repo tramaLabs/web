@@ -34,11 +34,10 @@ const UserButton = ({ user, onUserLogout, ...props }) => {
         </Menu>
       </Dropdown>
     )
-  } else {
-    return (
-      <FacebookLoginButton {...props}>Entrar</FacebookLoginButton>
-    )
   }
+  return (
+    <FacebookLoginButton {...props}>Entrar</FacebookLoginButton>
+  )
 }
 
 UserButton.propTypes = {

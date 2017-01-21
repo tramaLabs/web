@@ -1,8 +1,8 @@
 import { take, put, call, fork } from 'redux-saga/effects'
 import cookie from 'react-cookie'
+import api from 'services/api'
 import * as actions from '../actions'
 import saga, * as sagas from './sagas'
-import api from 'services/api'
 
 window.FB = {
   init: () => {},

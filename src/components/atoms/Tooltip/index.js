@@ -15,7 +15,7 @@ export const opposite = ({ position }) => opposites[position]
 export const perpendicular = ({ position }) =>
   position === 'left' || position === 'right' ? 'top' : 'left'
 
-export const perpendicularOpposite = (props) => opposites[perpendicular(props)]
+export const perpendicularOpposite = props => opposites[perpendicular(props)]
 
 export const perpendicularAxis = ({ position }) =>
   position === 'left' || position === 'right' ? 'Y' : 'X'
@@ -61,16 +61,16 @@ const styles = css`
     ${opposite}: calc(100% + 2rem);
     ${({ align }) => {
       switch (align) {
-      case 'start': return css`
-        ${perpendicular}: 0;
-      `
-      case 'center': return css`
-        ${perpendicular}: 50%;
-        transform: translate${perpendicularAxis}(-50%);
-      `
-      case 'end': return css`
-        ${perpendicularOpposite}: 0;
-      `
+        case 'start': return css`
+          ${perpendicular}: 0;
+        `
+        case 'center': return css`
+          ${perpendicular}: 50%;
+          transform: translate${perpendicularAxis}(-50%);
+        `
+        default: return css`
+          ${perpendicularOpposite}: 0;
+        `
       }
     }}
   }
