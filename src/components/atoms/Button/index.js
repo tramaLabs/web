@@ -17,7 +17,7 @@ const foregroundColor = ({ transparent, disabled }) =>
   transparent ? palette(disabled ? 2 : 1) : palette('grayscale', 0, true)
 
 const hoverBackgroundColor = ({ disabled, transparent }) =>
-  !disabled && !transparent && palette(0) || 'rgba(255, 255, 255, 0.4)'
+  !disabled && !transparent ? palette(0) : 'rgba(255, 255, 255, 0.4)'
 
 const hoverForegroundColor = ({ disabled, transparent }) => !disabled && transparent && palette(0)
 

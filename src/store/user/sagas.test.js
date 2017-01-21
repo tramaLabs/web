@@ -1,7 +1,7 @@
 import { take, put, call, fork } from 'redux-saga/effects'
+import api from 'services/api'
 import * as actions from './actions'
 import { authLogout } from '../auth/actions'
-import api from 'services/api'
 import saga, * as sagas from './sagas'
 
 describe('readCurrentUser', () => {
