@@ -13,18 +13,18 @@ class InitiativeDetailPageContainer extends Component {
     readInitiativeDetail: PropTypes.func.isRequired
   }
 
-  static all ({ params, store }) {
+  static all({ params, store }) {
     return new Promise((resolve, reject) => {
       store.dispatch(initiativeDetailRead.request(params.id, resolve, reject))
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { params, readInitiativeDetail } = this.props
     readInitiativeDetail(params.id)
   }
 
-  render () {
+  render() {
     return <InitiativeDetailPage {...this.props} />
   }
 }

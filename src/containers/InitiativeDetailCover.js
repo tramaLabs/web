@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fromStatus, fromUser, fromInitiative, fromEntities } from 'store/selectors'
 import {
@@ -10,16 +10,12 @@ import {
 
 import { InitiativeDetailCover } from 'components'
 
-class InitiativeDetailCoverContainer extends Component {
-  static propTypes = {
-    initiative: PropTypes.shape({
-      id: PropTypes.any
-    }).isRequired
-  }
+const InitiativeDetailCoverContainer = props => <InitiativeDetailCover {...props} />
 
-  render () {
-    return <InitiativeDetailCover {...this.props} />
-  }
+InitiativeDetailCoverContainer.propTypes = {
+  initiative: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
 }
 
 const mapStateToProps = (state) => ({

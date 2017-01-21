@@ -4,7 +4,7 @@ import * as actions from './actions'
 import saga, * as sagas from './sagas'
 
 test('putSnack', () => {
-  const snack = sagas.snacks['AUTH_LOGIN_SUCCESS']
+  const snack = sagas.snacks.AUTH_LOGIN_SUCCESS
   const generator = sagas.putSnack('AUTH_LOGIN_SUCCESS')
   expect(generator.next().value)
     .toEqual(put(actions.snackShow(snack[0], snack[1])))

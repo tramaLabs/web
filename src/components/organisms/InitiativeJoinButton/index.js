@@ -37,7 +37,8 @@ const InitiativeJoinButton = ({ user, initiative, onLeave, onJoin, ...props, rev
           palette="success"
           {...props}
           loading={false}
-          style={{ cursor: 'default' }}>
+          style={{ cursor: 'default' }}
+        >
           Participando
         </Button>
       </Tooltip>

@@ -49,7 +49,8 @@ const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
         breakpoint={840}
         reverse={reverse}
         transparent
-        responsive>
+        responsive
+      >
         Compartilhar
       </IconButton>
     </Wrapper>

@@ -1,9 +1,9 @@
 import { push } from 'react-router-redux'
 import { take, put, call, fork, select } from 'redux-saga/effects'
+import api from 'services/api'
 import * as actions from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
-import api from 'services/api'
 import saga, * as sagas from './sagas'
 
 describe('createInitiative', () => {
@@ -135,12 +135,12 @@ test('watchInitiativePhotoUpdateProgress', () => {
 
 describe('updatePhotoInitiative', () => {
   const data = { id: 1 }
-  const [ upload, chan ] = sagas.createUploader()
+  const [upload, chan] = sagas.createUploader()
 
   it('calls success', () => {
     const generator = sagas.updatePhotoInitiative(1, data)
     expect(generator.next().value).toEqual(call(sagas.createUploader))
-    expect(generator.next([ upload, chan ]).value)
+    expect(generator.next([upload, chan]).value)
       .toEqual(fork(sagas.watchInitiativePhotoUpdateProgress, chan))
     expect(generator.next().value).toEqual(call(upload, '/initiatives/1/photo', data))
     expect(generator.next({ data }).value)
@@ -150,7 +150,7 @@ describe('updatePhotoInitiative', () => {
   it('calls failure', () => {
     const generator = sagas.updatePhotoInitiative(1, data)
     expect(generator.next().value).toEqual(call(sagas.createUploader))
-    expect(generator.next([ upload, chan ]).value)
+    expect(generator.next([upload, chan]).value)
       .toEqual(fork(sagas.watchInitiativePhotoUpdateProgress, chan))
     expect(generator.throw('test').value)
       .toEqual(put(actions.initiativePhotoUpdate.failure('test')))

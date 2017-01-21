@@ -9,7 +9,7 @@ const fadeIn = keyframes`
   100% { display: block; opacity: 1; }
 `
 
-const buttonStyles = ({ hasText, right, responsive, breakpoint, collapsed }) => css`
+const buttonStyles = ({ hasText, responsive, breakpoint, collapsed }) => css`
   max-width: ${hasText && !collapsed ? '100%' : '3.3333em'};
   width: ${hasText ? 'auto' : '3.3333em'};
   padding: ${hasText ? '0 0.6em' : 0};

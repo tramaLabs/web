@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 import { palette, size } from 'styled-theme'
-import { ifProp } from 'styled-tools'
+import { get, ifProp } from 'styled-tools'
 
 import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 420px;
-  background-color: ${(props) => props.initiative.color};
+  background-color: ${get('initiative.color')};
   @media screen and (min-width: 640px) {
     & *[for=coverPhoto] {
       display: none;
@@ -147,7 +147,7 @@ class InitiativeDetailCover extends Component {
     this.props.onPreviewCancel()
   }
 
-  renderInput () {
+  renderInput() {
     return (
       <div>
         <input
@@ -155,8 +155,9 @@ class InitiativeDetailCover extends Component {
           id="coverPhoto"
           style={{ display: 'none' }}
           accept="image/*"
-          ref="input"
-          onChange={this.handlePhotoSelect} />
+          ref={input => { this.input = input }}
+          onChange={this.handlePhotoSelect}
+        />
         <ChangePhotoButton
           component="label"
           htmlFor="coverPhoto"
@@ -165,14 +166,15 @@ class InitiativeDetailCover extends Component {
           height={32}
           reverse={!this.props.reverse}
           responsive
-          collapsed>
+          collapsed
+        >
           Mudar foto de capa
         </ChangePhotoButton>
       </div>
     )
   }
 
-  renderPreviewOptions () {
+  renderPreviewOptions() {
     const { previewLoading, uploadLoading, uploadProgress, reverse } = this.props
     const { filename } = this.state
     return (
@@ -180,11 +182,13 @@ class InitiativeDetailCover extends Component {
         <StyledUploadStatusBar
           filename={filename}
           progress={uploadProgress}
-          reverse={reverse} />
+          reverse={reverse}
+        />
         <Button
           loading={uploadLoading || previewLoading}
           disabled={uploadLoading || previewLoading || !this.state.file}
-          onClick={this.handlePhotoUpload}>
+          onClick={this.handlePhotoUpload}
+        >
           Salvar como foto de capa
         </Button>
         <Button
@@ -192,14 +196,15 @@ class InitiativeDetailCover extends Component {
           disabled={uploadLoading}
           onClick={this.handlePreviewCancel}
           reverse={!reverse}
-          transparent>
+          transparent
+        >
           Cancelar
         </Button>
       </OptionsWrapper>
     )
   }
 
-  render () {
+  render() {
     const { initiative, user, preview, previewLoading, children } = this.props
     const isAuthor = user && initiative.user.id === user.id
     const isFetching = preview || previewLoading

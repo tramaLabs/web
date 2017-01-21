@@ -20,23 +20,23 @@ export const snacks = {
   [a.INITIATIVE_PHOTO_PREVIEW_FAILURE]: ['O arquivo não pode ultrapassar 2MB', 'danger']
 }
 
-export function* putSnack (action) {
+export function* putSnack(action) {
   yield put(snackShow(snacks[action][0], snacks[action][1]))
 }
 
-export function* showSnacks () {
+export function* showSnacks() {
   yield Object.keys(snacks).map((action) => takeEvery(action, putSnack, action))
 }
 
 const millisecondsPerChar = 150
 
-export function* showSnack (message) {
+export function* showSnack(message) {
   const time = message.replace(/\s/g, '').length * millisecondsPerChar
   yield call(delay, time)
   yield put(snackHide())
 }
 
-export function* watchSnackShow () {
+export function* watchSnackShow() {
   while (true) {
     const { message } = yield take(SNACK_SHOW)
     yield call(showSnack, message)

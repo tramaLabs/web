@@ -16,11 +16,11 @@ class HomePage extends Component {
     scrolledBeyondHero: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
@@ -37,14 +37,15 @@ class HomePage extends Component {
     }
   }
 
-  render () {
+  render() {
     const { initiatives } = this.props
     const { scrolledBeyondHero } = this.state
     return (
       <PageTemplate
         header={<Header id="header" hideSearch={!scrolledBeyondHero} scrollsTranslucid />}
         hero={<HomeHero id="hero" />}
-        footer={<div />}>
+        footer={<div />}
+      >
         <StyledHeading level={2}>Iniciativas em destaque</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>

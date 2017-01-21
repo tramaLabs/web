@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { font, palette } from 'styled-theme'
 
-export const fontSize = ({ level }) => `${1 + 1.625 * (1 / level)}rem`
+export const fontSize = ({ level }) => `${1 + (1.625 * (1 / level))}rem`
 
 const styles = css`
   font-family: ${font('primary')};

@@ -12,15 +12,16 @@ class AppContainer extends Component {
     readCurrentUser: PropTypes.func.isRequired
   }
 
-  static all ({ store }) {
+  static all({ store }) {
     if (fromAuth.getToken(store.getState())) {
       return new Promise((resolve) => {
         store.dispatch(currentUserRead.request(resolve, resolve))
       })
     }
+    return null
   }
 
-  render () {
+  render() {
     return <App {...this.props} />
   }
 }

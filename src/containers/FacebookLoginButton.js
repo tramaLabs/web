@@ -11,11 +11,11 @@ class FacebookLoginButtonContainer extends Component {
     prepareAuth: PropTypes.func.isRequired
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.prepareAuth()
   }
 
-  render () {
+  render() {
     // eslint-disable-next-line no-unused-vars
     const { prepareAuth, ...props } = this.props
     return <IconButton icon="facebook" {...props} />

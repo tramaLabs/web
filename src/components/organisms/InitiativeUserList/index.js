@@ -25,10 +25,11 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
       <UserList>
         {initiative.users.map((user, key) =>
           <Tooltip
-            key={key}
+            key={user.id}
             data-title={user.name}
             reverse={reverse}
-            align={key === 0 ? 'start' : 'center'}>
+            align={key === 0 ? 'start' : 'center'}
+          >
             <div><img height={36} src={user.picture} alt={`Foto de ${user.name}`} /></div>
           </Tooltip>
         )}
@@ -39,7 +40,8 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
         height={36}
         transparent
         reverse={reverse}
-        onClick={onOpenInitiativeUserListModal} />
+        onClick={onOpenInitiativeUserListModal}
+      />
       <InitiativeUserListModal initiative={initiative} />
     </Wrapper>
   )
@@ -48,6 +50,7 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
 InitiativeUserList.propTypes = {
   initiative: PropTypes.shape({
     users: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.any,
       name: PropTypes.string,
       picture: PropTypes.string
     })).isRequired

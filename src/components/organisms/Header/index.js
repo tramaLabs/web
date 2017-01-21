@@ -28,7 +28,7 @@ const StyledLogoLink = styled(LogoLink)`
   margin: 0 0.5rem;
 `
 
-const StyledSearchForm = styled((props) => <SearchForm {...props} />)`
+const StyledSearchForm = styled(props => <SearchForm {...props} />)`
   flex: 1;
   margin: 0 2rem;
   color: ${palette('grayscale', 0)};
@@ -68,13 +68,13 @@ class Header extends Component {
     scrolled: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.scrollsTranslucid) {
       const { userAgent } = window.navigator
-      const isSafariOrIOS = userAgent.indexOf('Safari') >= 0 &&
-        userAgent.indexOf('Chrome') === -1 ||
-        (/(iPad|iPhone|iPod)/gi).test(userAgent)
+      const isSafariOrIOS = userAgent.indexOf('Safari') >= 0 && userAgent.indexOf('Chrome') === -1
+        ? true : (/(iPad|iPhone|iPod)/gi).test(userAgent)
       if (isSafariOrIOS) {
+        // eslint-disable-next-line react/no-did-mount-set-state
         this.setState({ scrolled: true })
       } else {
         window.addEventListener('scroll', this.handleScroll)
@@ -82,7 +82,7 @@ class Header extends Component {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
@@ -96,20 +96,22 @@ class Header extends Component {
     }
   }
 
-  render () {
+  render() {
     const { reverse, hideSearch, scrollsTranslucid, ...props } = this.props
     return (
       <Wrapper
         reverse={!reverse}
         opaque={!scrollsTranslucid || this.state.scrolled}
-        {...props}>
+        {...props}
+      >
         <InnerWrapper reverse={reverse}>
           <StyledLogoLink height={35} reverse={reverse} />
           <StyledSearchForm
             hideSearch={hideSearch}
             palette="grayscale"
             transparent
-            reverse={!reverse} />
+            reverse={!reverse}
+          />
           <Nav>
             <UserButton palette="alpha" reverse={!reverse} responsive />
             <StyledLink to="/" palette="grayscale" reverse={!reverse}>Manifesto</StyledLink>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { PropTypes, Component } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
@@ -12,7 +13,8 @@ class LazyImage extends Component {
     javascriptEnabled: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ javascriptEnabled: true })
     window.setTimeout(() => {
       this.setImageState()
@@ -20,12 +22,12 @@ class LazyImage extends Component {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.setImageState, true)
   }
 
   setImageState = () => {
-    const { image } = this.refs
+    const { image } = this
 
     if (this.isInViewport()) {
       this.setState({ inViewport: true })
@@ -39,8 +41,8 @@ class LazyImage extends Component {
     }
   }
 
-  isInViewport () {
-    const { image } = this.refs
+  isInViewport() {
+    const { image } = this
     const rect = image.getBoundingClientRect()
 
     return (
@@ -51,22 +53,25 @@ class LazyImage extends Component {
     )
   }
 
-  render () {
+  render() {
     const { src, ...props } = this.props
     const { javascriptEnabled, inViewport, loaded } = this.state
     if (javascriptEnabled) {
-      return <img
-        ref="image"
+      return (<img
+        alt="Lazy"
+        ref={image => { this.image = image }}
         src={inViewport ? src : undefined}
         style={{ opacity: loaded ? 1 : 0, transition: 'opacity 500ms ease' }}
-        {...props} />
-    } else {
-      return (
-        <noscript dangerouslySetInnerHTML={{
-          __html: renderToStaticMarkup(<img {...this.props} />)
-        }} />
-      )
+        {...props}
+      />)
     }
+    return (
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: renderToStaticMarkup(<img alt="Lazy" {...this.props} />)
+        }}
+      />
+    )
   }
 }
 

@@ -47,14 +47,16 @@ storiesOf('InitiativeDetailCover', module)
       {...props}
       user={{ id: 1 }}
       preview="http://lorempixel.com/200/100"
-      reverse />
+      reverse
+    />
   ))
   .add('loading upload', () => (
     <InitiativeDetailCover
       {...props}
       user={{ id: 1 }}
       preview="http://lorempixel.com/200/100"
-      uploadLoading />
+      uploadLoading
+    />
   ))
   .add('upload progress', () => (
     <InitiativeDetailCover
@@ -62,7 +64,8 @@ storiesOf('InitiativeDetailCover', module)
       user={{ id: 1 }}
       preview="http://lorempixel.com/200/100"
       uploadProgress={0.5}
-      uploadLoading />
+      uploadLoading
+    />
   ))
   .add('upload progress reverse', () => (
     <InitiativeDetailCover
@@ -71,5 +74,6 @@ storiesOf('InitiativeDetailCover', module)
       preview="http://lorempixel.com/200/100"
       uploadProgress={0.5}
       uploadLoading
-      reverse />
+      reverse
+    />
   ))

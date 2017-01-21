@@ -21,8 +21,8 @@ const Wrapper = styled.div`
 const TagList = ({ reverse, ...props, tags, limit }) => {
   return (
     <Wrapper {...props}>
-      {tags.slice(0, limit).map((tag, key) =>
-        <TagLink key={key} reverse={reverse}>{tag.name}</TagLink>
+      {tags.slice(0, limit).map(tag =>
+        <TagLink key={tag.id} reverse={reverse}>{tag.name}</TagLink>
       )}
     </Wrapper>
   )
@@ -30,6 +30,7 @@ const TagList = ({ reverse, ...props, tags, limit }) => {
 
 TagList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
     name: PropTypes.string.isRequired
   })).isRequired,
   limit: PropTypes.number,
