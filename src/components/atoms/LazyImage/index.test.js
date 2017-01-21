@@ -12,7 +12,7 @@ const getMockImplementation = ({ top, right, bottom, left } = {}) => () => ({
 
 const wrap = (props = {}, getBoundingClientRect = getMockImplementation()) => {
   const wrapper = mount(<LazyImage src="image.jpg" {...props} />)
-  const image = wrapper.ref('image').node
+  const image = wrapper.instance().image
   image.getBoundingClientRect = getBoundingClientRect
   jest.runAllTimers()
   return wrapper
@@ -79,7 +79,7 @@ describe('setImageState', () => {
 
   it('sets loaded state to true when image is complete', () => {
     const wrapper = wrap()
-    const image = wrapper.ref('image').node
+    const image = wrapper.instance().image
     expect(wrapper.state('loaded')).toBe(false)
     Object.defineProperty(image, 'complete', { value: true })
     wrapper.instance().setImageState()
@@ -88,7 +88,7 @@ describe('setImageState', () => {
 
   it('sets loaded state to true when image is loaded', () => {
     const wrapper = wrap()
-    const image = wrapper.ref('image').node
+    const image = wrapper.instance().image
     wrapper.instance().setImageState()
     expect(wrapper.state('loaded')).toBe(false)
     image.dispatchEvent(new window.UIEvent('load'))
