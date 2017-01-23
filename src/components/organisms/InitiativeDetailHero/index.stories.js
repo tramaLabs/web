@@ -3,11 +3,11 @@ import { storiesOf, action } from '@kadira/storybook'
 import { InitiativeDetailHero } from 'components'
 
 const users = [{
-  id: 1,
+  id: 'user1',
   name: 'User 1',
   picture: 'http://lorempixel.com/60/60/people'
 }, {
-  id: 2,
+  id: 'user2',
   name: 'User 2',
   picture: 'http://lorempixel.com/60/60/people'
 }]
@@ -15,7 +15,7 @@ const users = [{
 const initiative = {
   color: 'green',
   title: 'Test title',
-  tags: [{ name: 'tag1' }, { name: 'tag2' }],
+  tags: [{ id: 'tag1', name: 'tag1' }, { id: 'tag2', name: 'tag2' }],
   photo: {
     medium: 'http://lorempixel.com/200/100/people',
     large: 'http://lorempixel.com/400/200/people'

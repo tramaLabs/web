@@ -5,7 +5,7 @@ import { InitiativeDetailCover } from 'components'
 const initiative = {
   color: 'green',
   user: {
-    id: 1
+    id: 'user1'
   },
   photo: {
     medium: 'http://lorempixel.com/200/100/people',
@@ -28,24 +28,24 @@ storiesOf('InitiativeDetailCover', module)
     <InitiativeDetailCover {...props} reverse />
   ))
   .add('with author', () => (
-    <InitiativeDetailCover {...props} user={{ id: 1 }} />
+    <InitiativeDetailCover {...props} user={{ id: 'user1' }} />
   ))
   .add('with author reverse', () => (
-    <InitiativeDetailCover {...props} user={{ id: 1 }} reverse />
+    <InitiativeDetailCover {...props} user={{ id: 'user1' }} reverse />
   ))
   .add('loading preview', () => (
-    <InitiativeDetailCover {...props} user={{ id: 1 }} previewLoading />
+    <InitiativeDetailCover {...props} user={{ id: 'user1' }} previewLoading />
   ))
   .add('loading preview reverse', () => (
-    <InitiativeDetailCover {...props} user={{ id: 1 }} previewLoading reverse />
+    <InitiativeDetailCover {...props} user={{ id: 'user1' }} previewLoading reverse />
   ))
   .add('with preview', () => (
-    <InitiativeDetailCover {...props} user={{ id: 1 }} preview="http://lorempixel.com/200/100" />
+    <InitiativeDetailCover {...props} user={{ id: 'user1' }} preview="http://lorempixel.com/200/100" />
   ))
   .add('with preview reverse', () => (
     <InitiativeDetailCover
       {...props}
-      user={{ id: 1 }}
+      user={{ id: 'user1' }}
       preview="http://lorempixel.com/200/100"
       reverse
     />
@@ -53,7 +53,7 @@ storiesOf('InitiativeDetailCover', module)
   .add('loading upload', () => (
     <InitiativeDetailCover
       {...props}
-      user={{ id: 1 }}
+      user={{ id: 'user1' }}
       preview="http://lorempixel.com/200/100"
       uploadLoading
     />
@@ -61,7 +61,7 @@ storiesOf('InitiativeDetailCover', module)
   .add('upload progress', () => (
     <InitiativeDetailCover
       {...props}
-      user={{ id: 1 }}
+      user={{ id: 'user1' }}
       preview="http://lorempixel.com/200/100"
       uploadProgress={0.5}
       uploadLoading
@@ -70,7 +70,7 @@ storiesOf('InitiativeDetailCover', module)
   .add('upload progress reverse', () => (
     <InitiativeDetailCover
       {...props}
-      user={{ id: 1 }}
+      user={{ id: 'user1' }}
       preview="http://lorempixel.com/200/100"
       uploadProgress={0.5}
       uploadLoading

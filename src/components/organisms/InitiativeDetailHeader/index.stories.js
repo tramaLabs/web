@@ -4,7 +4,7 @@ import { InitiativeDetailHeader } from 'components'
 
 const initiative = {
   title: 'Test title',
-  tags: [{ name: 'tag1' }, { name: 'tag2' }]
+  tags: [{ id: 'tag1', name: 'tag1' }, { id: 'tag2', name: 'tag2' }]
 }
 
 storiesOf('InitiativeDetailHeader', module)

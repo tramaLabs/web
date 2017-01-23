@@ -30,7 +30,7 @@ const TagList = ({ reverse, ...props, tags, limit }) => {
 
 TagList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any.isRequired,
     name: PropTypes.string.isRequired
   })).isRequired,
   limit: PropTypes.number,

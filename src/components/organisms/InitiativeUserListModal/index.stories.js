@@ -3,11 +3,11 @@ import { storiesOf } from '@kadira/storybook'
 import { InitiativeUserListModal } from 'components'
 
 const users = [{
-  id: 1,
+  id: 'user1',
   name: 'User 1',
   picture: 'http://lorempixel.com/60/60/people'
 }, {
-  id: 2,
+  id: 'user2',
   name: 'User 2',
   picture: 'http://lorempixel.com/60/60/people'
 }]
