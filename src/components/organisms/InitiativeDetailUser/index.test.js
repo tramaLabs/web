@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import InitiativeDetailUser from '.'
 
 const initiative = {
-  user: { name: 'Jeane', picture: 'jeane.jpg' }
+  user: { name: 'Jeane', picture: 'jeane.jpg', services: { facebook: 'jeane' } }
 }
 
 const wrap = (props = {}) => shallow(<InitiativeDetailUser initiative={initiative} {...props} />)
