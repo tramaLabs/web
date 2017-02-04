@@ -32,9 +32,9 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
           >
             <div>
               <a href={`http://www.facebook.com/${user.services.facebook}`}>
-              <img height={36} src={user.picture} alt={`Foto de ${user.name}`} />
+                <img height={36} src={user.picture} alt={`Foto de ${user.name}`} />
               </a>
-            </div>  
+            </div>
           </Tooltip>
         )}
       </UserList>
@@ -57,7 +57,7 @@ InitiativeUserList.propTypes = {
       id: PropTypes.any,
       name: PropTypes.string,
       picture: PropTypes.string,
-      services:PropTypes.shape({ 
+      services: PropTypes.shape({
         facebook: PropTypes.string
       }).isRequired
     })).isRequired

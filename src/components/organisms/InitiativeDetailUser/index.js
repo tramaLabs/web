@@ -23,7 +23,7 @@ const InitiativeDetailUser = ({ initiative, ...props, reverse }) => {
     <Wrapper {...props}>
       <UserWrapper>
         <a href={`http://www.facebook.com/${initiative.user.services.facebook}`}>
-        <img height={60} src={initiative.user.picture} alt={`Foto de ${initiative.user.name}`} />
+          <img height={60} src={initiative.user.picture} alt={`Foto de ${initiative.user.name}`} />
         </a>
         <UserInfo>
           <Caption reverse={reverse}>Organização</Caption>
@@ -41,7 +41,7 @@ InitiativeDetailUser.propTypes = {
     user: PropTypes.shape({
       name: PropTypes.string,
       picture: PropTypes.string,
-      services:PropTypes.shape({ 
+      services: PropTypes.shape({
         facebook: PropTypes.string
       }).isRequired
     }).isRequired
