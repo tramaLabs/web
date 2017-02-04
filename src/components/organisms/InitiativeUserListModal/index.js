@@ -25,7 +25,9 @@ const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
     >
       {sortBy(initiative.users, 'name').map(user =>
         <User key={user.id}>
+          <a href={`http://www.facebook.com/${user.services.facebook}`}>
           <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
+          </a>
           <Block reverse={reverse}>{user.name}</Block>
         </User>
       )}
@@ -38,7 +40,10 @@ InitiativeUserListModal.propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.any,
       name: PropTypes.string,
-      picture: PropTypes.string
+      picture: PropTypes.string,
+      services:PropTypes.shape({ 
+        facebook: PropTypes.string
+      }).isRequired
     })).isRequired
   }).isRequired,
   reverse: PropTypes.bool

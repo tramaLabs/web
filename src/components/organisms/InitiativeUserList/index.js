@@ -30,7 +30,11 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
             reverse={reverse}
             align={key === 0 ? 'start' : 'center'}
           >
-            <div><img height={36} src={user.picture} alt={`Foto de ${user.name}`} /></div>
+            <div>
+              <a href={`http://www.facebook.com/${user.services.facebook}`}>
+              <img height={36} src={user.picture} alt={`Foto de ${user.name}`} />
+              </a>
+            </div>  
           </Tooltip>
         )}
       </UserList>
@@ -52,7 +56,10 @@ InitiativeUserList.propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.any,
       name: PropTypes.string,
-      picture: PropTypes.string
+      picture: PropTypes.string,
+      services:PropTypes.shape({ 
+        facebook: PropTypes.string
+      }).isRequired
     })).isRequired
   }).isRequired,
   onOpenInitiativeUserListModal: PropTypes.func.isRequired,
