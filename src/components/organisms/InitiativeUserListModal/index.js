@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy'
 import { Block } from 'components'
 import { Modal } from 'containers'
 
-const User = styled.div`
+const User = styled.a`
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -24,10 +24,8 @@ const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
       {...props}
     >
       {sortBy(initiative.users, 'name').map(user =>
-        <User key={user.id}>
-          <a href={`http://www.facebook.com/${user.services.facebook}`}>
-            <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
-          </a>
+        <User key={user.id} href={`http://www.facebook.com/${user.services.facebook}`} >
+          <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
           <Block reverse={reverse}>{user.name}</Block>
         </User>
       )}
