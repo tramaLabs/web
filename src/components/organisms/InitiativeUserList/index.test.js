@@ -4,8 +4,8 @@ import InitiativeUserList from '.'
 
 const initiative = {
   users: [
-    { id: 0, name: 'Jeane', picture: 'jeane.jpg' },
-    { id: 1, name: 'Diego', picture: 'diego.jpg' }
+    { id: 0, name: 'Jeane', picture: 'jeane.jpg', services: { facebook: 'jeane' } },
+    { id: 1, name: 'Diego', picture: 'diego.jpg', services: { facebook: 'diego' } }
   ]
 }
 
