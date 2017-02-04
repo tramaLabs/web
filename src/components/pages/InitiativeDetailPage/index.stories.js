@@ -5,11 +5,17 @@ import { InitiativeDetailPage } from 'components'
 const users = [{
   id: 'user1',
   name: 'User 1',
-  picture: 'http://lorempixel.com/40/40/people'
+  picture: 'http://lorempixel.com/40/40/people',
+  services: {
+    facebook: 'foo'
+  }
 }, {
   id: 'user2',
   name: 'User 2',
-  picture: 'http://lorempixel.com/40/40/people'
+  picture: 'http://lorempixel.com/40/40/people',
+  services: {
+    facebook: 'foo'
+  }
 }]
 
 const initiative = {
