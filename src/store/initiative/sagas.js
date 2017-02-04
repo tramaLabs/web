@@ -67,7 +67,7 @@ export const createPreviewer = (file) => eventChannel(
 export function* createInitiative(newData) {
   try {
     yield call(extractTagList, `${newData.title}\n\n${newData.description}`)
-    const tags = yield select(fromTag.getIds)
+    const tags = yield select(fromTag.getList)
     const { data } = yield call(api.post, '/initiatives', { ...newData, tags })
     yield put(initiativeCreate.success(data))
     yield put(push(`/iniciativas/${data.id}/${data.slug}`))

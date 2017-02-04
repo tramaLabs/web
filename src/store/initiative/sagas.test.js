@@ -12,7 +12,7 @@ describe('createInitiative', () => {
   it('calls success', () => {
     const generator = sagas.createInitiative(data)
     expect(generator.next().value).toEqual(call(extractTagList, 'test\n\ndescription'))
-    expect(generator.next().value).toEqual(select(fromTag.getIds))
+    expect(generator.next().value).toEqual(select(fromTag.getList))
     expect(generator.next([1, 2]).value).toEqual(call(api.post, '/initiatives', {
       ...data,
       tags: [1, 2]
@@ -24,7 +24,7 @@ describe('createInitiative', () => {
   it('calls failure', () => {
     const generator = sagas.createInitiative(data)
     expect(generator.next().value).toEqual(call(extractTagList, 'test\n\ndescription'))
-    expect(generator.next().value).toEqual(select(fromTag.getIds))
+    expect(generator.next().value).toEqual(select(fromTag.getList))
     expect(generator.next(['1', '2']).value).toEqual(call(api.post, '/initiatives', {
       ...data,
       tags: ['1', '2']
