@@ -42,6 +42,7 @@ const Heading = styled.section`
 
 const Footer = styled.footer`
   margin-top: auto;
+  padding-top: 10rem;
 `
 
 const PageTemplate = ({ header, hero, heading, children, footer, ...props }) => {
