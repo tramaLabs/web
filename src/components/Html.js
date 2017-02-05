@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react'
+import { GoogleTagManager } from 'components'
 import Helmet from 'react-helmet'
 
 const Html = ({ styles, assets, state, content }) => {
@@ -9,6 +10,7 @@ const Html = ({ styles, assets, state, content }) => {
   return (
     <html lang="pt" {...attrs}>
       <head>
+        <GoogleTagManager gtmId="GTM-TL5SDWT" />
         <meta charSet="utf-8" />
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
