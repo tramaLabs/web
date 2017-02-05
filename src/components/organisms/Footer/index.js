@@ -122,11 +122,11 @@ const Footer = (props) => {
       <TramaSocialNav>
         <StyledLogoLink />
         <SocialMedia>
-          <li><Link href="http://www.facebook.com/colet.trama" title="Facebook"><img src={facebook} /></Link></li>
-          <li><Link href="http://www.github.com/tramalabs" title="GitHub"><img src={github} /></Link></li>
-          <li><Link href="https://instagram.com/ColetivoTrama" title="Instagram"><img src={instagram} /></Link></li>
-          <li><Link href="https://flickr.com/coletivotrama" title="Flickr"><img src={flickr} /></Link></li>
-          <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img src={medium} /></Link></li>
+          <li><Link href="http://www.facebook.com/colet.trama" title="Facebook"><img alt="facebook-logo" src={facebook} /></Link></li>
+          <li><Link href="http://www.github.com/tramalabs" title="GitHub"><img alt="github-logo" src={github} /></Link></li>
+          <li><Link href="https://instagram.com/ColetivoTrama" title="Instagram"><img alt="instagram-logo" src={instagram} /></Link></li>
+          <li><Link href="https://flickr.com/coletivotrama" title="Flickr"><img alt="flickr-logo" src={flickr} /></Link></li>
+          <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img alt="medium-logo" src={medium} /></Link></li>
         </SocialMedia>
       </TramaSocialNav>
       <StyledParagraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a nulla nibh. Sed venenatis facilisis turpis, sit amet varius nibh placerat a. Sed sapien dolor, rhoncus quis tellus sed, interdum convallis mi. Nam mattis massa ut lorem ultricies, sed pellentesque quam suscipit. Proin ac rutrum justo. Praesent nulla sapien, maximus at magna id, consectetur dapibus nunc.</StyledParagraph>
