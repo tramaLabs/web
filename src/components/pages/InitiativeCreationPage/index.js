@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PageTemplate, Header, Heading, Paragraph } from 'components'
+import { PageTemplate, Footer, Header, Heading, Paragraph } from 'components'
 import { InitiativeCreationForm } from 'containers'
 
 const InitiativeCreationPage = () => {
@@ -15,7 +15,7 @@ const InitiativeCreationPage = () => {
           </Paragraph>
         </div>
       }
-      footer={<div />}
+      footer={<Footer />}
     >
       <InitiativeCreationForm />
     </PageTemplate>
