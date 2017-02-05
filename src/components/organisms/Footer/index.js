@@ -124,8 +124,8 @@ const Footer = (props) => {
         <SocialMedia>
           <li><Link href="http://www.facebook.com/colet.trama" title="Facebook"><img src={facebook} /></Link></li>
           <li><Link href="http://www.github.com/tramalabs" title="GitHub"><img src={github} /></Link></li>
-          <li><Link href="#" title="Instagram"><img src={instagram} /></Link></li>
-          <li><Link href="#" title="Flickr"><img src={flickr} /></Link></li>
+          <li><Link href="https://instagram.com/ColetivoTrama" title="Instagram"><img src={instagram} /></Link></li>
+          <li><Link href="https://flickr.com/coletivotrama" title="Flickr"><img src={flickr} /></Link></li>
           <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img src={medium} /></Link></li>
         </SocialMedia>
       </TramaSocialNav>
@@ -142,7 +142,7 @@ const Footer = (props) => {
         <ul id="coletivoTrama">
           <h2>Coletivo Trama</h2>
           <li><Link href="/manifesto" title="">Manifesto Trama</Link></li>
-          <li><Link href="/loja" title="">Loja</Link></li>
+          <li><Link href="https://www.mesclado.com.br/trama" title="">Loja</Link></li>
         </ul>
       </TramaSitesNav>
     </Wrapper>
