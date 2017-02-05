@@ -11,6 +11,7 @@ const config = {
     baseUrl: `http://${ip}:${port}`,
     apiUrl: `http://${ip}:9000`,
     fbAppId: '577773279089224',
+    GTMId: 'GTM-TL5SDWT',
     browser,
     ip,
     port
