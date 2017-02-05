@@ -1,12 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import InitiativeDescription from '.'
+import InitiativeDetailDescription from '.'
 
 const initiative = {
   description: 'foo'
 }
 
-const wrap = (props = {}) => shallow(<InitiativeDescription initiative={initiative} {...props} />)
+const wrap = (props = {}) => shallow(<InitiativeDetailDescription initiative={initiative} {...props} />)
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })

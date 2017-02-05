@@ -8,16 +8,16 @@ const Wrapper = styled.div`
   padding: 3rem 1rem;
 `
 
-const InitiativeDescription = ({ initiative, ...props }) => {
+const InitiativeDetailDescription = ({ initiative, ...props }) => {
   return (
     <Wrapper {...props}>{initiative.description}</Wrapper>
   )
 }
 
-InitiativeDescription.propTypes = {
+InitiativeDetailDescription.propTypes = {
   initiative: PropTypes.shape({
     description: PropTypes.string
   }).isRequired
 }
 
-export default InitiativeDescription
+export default InitiativeDetailDescription
