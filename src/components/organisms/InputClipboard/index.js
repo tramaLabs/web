@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import styled from 'styled-components'
 import copy from 'copy-to-clipboard'
 
 import { Input, IconButton } from 'components'
