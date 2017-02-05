@@ -28,6 +28,9 @@ const TramaSocialNav = styled.nav`
   flex-basis: 144px;
   flex-wrap: wrap;
   box-sizing: border-box;
+  ul {
+    list-style-type: none;
+  }
   @media only screen and (max-width: 700px) { 
 
   }
@@ -65,6 +68,7 @@ const TramaSitesNav = styled.nav`
   flex-basis: 33.33%;
   box-sizing: border-box;
   ul {
+    list-style-type: none;
     margin-top: 0;
     padding: 0;
     h2 {
