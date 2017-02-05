@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { Heading, TagList, IconButton } from 'components'
+import { Heading, TagList, IconButton, EditableLine } from 'components'
 import { InitiativeJoinButton } from 'containers'
 
 const Wrapper = styled.div`
@@ -35,34 +35,104 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
-  return (
-    <Wrapper {...props}>
-      <Title>
-        <StyledHeading palette="grayscale" reverse={reverse}>{initiative.title}</StyledHeading>
-        <TagList tags={initiative.tags} reverse={reverse} />
-      </Title>
-      <InitiativeJoinButton initiative={initiative} />
-      <IconButton
-        icon="share"
-        palette="grayscale"
-        breakpoint={840}
-        reverse={reverse}
-        transparent
-        responsive
-      >
-        Compartilhar
-      </IconButton>
-    </Wrapper>
-  )
-}
+const EditableHeading = styled.span`
+  display: flex;
+  align-items: center;
+  > *:first-child {
+    margin-right: 0.5rem;
+  }
+  button {
+    display: none;
+  }
+  &:hover button {
+    display: block;
+  }
+`
 
-InitiativeDetailHeader.propTypes = {
-  initiative: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired
-  }).isRequired,
-  reverse: PropTypes.bool
+const user = PropTypes.shape({
+  id: PropTypes.any.isRequired
+})
+
+class InitiativeDetailHeader extends React.Component {
+  static propTypes = {
+    initiative: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      tags: PropTypes.array.isRequired,
+      user: user.isRequired
+    }).isRequired,
+    reverse: PropTypes.bool,
+    onTitleChange: PropTypes.func.isRequired,
+    user
+  }
+
+  state = {
+    editingTitle: false
+  }
+
+  beginEditingTitle = () => {
+    this.setState({ editingTitle: true })
+    this.editableLine.focus()
+  }
+
+  submitTitle = () => {
+    this.setState({
+      editingTitle: false
+    })
+    this.props.onTitleChange(this.editableLine.getContent())
+  }
+
+  isAuthor = () => {
+    const { user, initiative } = this.props
+    return user && initiative.user.id === user.id
+  }
+
+  renderEditableTitle = () => {
+    const { initiative, reverse } = this.props
+    const { editingTitle } = this.state
+    return (
+      <EditableHeading>
+        <EditableLine
+          content={initiative.title}
+          onBlur={this.submitTitle}
+          handleReturn={this.submitTitle}
+          readOnly={!editingTitle}
+          ref={editableLine => { this.editableLine = editableLine }}
+        />
+        {!editingTitle && <IconButton
+          icon="edit"
+          height={30}
+          palette="alpha"
+          reverse={reverse}
+          onClick={this.beginEditingTitle}
+        />}
+      </EditableHeading>
+    )
+  }
+
+  render() {
+    const { initiative, user, ...props } = this.props
+    return (
+      <Wrapper {...props}>
+        <Title>
+          <StyledHeading palette="grayscale" reverse={props.reverse}>
+            {this.isAuthor() ? this.renderEditableTitle() : initiative.title}
+          </StyledHeading>
+          <TagList tags={initiative.tags} reverse={props.reverse} />
+        </Title>
+        <InitiativeJoinButton initiative={initiative} />
+        <IconButton
+          icon="share"
+          palette="grayscale"
+          breakpoint={840}
+          reverse={props.reverse}
+          transparent
+          responsive
+        >
+          Compartilhar
+        </IconButton>
+      </Wrapper>
+    )
+  }
 }
 
 export default InitiativeDetailHeader
