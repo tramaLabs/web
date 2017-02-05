@@ -21,7 +21,7 @@ const config = {
   production: {
     ip: process.env.IP || '0.0.0.0',
     port: process.env.PORT || 8080,
-    baseUrl: 'https://trama-web.herokuapp.com',
+    baseUrl: 'https://trama.net.br',
     apiUrl: 'https://trama-rest.herokuapp.com',
     fbAppId: '534673583399194'
   }
