@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import { PageTemplate, Footer, Header, InitiativeDetailHero } from 'components'
+import { PageTemplate, Footer, Header, InitiativeDetailHero, Forum } from 'components'
 
 const InitiativeDetailPage = ({ initiative }) => {
   return (
@@ -10,6 +10,7 @@ const InitiativeDetailPage = ({ initiative }) => {
       footer={<Footer />}
     >
       {initiative && initiative.description}
+      <Forum initiative={initiative} />
     </PageTemplate>
   )
 }
