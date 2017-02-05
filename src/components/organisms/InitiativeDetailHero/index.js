@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
-import { InitiativeDetailHeader, InitiativeDetailInfo } from 'components'
-import { InitiativeDetailCover } from 'containers'
+import { InitiativeDetailInfo } from 'components'
+import { InitiativeDetailCover, InitiativeDetailHeader } from 'containers'
 
 const InitiativeDetailHero = ({ initiative, reverse, ...props }) => {
   return (
