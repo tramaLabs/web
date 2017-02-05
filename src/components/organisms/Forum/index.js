@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import FacebookProvider, { Comments } from 'react-facebook'
-import { fbAppId } from 'config'
+import { fbAppId, baseUrl } from 'config'
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const Forum = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <FacebookProvider appID={fbAppId}>
-        <Comments />
+        <Comments href={`${baseUrl}/iniciativas/${initiative.id}/${initiative.slug}`} />
       </FacebookProvider>
     </Wrapper>
   )
