@@ -29,6 +29,7 @@ const SearchForm = ({ handleSubmit, palette, transparent, reverse, ...props }) =
         placeholder="Use tags para pesquisar (ex: música, rio de janeiro)"
         component={ReduxField}
         borderless={reverse}
+        {...props}
       />
       <Button
         type="submit"
