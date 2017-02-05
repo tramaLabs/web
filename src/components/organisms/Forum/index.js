@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import FacebookProvider, { Comments } from 'react-facebook'
-import { fbAppId, baseUrl } from 'config'
+import { fbAppId } from 'config'
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,18 +20,17 @@ const Wrapper = styled.div`
   }
 `
 
-const Forum = ({ initiative, ...props, reverse }) => {
+const Forum = ({ ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <FacebookProvider appID={fbAppId}>
-        <Comments href={`${baseUrl}/iniciativas/${initiative.id}/${initiative.slug}`} />
+        <Comments />
       </FacebookProvider>
     </Wrapper>
   )
 }
 
 Forum.propTypes = {
-  initiative: PropTypes.object.isRequired,
   reverse: PropTypes.bool
 }
 
