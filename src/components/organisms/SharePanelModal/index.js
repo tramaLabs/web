@@ -12,7 +12,7 @@ const SharePanelModal = ({ initiative, ...props, reverse }) => {
       closeable
       {...props}
     >
-      {typeof window !== 'undefined' && <InputClipboard value={window.location.href} />}
+      {typeof window !== 'undefined' && <InputClipboard text={window.location.href} />}
       <SharePanel initiative={initiative} />
     </Modal>
   )

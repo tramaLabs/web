@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import copy from 'copy-to-clipboard'
 
-import { Input } from 'components'
+import { Input, IconButton } from 'components'
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,16 +13,16 @@ const Wrapper = styled.div`
 `
 
 class InputClipboard extends Component {
-  render() {
-    const { text, ...props } = this.props
-    return (
-      <Wrapper>
-          <Input value={text} />
-          <div {...props} onClick={this.copyToClipboard}>
-            <div>{this.state.copied ? 'Copied' : text}</div>
-          </div>
-        </Wrapper>
-    )
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+
+  }
+  constructor(props) {
+    super(props)
+    this.copyToClipboard = this.copyToClipboard.bind(this)
+    this.state = {
+      copied: false
+    }
   }
   copyToClipboard() {
     const { text } = this.props
@@ -31,27 +31,16 @@ class InputClipboard extends Component {
       setTimeout(() => this.setState({ copied: false }), 1000)
     }
   }
-
-  static propTypes = {
-    url: PropTypes.string.isRequired,
-
+  render() {
+    const { text, ...props } = this.props
+    return (
+      <Wrapper {...props}>
+        <Input value={text} />
+        <IconButton palette="grayscale" icon="copy-link" onClick={this.copyToClipboard} />
+      </Wrapper>
+    )
   }
+
+
 }
-export default styled(InputClipboard)`
-  display: inline-block;
-  position: relative;
-  width: 6.25rem;
-  height: 6.25rem;
-  background-color: ${(props) => props.hex};
-  cursor: pointer;
-  & > div {
-    position: absolute;
-    color: #fff;
-    background-color: rgba(0,0,0,0.3);
-    width: 100%;
-    line-height: 2rem;
-    font-size: 1rem;
-    bottom: 0;
-    text-align: center;
-  }
-`
+export default InputClipboard
