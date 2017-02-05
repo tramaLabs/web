@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react'
 
-import { PageTemplate, Footer, Header, InitiativeDetailHero, Forum } from 'components'
+import {
+  PageTemplate,
+  Footer,
+  Header,
+  InitiativeDetailHero,
+  InitiativeDetailDescription,
+  Forum
+} from 'components'
 
 const InitiativeDetailPage = ({ initiative }) => {
   return (
@@ -9,16 +16,14 @@ const InitiativeDetailPage = ({ initiative }) => {
       hero={initiative && <InitiativeDetailHero initiative={initiative} />}
       footer={<Footer />}
     >
-      {initiative && initiative.description}
+      {initiative && <InitiativeDetailDescription initiative={initiative} />}
       <Forum />
     </PageTemplate>
   )
 }
 
 InitiativeDetailPage.propTypes = {
-  initiative: PropTypes.shape({
-    description: PropTypes.string
-  })
+  initiative: PropTypes.object
 }
 
 export default InitiativeDetailPage
