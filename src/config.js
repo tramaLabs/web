@@ -22,7 +22,7 @@ const config = {
     port: process.env.PORT || 8080,
     baseUrl: 'https://trama-web.herokuapp.com',
     apiUrl: 'https://trama-rest.herokuapp.com',
-    fbAppId: '577773279089224'
+    fbAppId: '534673583399194'
   }
 }
 
