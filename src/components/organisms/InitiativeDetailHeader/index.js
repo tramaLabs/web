@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { Heading, TagList, IconButton } from 'components'
+import { Heading, TagList, IconButton, SharePanelModal } from 'components'
 import { InitiativeJoinButton } from 'containers'
 
 const Wrapper = styled.div`
@@ -35,7 +35,7 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
+const InitiativeDetailHeader = ({ initiative, onOpenSharePanelModal, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
@@ -50,9 +50,14 @@ const InitiativeDetailHeader = ({ initiative, ...props, reverse }) => {
         reverse={reverse}
         transparent
         responsive
+        onClick={onOpenSharePanelModal}
+
       >
         Compartilhar
+
       </IconButton>
+      <SharePanelModal initiative={initiative} />
+
     </Wrapper>
   )
 }
@@ -62,6 +67,7 @@ InitiativeDetailHeader.propTypes = {
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired
   }).isRequired,
+  onOpenSharePanelModal: PropTypes.func.isRequired,
   reverse: PropTypes.bool
 }
 
