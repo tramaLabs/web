@@ -7,7 +7,7 @@ import {
   INITIATIVE_UPDATE_SUCCESS,
   INITIATIVE_JOIN_SUCCESS,
   INITIATIVE_LEAVE_SUCCESS,
-  INITIATIVE_PHOTO_UPDATE_REQUEST,
+  INITIATIVE_PHOTO_UPDATE_SUCCESS,
   TAG_CREATE_SUCCESS,
   TAG_LIST_SUCCESS,
   TAG_LIST_EXTRACT_SUCCESS
@@ -31,7 +31,7 @@ export const actionsMeta = {
   [INITIATIVE_UPDATE_SUCCESS]: { property: 'detail', schema: initiative },
   [INITIATIVE_JOIN_SUCCESS]: { property: 'detail', schema: initiative },
   [INITIATIVE_LEAVE_SUCCESS]: { property: 'detail', schema: initiative },
-  [INITIATIVE_PHOTO_UPDATE_REQUEST]: { property: 'detail', schema: initiative },
+  [INITIATIVE_PHOTO_UPDATE_SUCCESS]: { property: 'detail', schema: initiative },
   [TAG_CREATE_SUCCESS]: { property: 'detail', schema: tag },
   [TAG_LIST_SUCCESS]: { property: 'list', schema: [tag] },
   [TAG_LIST_EXTRACT_SUCCESS]: { property: 'list', schema: [tag] }
