@@ -10,7 +10,7 @@ const InitiativeDetailPage = ({ initiative }) => {
       footer={<Footer />}
     >
       {initiative && initiative.description}
-      {initiative && <Forum initiative={initiative} />}
+      <Forum />
     </PageTemplate>
   )
 }
