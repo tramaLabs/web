@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { Paragraph, LogoLink } from 'components'
 import styled from 'styled-components'
 import facebook from './facebook.png'
 import medium from './medium.png'
@@ -7,8 +8,6 @@ import instagram from './instagram.png'
 import flickr from './flickr.png'
 import github from './github.png'
 
-
-import { Paragraph, LogoLink } from 'components'
 
 const Wrapper = styled.footer`
   box-sizing: border-box;
