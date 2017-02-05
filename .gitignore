@@ -4,5 +4,4 @@ node_modules
 coverage
 *.swp
 dist
-yarn.lock
 webpack/webpack-assets.json
