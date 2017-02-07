@@ -76,7 +76,6 @@
     "del-cli": "^0.2.0",
     "denormalizr": "https://github.com/brunolemos/denormalizr",
     "express": "^4.14.0",
-    "express-force-ssl": "^0.3.2",
     "file-loader": "^0.9.0",
     "history": "^3.0.0",
     "json-loader": "^0.5.4",
