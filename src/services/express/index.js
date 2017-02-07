@@ -1,4 +1,5 @@
 import express from 'express'
+import forceSSL from 'express-force-ssl'
 import compression from 'compression'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
@@ -11,7 +12,15 @@ const root = path.join(__dirname, '../../..')
 export default (routes) => {
   const app = express()
 
-  /* istanbul ignore next */
+  // istanbul ignore next
+  if (env === 'production') {
+    app.set('forceSSLOptions', {
+      trustXFPHeader: true
+    })
+    app.use(forceSSL)
+  }
+
+  // istanbul ignore next
   if (env === 'production' || env === 'development') {
     app.use(compression())
     app.use(morgan('dev'))
