@@ -12,16 +12,6 @@ export default (routes) => {
   const app = express()
 
   // istanbul ignore next
-  if (env === 'production') {
-    app.use('*', (req, res, next) => {
-      if (!/https/.test(req.protocol)) {
-        return res.redirect(`https://${req.headers.host}${req.url}`)
-      }
-      return next()
-    })
-  }
-
-  // istanbul ignore next
   if (env === 'production' || env === 'development') {
     app.use(compression())
     app.use(morgan('dev'))
