@@ -1,5 +1,4 @@
 import express from 'express'
-import forceSSL from 'express-force-ssl'
 import compression from 'compression'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
@@ -14,10 +13,12 @@ export default (routes) => {
 
   // istanbul ignore next
   if (env === 'production') {
-    app.set('forceSSLOptions', {
-      trustXFPHeader: true
+    app.use('*', (req, res, next) => {
+      if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''))
+      }
+      return next()
     })
-    app.use(forceSSL)
   }
 
   // istanbul ignore next
