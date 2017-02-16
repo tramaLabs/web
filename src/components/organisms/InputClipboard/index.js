@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
-import copy from 'copy-to-clipboard'
 
-import { Input, IconButton } from 'components'
+import { Input, IconButtonClipboard } from 'components'
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,29 +13,15 @@ const Wrapper = styled.div`
 
 class InputClipboard extends Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+  }
 
-  }
-  constructor(props) {
-    super(props)
-    this.copyToClipboard = this.copyToClipboard.bind(this)
-    this.state = {
-      copied: false
-    }
-  }
-  copyToClipboard() {
-    const { text } = this.props
-    if (copy(text)) {
-      this.setState({ copied: true })
-      setTimeout(() => this.setState({ copied: false }), 1000)
-    }
-  }
   render() {
     const { text, ...props } = this.props
     return (
       <Wrapper {...props}>
         <Input value={text} />
-        <IconButton palette="grayscale" icon="copy-link" onClick={this.copyToClipboard} />
+        <IconButtonClipboard text={text} />
       </Wrapper>
     )
   }
