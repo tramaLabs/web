@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { Input, IconButtonClipboard } from 'components'
@@ -11,21 +11,17 @@ const Wrapper = styled.div`
   height: 100%;
 `
 
-class InputClipboard extends Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired
-  }
-
-  render() {
-    const { text, ...props } = this.props
-    return (
-      <Wrapper {...props}>
-        <Input value={text} />
-        <IconButtonClipboard text={text} />
-      </Wrapper>
-    )
-  }
-
-
+const InputClipboard = ({ text, ...props }) => {
+  return (
+    <Wrapper {...props}>
+      <Input value={text} />
+      <IconButtonClipboard text={text} />
+    </Wrapper>
+  )
 }
+
+InputClipboard.propTypes = {
+  text: PropTypes.string.isRequired,
+}
+
 export default InputClipboard

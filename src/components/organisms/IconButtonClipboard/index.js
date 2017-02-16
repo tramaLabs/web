@@ -16,6 +16,7 @@ class IconButtonClipboard extends Component {
       copied: false
     }
   }
+  // istanbul ignore next
   copyToClipboard() {
     const { text } = this.props
     if (copy(text)) {
