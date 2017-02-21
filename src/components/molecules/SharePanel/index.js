@@ -42,7 +42,7 @@ SharePanel.propTypes = {
   initiative: PropTypes.shape({
     title: PropTypes.String,
     description: PropTypes.String,
-    picture: PropTypes.picture,
+    picture: PropTypes.String,
     hashtags: PropTypes.array
   }).isRequired
 }
