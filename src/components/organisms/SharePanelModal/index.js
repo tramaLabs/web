@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import { SharePanel, Input } from 'components'
+import { SharePanel, InputClipboard } from 'components'
 import { Modal } from 'containers'
 
 
@@ -12,7 +12,7 @@ const SharePanelModal = ({ initiative, ...props, reverse }) => {
       closeable
       {...props}
     >
-      {typeof window !== 'undefined' && <Input value={window.location.href} />}
+      {typeof window !== 'undefined' && <InputClipboard text={window.location.href} />}
       <SharePanel initiative={initiative} />
     </Modal>
   )

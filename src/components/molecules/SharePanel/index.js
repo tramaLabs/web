@@ -27,10 +27,10 @@ const SharePanel = ({ initiative, ...props }) => {
 
   return (
     <Wrapper {...props}>
-      <FacebookShareButton url={shareUrl} title={title}>
+      <FacebookShareButton url={shareUrl} title={title} description={initiative.description} picture={initiative.picture}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
-      <TwitterShareButton url={shareUrl} title={title}>
+      <TwitterShareButton url={shareUrl} title={title} hashtags={initiative.hashtags}>
         <TwitterIcon size={32} round />
       </TwitterShareButton>
 
@@ -40,7 +40,10 @@ const SharePanel = ({ initiative, ...props }) => {
 }
 SharePanel.propTypes = {
   initiative: PropTypes.shape({
-    title: PropTypes.String
+    title: PropTypes.String,
+    description: PropTypes.String,
+    picture: PropTypes.picture,
+    hashtags: PropTypes.array
   }).isRequired
 }
 

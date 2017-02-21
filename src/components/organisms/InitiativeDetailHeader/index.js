@@ -67,7 +67,7 @@ InitiativeDetailHeader.propTypes = {
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired
   }).isRequired,
-  onOpenSharePanelModal: PropTypes.func.isRequired,
+  onOpenSharePanelModal: PropTypes.func,
   reverse: PropTypes.bool
 }
 
