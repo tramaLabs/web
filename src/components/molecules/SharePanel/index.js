@@ -40,9 +40,9 @@ const SharePanel = ({ initiative, ...props }) => {
 }
 SharePanel.propTypes = {
   initiative: PropTypes.shape({
-    title: PropTypes.String,
-    description: PropTypes.String,
-    picture: PropTypes.String,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    picture: PropTypes.string,
     hashtags: PropTypes.array
   }).isRequired
 }
