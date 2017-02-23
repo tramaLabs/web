@@ -8,6 +8,7 @@ import {
   InitiativeDetailDescription,
   Forum
 } from 'components'
+import Helmet from 'react-helmet'
 
 const InitiativeDetailPage = ({ initiative }) => {
   return (
@@ -16,6 +17,15 @@ const InitiativeDetailPage = ({ initiative }) => {
       hero={initiative && <InitiativeDetailHero initiative={initiative} />}
       footer={<Footer />}
     >
+      <Helmet
+        title="Trama"
+        meta={[
+            { name: 'description', content: initiative && initiative.description },
+            { property: 'og:site_name', content: 'Trama' },
+            { property: 'og:image', content: initiative && initiative.picture },
+            { property: 'og:image:type', content: 'image/png' },
+        ]}
+      />
       {initiative && <InitiativeDetailDescription initiative={initiative} />}
       <Forum />
     </PageTemplate>

@@ -27,6 +27,7 @@ const SharePanel = ({ initiative, ...props }) => {
 
   return (
     <Wrapper {...props}>
+
       <FacebookShareButton url={shareUrl} title={title} description={initiative.description} picture={initiative.picture}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
