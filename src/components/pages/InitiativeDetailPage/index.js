@@ -20,9 +20,9 @@ const InitiativeDetailPage = ({ initiative }) => {
       <Helmet
         title="Trama"
         meta={[
-            { name: 'description', content: initiative.description },
+            { name: 'description', content: initiative && initiative.description },
             { property: 'og:site_name', content: 'Trama' },
-            { property: 'og:image', content: initiative.picture },
+            { property: 'og:image', content: initiative && initiative.picture },
             { property: 'og:image:type', content: 'image/png' },
         ]}
       />
