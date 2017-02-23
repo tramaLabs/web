@@ -18,7 +18,7 @@ describe('createInitiative', () => {
       tags: [1, 2]
     }))
     expect(generator.next({ data }).value).toEqual(put(actions.initiativeCreate.success(data)))
-    expect(generator.next().value).toEqual(put(push('/iniciativas/1/test')))
+    expect(generator.next().value).toEqual(put(push('/iniciativas/1/test?created=true')))
   })
 
   it('calls failure', () => {

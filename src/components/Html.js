@@ -1,6 +1,8 @@
 /* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react'
+import { GoogleTagManager } from 'components'
 import Helmet from 'react-helmet'
+import { GTMId } from 'config'
 
 const Html = ({ styles, assets, state, content }) => {
   const helmet = Helmet.rewind()
@@ -9,6 +11,7 @@ const Html = ({ styles, assets, state, content }) => {
   return (
     <html lang="pt" {...attrs}>
       <head>
+        <GoogleTagManager gtmId={GTMId} />
         <meta charSet="utf-8" />
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}

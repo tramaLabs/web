@@ -70,7 +70,7 @@ export function* createInitiative(newData) {
     const tags = yield select(fromTag.getList)
     const { data } = yield call(api.post, '/initiatives', { ...newData, tags })
     yield put(initiativeCreate.success(data))
-    yield put(push(`/iniciativas/${data.id}/${data.slug}`))
+    yield put(push(`/iniciativas/${data.id}/${data.slug}?created=true`))
   } catch (error) {
     yield put(initiativeCreate.failure(error))
   }

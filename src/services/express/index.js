@@ -11,7 +11,7 @@ const root = path.join(__dirname, '../../..')
 export default (routes) => {
   const app = express()
 
-  /* istanbul ignore next */
+  // istanbul ignore next
   if (env === 'production' || env === 'development') {
     app.use(compression())
     app.use(morgan('dev'))

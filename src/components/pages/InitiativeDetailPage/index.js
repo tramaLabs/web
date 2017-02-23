@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react'
 
-import { PageTemplate, Header, InitiativeDetailHero } from 'components'
+import {
+  PageTemplate,
+  Footer,
+  Header,
+  InitiativeDetailHero,
+  InitiativeDetailDescription,
+  Forum
+} from 'components'
 import Helmet from 'react-helmet'
 
 const InitiativeDetailPage = ({ initiative }) => {
@@ -8,7 +15,7 @@ const InitiativeDetailPage = ({ initiative }) => {
     <PageTemplate
       header={<Header scrollsTranslucid />}
       hero={initiative && <InitiativeDetailHero initiative={initiative} />}
-      footer={<div />}
+      footer={<Footer />}
     >
       <Helmet
         title="Trama"
@@ -19,15 +26,14 @@ const InitiativeDetailPage = ({ initiative }) => {
             { property: 'og:image:type', content: 'image/png' },
         ]}
       />
-      {initiative && initiative.description}
+      {initiative && <InitiativeDetailDescription initiative={initiative} />}
+      <Forum />
     </PageTemplate>
   )
 }
 
 InitiativeDetailPage.propTypes = {
-  initiative: PropTypes.shape({
-    description: PropTypes.string
-  })
+  initiative: PropTypes.object
 }
 
 export default InitiativeDetailPage
