@@ -4,6 +4,7 @@ import {
   ShareButtons,
   generateShareIcon,
 } from 'react-share'
+import Helmet from 'react-helmet'
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,6 +28,15 @@ const SharePanel = ({ initiative, ...props }) => {
 
   return (
     <Wrapper {...props}>
+      <Helmet
+        title="Trama"
+        meta={[
+            { name: 'description', content: initiative.description },
+            { property: 'og:site_name', content: 'Trama' },
+            { property: 'og:image', content: initiative.picture },
+            { property: 'og:image:type', content: 'image/png' },
+        ]}
+      />
       <FacebookShareButton url={shareUrl} title={title} description={initiative.description} picture={initiative.picture}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
