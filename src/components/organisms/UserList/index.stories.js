@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import { InitiativeUserList } from 'components'
+import { UserList } from 'components'
 
 const users = [{
   id: 'user1',
@@ -57,10 +57,10 @@ const initiative = { users }
 const onOpenInitiativeUserListModal = action('modal open')
 const props = { initiative, onOpenInitiativeUserListModal }
 
-storiesOf('InitiativeUserList', module)
+storiesOf('UserList', module)
   .add('default', () => (
-    <InitiativeUserList {...props} />
+    <UserList {...props} />
   ))
   .add('reverse', () => (
-    <InitiativeUserList {...props} reverse />
+    <UserList {...props} reverse />
   ))

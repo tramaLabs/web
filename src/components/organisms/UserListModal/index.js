@@ -15,15 +15,15 @@ const User = styled.a`
   }
 `
 
-const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
+const UserListModal = ({ users, ...props, reverse }) => {
   return (
     <Modal
-      title={`Participantes (${initiative.users.length})`}
+      title={`Participantes (${users.length})`}
       name="initiativeUserList"
       closeable
       {...props}
     >
-      {sortBy(initiative.users, 'name').map(user =>
+      {sortBy(users, 'name').map(user =>
         <User key={user.id} href={`http://www.facebook.com/${user.services.facebook}`} >
           <img src={user.picture} alt={`Foto de ${user.name}`} width={38} height={38} />
           <Block reverse={reverse}>{user.name}</Block>
@@ -33,18 +33,16 @@ const InitiativeUserListModal = ({ initiative, ...props, reverse }) => {
   )
 }
 
-InitiativeUserListModal.propTypes = {
-  initiative: PropTypes.shape({
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.any,
-      name: PropTypes.string,
-      picture: PropTypes.string,
-      services: PropTypes.shape({
-        facebook: PropTypes.string
-      }).isRequired
-    })).isRequired
-  }).isRequired,
+UserListModal.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
+    name: PropTypes.string,
+    picture: PropTypes.string,
+    services: PropTypes.shape({
+      facebook: PropTypes.string
+    }).isRequired
+  })).isRequired,
   reverse: PropTypes.bool
 }
 
-export default InitiativeUserListModal
+export default UserListModal
