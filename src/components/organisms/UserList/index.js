@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { Tooltip, IconButton, InitiativeUserListModal } from 'components'
+import { Tooltip, IconButton, UserListModal } from 'components'
 
 const Wrapper = styled.div`
   display: flex;
 `
 
-const UserList = styled.div`
+const List = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 36px;
@@ -19,11 +19,11 @@ const UserList = styled.div`
   }
 `
 
-const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...props, reverse }) => {
+const UserList = ({ users, onOpenUserListModal, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
-      <UserList>
-        {initiative.users.map((user, key) =>
+      <List>
+        {users.map((user, key) =>
           <Tooltip
             key={user.id}
             data-title={user.name}
@@ -37,33 +37,31 @@ const InitiativeUserList = ({ initiative, onOpenInitiativeUserListModal, ...prop
             </div>
           </Tooltip>
         )}
-      </UserList>
+      </List>
       <IconButton
         icon="more"
         palette="grayscale"
         height={36}
         transparent
         reverse={reverse}
-        onClick={onOpenInitiativeUserListModal}
+        onClick={onOpenUserListModal}
       />
-      <InitiativeUserListModal initiative={initiative} />
+      <UserListModal users={users} />
     </Wrapper>
   )
 }
 
-InitiativeUserList.propTypes = {
-  initiative: PropTypes.shape({
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.any,
-      name: PropTypes.string,
-      picture: PropTypes.string,
-      services: PropTypes.shape({
-        facebook: PropTypes.string
-      }).isRequired
-    })).isRequired
-  }).isRequired,
-  onOpenInitiativeUserListModal: PropTypes.func.isRequired,
+UserList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
+    name: PropTypes.string,
+    picture: PropTypes.string,
+    services: PropTypes.shape({
+      facebook: PropTypes.string
+    }).isRequired
+  })).isRequired,
+  onOpenUserListModal: PropTypes.func.isRequired,
   reverse: PropTypes.bool
 }
 
-export default InitiativeUserList
+export default UserList
