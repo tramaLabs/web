@@ -51,11 +51,17 @@ const donorsToUsers = (donors) => {
   return users
 }
 
+const missingNumber = (quantity, donors) => {
+  let n = quantity
+  donors.map((donor) => (n -= donor.quantity))
+  return n
+}
+
 const DemandCard = ({ demand, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <StyledHeading level={4} reverse={!reverse}>{demand.title}</StyledHeading>
-      <StyledSpan>faltam {demand.quantity}</StyledSpan>
+      <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
       <StyledUserList reverse={reverse} users={donorsToUsers(demand.donors)} />
       <StyledOfferButton demand={demand} />
