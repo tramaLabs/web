@@ -45,13 +45,19 @@ const StyledUserList = styled(UserList)`
     margin-top: 15px;
 `
 
+const donorsToUsers = (donors) => {
+  const users = []
+  donors.map(donor => users.push(donor.user))
+  return users
+}
+
 const DemandCard = ({ demand, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <StyledHeading level={4} reverse={!reverse}>{demand.title}</StyledHeading>
       <StyledSpan>faltam {demand.quantity}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
-      <StyledUserList reverse={reverse} users={demand.donors} />
+      <StyledUserList reverse={reverse} users={donorsToUsers(demand.donors)} />
       <StyledOfferButton demand={demand} />
     </Wrapper>
   )
