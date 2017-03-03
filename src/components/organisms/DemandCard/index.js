@@ -75,12 +75,15 @@ DemandCard.propTypes = {
     description: PropTypes.string,
     quantity: PropTypes.number,
     donors: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.any,
-      name: PropTypes.string,
-      picture: PropTypes.string,
-      services: PropTypes.shape({
-        facebook: PropTypes.string
-      }).isRequired
+      user: PropTypes.shape({
+        id: PropTypes.any,
+        name: PropTypes.string,
+        picture: PropTypes.string,
+        services: PropTypes.shape({
+          facebook: PropTypes.string
+        }).isRequired
+      }),
+      quantity: PropTypes.number
     })),
   }).isRequired,
   reverse: PropTypes.bool
