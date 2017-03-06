@@ -1,34 +1,42 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
-import { DemandCard, Heading } from 'components'
+import { DemandCard, Heading, Button, NewDemandCard } from 'components'
 
 const Wrapper = styled.div`
-  flex-direction: column;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0.5rem;
- 
-  }
+    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
 `
 
-const StyledHeading = styled(Heading)`
-  margin: 0 0 0.5rem;
+const StyledButton = styled(Button)`
+  margin-top: 40px;
 `
 
-const InitiativeDemandBoard = ({ initiative, ...props, reverse }) => {
+const isAuthor = (user, initiative) =>
+  user && initiative.user.id === user.id
+
+const onAddDemand = () =>
+  console.log('AEEEEEEEEW')
+
+const InitiativeDemandBoard = ({ initiative, user, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
-      <StyledHeading level={4}>{initiative.title} precisa de</StyledHeading>
+      <Heading level={4}>{initiative.title} precisa de</Heading>
       { initiative.demands.map(demand =>
-        <DemandCard key={demand.title} demand={demand} reverse={reverse} />
+        <DemandCard key={demand.title} initiative={initiative} demand={demand} reverse={reverse} />
       )}
     </Wrapper>
   )
 }
 
 InitiativeDemandBoard.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.any
+  }),
   initiative: PropTypes.shape({
+    id: PropTypes.any,
     name: PropTypes.string,
     demands: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string,

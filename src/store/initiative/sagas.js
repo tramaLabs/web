@@ -11,6 +11,7 @@ import {
   initiativeLeave,
   initiativePhotoUpdate,
   initiativePhotoPreview,
+  initiativeDonorsUpdate,
   INITIATIVE_CREATE_REQUEST,
   INITIATIVE_LIST_READ_REQUEST,
   INITIATIVE_DETAIL_READ_REQUEST,
@@ -18,7 +19,8 @@ import {
   INITIATIVE_JOIN_REQUEST,
   INITIATIVE_LEAVE_REQUEST,
   INITIATIVE_PHOTO_UPDATE_REQUEST,
-  INITIATIVE_PHOTO_PREVIEW_REQUEST
+  INITIATIVE_PHOTO_PREVIEW_REQUEST,
+  INITIATIVE_DONORS_UPDATE_REQUEST
 } from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
@@ -112,6 +114,25 @@ export function* joinInitiative(id) {
   }
 }
 
+export function* updateInitiativeDonors(data) {
+  try {
+    const { resp } = yield call(api.post, `/initiatives/${data.initiative.id}/demands/${data.demand.id}/donors`, { quantity: data.quantity, user: data.user })
+    yield put(initiativeDonorsUpdate.success(resp))
+  } catch (error) {
+    yield put(initiativeDonorsUpdate.failure(error))
+  }
+}
+
+export function* joInitiative(id) {
+  try {
+    const { data } = yield call(api.put, `/initiatives/${id}/join`)
+    yield put(initiativeJoin.success(data))
+  } catch (error) {
+    yield put(initiativeJoin.failure(error))
+  }
+}
+
+
 export function* leaveInitiative(id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
@@ -184,6 +205,13 @@ export function* watchInitiativeUpdateRequest() {
   }
 }
 
+export function* watchInitiativeDonorsUpdateRequest() {
+  while (true) {
+    const { id, demandId, donor } = yield take(INITIATIVE_DONORS_UPDATE_REQUEST)
+    yield call(updateInitiativeDonors, id, demandId, donor)
+  }
+}
+
 export function* watchInitiativeJoinRequest() {
   while (true) {
     const { id } = yield take(INITIATIVE_JOIN_REQUEST)
@@ -221,4 +249,5 @@ export default function* () {
   yield fork(watchInitiativeLeaveRequest)
   yield fork(watchInitiativePhotoUpdateRequest)
   yield fork(watchInitiativePhotoPreviewRequest)
+  yield fork(watchInitiativeDonorsUpdateRequest)
 }

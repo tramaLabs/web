@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { Block, Heading, Paragraph } from 'components'
-import { UserList, OfferButton } from 'containers'
+import { UserList, OfferForm } from 'containers'
 
 const Wrapper = styled(Block)`
   position: relative;
@@ -13,6 +13,15 @@ const Wrapper = styled(Block)`
   font-style: normal;
   overflow: hidden;
 `
+
+const OfferContainer = styled(Block)`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content:   flex-start;
+  margin-top: 15px;
+`
+
 
 const StyledHeading = styled(Heading)`
   color: #000;
@@ -37,10 +46,6 @@ const StyledSpan = styled.span`
     background-color: #333;
 `
 
-const StyledOfferButton = styled(OfferButton)`
-    margin-top: 21px;
-`
-
 const StyledUserList = styled(UserList)`
     margin-top: 15px;
 `
@@ -57,19 +62,24 @@ const missingNumber = (quantity, donors) => {
   return n
 }
 
-const DemandCard = ({ demand, ...props, reverse }) => {
+const DemandCard = ({ demand, initiative, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
-      <StyledHeading level={4} reverse={!reverse}>{demand.title}</StyledHeading>
+      <StyledHeading level={5} reverse={!reverse}>{demand.title}</StyledHeading>
       <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
       <StyledUserList reverse={reverse} users={donorsToUsers(demand.donors)} />
-      <StyledOfferButton demand={demand} />
+      <OfferForm initiative={initiative} demand={demand} />
+
+
     </Wrapper>
   )
 }
 
 DemandCard.propTypes = {
+  initiative: PropTypes.shape({
+    id: PropTypes.any,
+  }),
   demand: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
