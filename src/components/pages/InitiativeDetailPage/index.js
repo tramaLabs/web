@@ -39,7 +39,7 @@ const StyledInitiativeDemandBoard = styled((props) => <InitiativeDemandBoard {..
   width: 380px;
 `
 
-const InitiativeDetailPage = ({ initiative }) => {
+const InitiativeDetailPage = ({ initiative, user }) => {
   return (
     <PageTemplate
       header={<Header scrollsTranslucid />}
@@ -59,7 +59,7 @@ const InitiativeDetailPage = ({ initiative }) => {
         <Summary>
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
-        <StyledInitiativeDemandBoard initiative={initiative} />
+        <StyledInitiativeDemandBoard user={user} initiative={initiative} />
       </InnerWrapper>
       <Forum />
     </PageTemplate>
@@ -67,7 +67,10 @@ const InitiativeDetailPage = ({ initiative }) => {
 }
 
 InitiativeDetailPage.propTypes = {
-  initiative: PropTypes.object
+  initiative: PropTypes.object,
+  user: PropTypes.shape({
+    id: PropTypes.any
+  })
 }
 
 export default InitiativeDetailPage
