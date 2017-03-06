@@ -22,7 +22,7 @@ const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
 
 const validate = createValidator({
   title: [required, maxLength(120)],
-  description: [required, minLength(10), maxLength(2048)]
+  description: [required, minLength(60), maxLength(2048)]
 })
 
 const mapStateToProps = (state) => ({
