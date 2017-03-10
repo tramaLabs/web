@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { key, palette } from 'styled-theme'
 
-import { Caption, Paragraph, InitiativeDetailUser } from 'components'
+import { Caption, Paragraph, InitiativeDetailUser, InitiativeDetailDescription } from 'components'
 
 const Wrapper = styled.div`
   background-color: ${palette('grayscale', 1, true)};
@@ -49,6 +49,7 @@ const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
         </Summary>
         <StyledInitiativeDetailUser initiative={initiative} reverse={reverse} />
       </InnerWrapper>
+      <InitiativeDetailDescription initiative={initiative} reverse={!reverse} />
     </Wrapper>
   )
 }
