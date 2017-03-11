@@ -14,15 +14,6 @@ const Wrapper = styled(Block)`
   overflow: hidden;
 `
 
-const OfferContainer = styled(Block)`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content:   flex-start;
-  margin-top: 15px;
-`
-
-
 const StyledHeading = styled(Heading)`
   color: #000;
   z-index: 3
@@ -69,7 +60,7 @@ const DemandCard = ({ demand, initiative, ...props, reverse }) => {
       <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
       <StyledUserList reverse={reverse} users={donorsToUsers(demand.donors)} />
-      <OfferForm initiative={initiative} demand={demand} />
+      <OfferForm form={demand.id} initiative={initiative} demand={demand} />
 
 
     </Wrapper>
@@ -81,6 +72,7 @@ DemandCard.propTypes = {
     id: PropTypes.any,
   }),
   demand: PropTypes.shape({
+    id: PropTypes.any.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
     quantity: PropTypes.number,

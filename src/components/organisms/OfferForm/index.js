@@ -42,7 +42,7 @@ const OfferForm = ({ connected, user, demand, handleSubmit, submitting, error, r
         <OfferContainer>
           <Field
             name="quantity"
-            type="text"
+            type="number"
             minLength={1}
             maxLength={90}
             component={ReduxField}
@@ -63,6 +63,7 @@ OfferForm.propTypes = {
     id: PropTypes.any,
   }),
   demand: PropTypes.shape({
+    id: PropTypes.any,
     donors: PropTypes.arrayOf(PropTypes.shape({
       user: PropTypes.shape({
         id: PropTypes.any,
