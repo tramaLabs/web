@@ -10,11 +10,8 @@ import { NewDemandCard } from 'components'
 const NewDemandCardContainer = props => <NewDemandCard {...props} />
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
-  console.log('onSubmit data: ', data)
-  console.log('Dispatch: ', dispatch)
-  dispatch(initiativeDemandsUpdate.request(data, resolve, reject))
-}).catch((error) => {
-  console.log('Erro ao mandar nova demanda: ', error)
+  dispatch(initiativeDemandsUpdate.request(data.initiative.id, data, resolve, reject))
+}).then(() => {}).catch((error) => {
   if (error.status === 401) {
     throw new SubmissionError({ _error: 'Você precisa estar conectado para oferecer' })
   }
