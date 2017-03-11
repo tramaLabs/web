@@ -16,7 +16,7 @@ const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
     throw new SubmissionError({ _error: 'Você precisa estar conectado para criar uma iniciativa' })
   }
   throw new SubmissionError({
-    _error: 'O servidor está instável. Por favor, tente novamente mais tarde.'
+    _error: 'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.'
   })
 })
 
