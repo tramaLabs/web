@@ -97,8 +97,8 @@ export const initiativeDemandsUpdate = {
 }
 
 export const initiativeDonorsUpdate = {
-  request: (id, demandId, user, quantity, resolve, reject) =>
-    ({ type: INITIATIVE_DONORS_UPDATE_REQUEST, id, demandId, user, quantity, resolve, reject }),
+  request: (data, resolve, reject) =>
+    ({ type: INITIATIVE_DONORS_UPDATE_REQUEST, data, resolve, reject }),
   success: (detail) => ({ type: INITIATIVE_DONORS_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_DONORS_UPDATE_FAILURE, error }),
   progress: (progress) => ({ type: INITIATIVE_DONORS_UPDATE_PROGRESS, progress })
