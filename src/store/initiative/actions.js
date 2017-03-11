@@ -91,7 +91,7 @@ export const initiativePhotoUpdate = {
 export const initiativeDemandsUpdate = {
   request: (id, data, resolve, reject) =>
     ({ type: INITIATIVE_DEMANDS_UPDATE_REQUEST, id, data, resolve, reject }),
-  success: (list) => ({ type: INITIATIVE_DEMANDS_UPDATE_SUCCESS, list }),
+  success: (detail) => ({ type: INITIATIVE_DEMANDS_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_DEMANDS_UPDATE_FAILURE, error }),
   progress: (progress) => ({ type: INITIATIVE_DEMANDS_UPDATE_PROGRESS, progress })
 }
