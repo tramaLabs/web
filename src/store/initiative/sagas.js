@@ -116,16 +116,16 @@ export function* joinInitiative(id) {
   }
 }
 
-export function* updateInitiativeDemands(data) {
+export function* updateInitiativeDemands(id, demandData) {
   try {
-    const { data: resp } = yield call(api.post, `/initiatives/${data.initiative.id}/demands`, { title: data.title, quantity: data.quantity, description: data.description })
-    yield put(initiativeDemandsUpdate.success(resp))
+    const { data } = yield call(api.post, `/initiatives/${id}/demands`, demandData)
+    yield put(initiativeDemandsUpdate.success(data))
   } catch (error) {
     yield put(initiativeDemandsUpdate.failure(error))
   }
 }
 
-export function* updateInitiativeDonors(data) {
+export function* updateInitiativeDonors(id, data) {
   try {
     const { data: resp } = yield call(api.post, `/initiatives/${data.initiative.id}/demands/${data.demand.id}/donors`, { quantity: data.quantity, user: data.user })
     yield put(initiativeDonorsUpdate.success(resp))
