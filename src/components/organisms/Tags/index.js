@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { palette } from 'styled-theme'
 
@@ -57,9 +57,16 @@ const StyledTagsInput = styled(TagsInput)`
 `
 
 class Tags extends React.Component {
-  constructor() {
-    super()
-    this.state = { tags: [] }
+  static propTypes = {
+    tags: PropTypes.arrayOf(PropTypes.string)
+  }
+
+  state = { tags: [] }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.tags.length === 0 && nextProps.tags && nextProps.tags.length) {
+      this.setState({ tags: nextProps.tags })
+    }
   }
 
   handleChange = (tags) => {
