@@ -8,6 +8,7 @@ import {
   INITIATIVE_JOIN_SUCCESS,
   INITIATIVE_LEAVE_SUCCESS,
   INITIATIVE_PHOTO_UPDATE_SUCCESS,
+  INITIATIVE_DEMANDS_UPDATE_SUCCESS,
   TAG_CREATE_SUCCESS,
   TAG_LIST_SUCCESS,
   TAG_LIST_EXTRACT_SUCCESS
@@ -15,10 +16,16 @@ import {
 
 export const user = new schema.Entity('user')
 
+export const demand = new schema.Entity('demand', {
+  creator: user,
+  donors: [user],
+})
+
 export const tag = new schema.Entity('tag')
 
 export const initiative = new schema.Entity('initiative', {
   user,
+  demands: [demand],
   users: [user],
   tags: [tag]
 })
@@ -32,6 +39,7 @@ export const actionsMeta = {
   [INITIATIVE_JOIN_SUCCESS]: { property: 'detail', schema: initiative },
   [INITIATIVE_LEAVE_SUCCESS]: { property: 'detail', schema: initiative },
   [INITIATIVE_PHOTO_UPDATE_SUCCESS]: { property: 'detail', schema: initiative },
+  [INITIATIVE_DEMANDS_UPDATE_SUCCESS]: { property: 'list', schema: [demand] },
   [TAG_CREATE_SUCCESS]: { property: 'detail', schema: tag },
   [TAG_LIST_SUCCESS]: { property: 'list', schema: [tag] },
   [TAG_LIST_EXTRACT_SUCCESS]: { property: 'list', schema: [tag] }
