@@ -125,7 +125,7 @@ export function* updateInitiativeDemands(id, demandData) {
   }
 }
 
-export function* updateInitiativeDonors(id, data) {
+export function* updateInitiativeDonors(data) {
   try {
     const { data: resp } = yield call(api.post, `/initiatives/${data.initiative.id}/demands/${data.demand.id}/donors`, { quantity: data.quantity, user: data.user })
     yield put(initiativeDonorsUpdate.success(resp))
@@ -225,8 +225,8 @@ export function* watchInitiativeDemandsUpdateRequest() {
 
 export function* watchInitiativeDonorsUpdateRequest() {
   while (true) {
-    const { id, data } = yield take(INITIATIVE_DONORS_UPDATE_REQUEST)
-    yield call(updateInitiativeDonors, id, data)
+    const { data } = yield take(INITIATIVE_DONORS_UPDATE_REQUEST)
+    yield call(updateInitiativeDonors, data)
   }
 }
 
