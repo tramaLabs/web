@@ -36,6 +36,10 @@ export const INITIATIVE_DONORS_UPDATE_REQUEST = 'INITIATIVE_DONORS_UPDATE_REQUES
 export const INITIATIVE_DONORS_UPDATE_SUCCESS = 'INITIATIVE_DONORS_UPDATE_SUCCESS'
 export const INITIATIVE_DONORS_UPDATE_FAILURE = 'INITIATIVE_DONORS_UPDATE_FAILURE'
 export const INITIATIVE_DONORS_UPDATE_PROGRESS = 'INITIATIVE_DONORS_UPDATE_PROGRESS'
+export const INITIATIVE_DEMANDS_UPDATE_REQUEST = 'INITIATIVE_DEMANDS_UPDATE_REQUEST'
+export const INITIATIVE_DEMANDS_UPDATE_SUCCESS = 'INITIATIVE_DEMANDS_UPDATE_SUCCESS'
+export const INITIATIVE_DEMANDS_UPDATE_FAILURE = 'INITIATIVE_DEMANDS_UPDATE_FAILURE'
+export const INITIATIVE_DEMANDS_UPDATE_PROGRESS = 'INITIATIVE_DEMANDS_UPDATE_PROGRESS'
 
 export const initiativeCreate = {
   request: (data, resolve, reject) => ({ type: INITIATIVE_CREATE_REQUEST, data, resolve, reject }),
@@ -81,6 +85,15 @@ export const initiativePhotoUpdate = {
   success: (detail) => ({ type: INITIATIVE_PHOTO_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_PHOTO_UPDATE_FAILURE, error }),
   progress: (progress) => ({ type: INITIATIVE_PHOTO_UPDATE_PROGRESS, progress })
+}
+
+
+export const initiativeDemandsUpdate = {
+  request: (id, data, resolve, reject) =>
+    ({ type: INITIATIVE_DEMANDS_UPDATE_REQUEST, id, data, resolve, reject }),
+  success: (list) => ({ type: INITIATIVE_DEMANDS_UPDATE_SUCCESS, list }),
+  failure: (error) => ({ type: INITIATIVE_DEMANDS_UPDATE_FAILURE, error }),
+  progress: (progress) => ({ type: INITIATIVE_DEMANDS_UPDATE_PROGRESS, progress })
 }
 
 export const initiativeDonorsUpdate = {
