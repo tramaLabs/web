@@ -53,9 +53,9 @@ const missingNumber = (quantity, donors) => {
   return n
 }
 
-const DemandCard = ({ demand, initiative, ...props, reverse }) => {
+const DemandCard = ({ demand, initiative, reverse }) => {
   return (
-    <Wrapper {...props}>
+    <Wrapper>
       <StyledHeading level={5} reverse={!reverse}>{demand.title}</StyledHeading>
       <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
