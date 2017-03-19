@@ -59,9 +59,8 @@ const DemandCard = ({ demand, initiative, reverse }) => {
       <StyledHeading level={5} reverse={!reverse}>{demand.title}</StyledHeading>
       <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>{demand.description}</Paragraph>
-      <StyledUserList reverse={reverse} users={donorsToUsers(demand.donors)} />
+      <StyledUserList modalName={`${demand.id}-modal`} modalTitle="Colaboradores" reverse={reverse} users={donorsToUsers(demand.donors)} />
       <OfferForm form={demand.id} initiative={initiative} demand={demand} />
-
 
     </Wrapper>
   )

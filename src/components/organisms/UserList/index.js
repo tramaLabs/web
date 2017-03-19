@@ -19,7 +19,7 @@ const List = styled.div`
   }
 `
 
-const UserList = ({ users, onOpenUserListModal, ...props, reverse }) => {
+const UserList = ({ users, modalTitle, onOpenUserListModal, modalName, ...props, reverse }) => {
   return (
     <Wrapper {...props}>
       <List>
@@ -46,7 +46,7 @@ const UserList = ({ users, onOpenUserListModal, ...props, reverse }) => {
         reverse={reverse}
         onClick={onOpenUserListModal}
       />
-      <UserListModal users={users} />
+      <UserListModal name={modalName} title={modalTitle} users={users} />
     </Wrapper>
   )
 }
@@ -61,6 +61,8 @@ UserList.propTypes = {
     }).isRequired
   })).isRequired,
   onOpenUserListModal: PropTypes.func.isRequired,
+  modalTitle: PropTypes.string,
+  modalName: PropTypes.string,
   reverse: PropTypes.bool
 }
 

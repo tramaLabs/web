@@ -6,8 +6,8 @@ import { UserList } from 'components'
 
 const UserListContainer = props => <UserList {...props} />
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenUserListModal: () => dispatch(modalShow('userList'))
+const mapDispatchToProps = (dispatch, { modalName }) => ({
+  onOpenUserListModal: () => dispatch(modalShow(modalName))
 })
 
 export default connect(undefined, mapDispatchToProps)(UserListContainer)
