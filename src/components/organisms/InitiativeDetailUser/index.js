@@ -31,7 +31,7 @@ const InitiativeDetailUser = ({ initiative, ...props, reverse }) => {
         </UserInfo>
       </UserWrapper>
       <Caption reverse={reverse}>Participando</Caption>
-      <UserList reverse={reverse} users={initiative.users} />
+      <UserList modalName={`${initiative.id}-modal`} modalTitle="Participantes" reverse={reverse} users={initiative.users} />
     </Wrapper>
   )
 }

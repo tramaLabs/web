@@ -15,11 +15,11 @@ const User = styled.a`
   }
 `
 
-const UserListModal = ({ users, ...props, reverse }) => {
+const UserListModal = ({ users, title, ...props, reverse }) => {
   return (
     <Modal
-      title={`Participantes (${users.length})`}
-      name="initiativeUserList"
+      title={`${title} (${users.length})`}
+      name="userList"
       closeable
       {...props}
     >
@@ -42,6 +42,7 @@ UserListModal.propTypes = {
       facebook: PropTypes.string
     }).isRequired
   })).isRequired,
+  title: PropTypes.string,
   reverse: PropTypes.bool
 }
 
