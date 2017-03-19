@@ -17,9 +17,13 @@ import {
 
 export const user = new schema.Entity('user')
 
+export const donor = new schema.Entity('demand', {
+  user,
+})
+
 export const demand = new schema.Entity('demand', {
   creator: user,
-  donors: [user],
+  donors: [donor],
 })
 
 export const tag = new schema.Entity('tag')
