@@ -14,7 +14,7 @@ const Form = styled.form`
     margin: 0.25rem;
   }
   & > button {
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 240px) {
       display: none;
     }
   }
@@ -26,7 +26,8 @@ const SearchForm = ({ handleSubmit, palette, transparent, reverse, ...props }) =
       <Field
         name="q"
         type="search"
-        placeholder="Use tags para pesquisar (ex: música, rio de janeiro)"
+        class=""
+        placeholder="#música #rio de janeiro  roda de samba"
         component={ReduxField}
         borderless={reverse}
       />

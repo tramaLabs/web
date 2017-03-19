@@ -1,15 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import InitiativeUserListModal from '.'
+import UserListModal from '.'
 
-const initiative = {
-  users: [
+const users = [
     { id: 0, name: 'Jeane', picture: 'jeane.jpg', services: { facebook: 'jeane' } },
     { id: 1, name: 'Diego', picture: 'diego.jpg', services: { facebook: 'diego' } }
-  ]
-}
+]
 
-const wrap = (props = {}) => shallow(<InitiativeUserListModal initiative={initiative} {...props} />)
+const wrap = (props = {}) => shallow(<UserListModal users={users} {...props} />)
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })

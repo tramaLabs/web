@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { Block, Caption } from 'components'
-import { InitiativeUserList } from 'containers'
+import { UserList } from 'containers'
 
 const Wrapper = styled(Block)`
   display: flex;
@@ -31,7 +31,7 @@ const InitiativeDetailUser = ({ initiative, ...props, reverse }) => {
         </UserInfo>
       </UserWrapper>
       <Caption reverse={reverse}>Participando</Caption>
-      <InitiativeUserList reverse={reverse} initiative={initiative} />
+      <UserList modalName={`${initiative.id}-modal`} modalTitle="Participantes" reverse={reverse} users={initiative.users} />
     </Wrapper>
   )
 }

@@ -32,6 +32,14 @@ export const INITIATIVE_PHOTO_PREVIEW_REQUEST = 'INITIATIVE_PHOTO_PREVIEW_REQUES
 export const INITIATIVE_PHOTO_PREVIEW_SUCCESS = 'INITIATIVE_PHOTO_PREVIEW_SUCCESS'
 export const INITIATIVE_PHOTO_PREVIEW_FAILURE = 'INITIATIVE_PHOTO_PREVIEW_FAILURE'
 export const INITIATIVE_PHOTO_PREVIEW_CANCEL = 'INITIATIVE_PHOTO_PREVIEW_CANCEL'
+export const INITIATIVE_DONORS_UPDATE_REQUEST = 'INITIATIVE_DONORS_UPDATE_REQUEST'
+export const INITIATIVE_DONORS_UPDATE_SUCCESS = 'INITIATIVE_DONORS_UPDATE_SUCCESS'
+export const INITIATIVE_DONORS_UPDATE_FAILURE = 'INITIATIVE_DONORS_UPDATE_FAILURE'
+export const INITIATIVE_DONORS_UPDATE_PROGRESS = 'INITIATIVE_DONORS_UPDATE_PROGRESS'
+export const INITIATIVE_DEMANDS_UPDATE_REQUEST = 'INITIATIVE_DEMANDS_UPDATE_REQUEST'
+export const INITIATIVE_DEMANDS_UPDATE_SUCCESS = 'INITIATIVE_DEMANDS_UPDATE_SUCCESS'
+export const INITIATIVE_DEMANDS_UPDATE_FAILURE = 'INITIATIVE_DEMANDS_UPDATE_FAILURE'
+export const INITIATIVE_DEMANDS_UPDATE_PROGRESS = 'INITIATIVE_DEMANDS_UPDATE_PROGRESS'
 
 export const initiativeCreate = {
   request: (data, resolve, reject) => ({ type: INITIATIVE_CREATE_REQUEST, data, resolve, reject }),
@@ -77,6 +85,23 @@ export const initiativePhotoUpdate = {
   success: (detail) => ({ type: INITIATIVE_PHOTO_UPDATE_SUCCESS, detail }),
   failure: (error) => ({ type: INITIATIVE_PHOTO_UPDATE_FAILURE, error }),
   progress: (progress) => ({ type: INITIATIVE_PHOTO_UPDATE_PROGRESS, progress })
+}
+
+
+export const initiativeDemandsUpdate = {
+  request: (id, data, resolve, reject) =>
+    ({ type: INITIATIVE_DEMANDS_UPDATE_REQUEST, id, data, resolve, reject }),
+  success: (detail) => ({ type: INITIATIVE_DEMANDS_UPDATE_SUCCESS, detail }),
+  failure: (error) => ({ type: INITIATIVE_DEMANDS_UPDATE_FAILURE, error }),
+  progress: (progress) => ({ type: INITIATIVE_DEMANDS_UPDATE_PROGRESS, progress })
+}
+
+export const initiativeDonorsUpdate = {
+  request: (data, resolve, reject) =>
+    ({ type: INITIATIVE_DONORS_UPDATE_REQUEST, data, resolve, reject }),
+  success: (detail) => ({ type: INITIATIVE_DONORS_UPDATE_SUCCESS, detail }),
+  failure: (error) => ({ type: INITIATIVE_DONORS_UPDATE_FAILURE, error }),
+  progress: (progress) => ({ type: INITIATIVE_DONORS_UPDATE_PROGRESS, progress })
 }
 
 export const initiativePhotoPreview = {

@@ -11,6 +11,8 @@ import {
   initiativeLeave,
   initiativePhotoUpdate,
   initiativePhotoPreview,
+  initiativeDemandsUpdate,
+  initiativeDonorsUpdate,
   INITIATIVE_CREATE_REQUEST,
   INITIATIVE_LIST_READ_REQUEST,
   INITIATIVE_DETAIL_READ_REQUEST,
@@ -18,7 +20,9 @@ import {
   INITIATIVE_JOIN_REQUEST,
   INITIATIVE_LEAVE_REQUEST,
   INITIATIVE_PHOTO_UPDATE_REQUEST,
-  INITIATIVE_PHOTO_PREVIEW_REQUEST
+  INITIATIVE_PHOTO_PREVIEW_REQUEST,
+  INITIATIVE_DONORS_UPDATE_REQUEST,
+  INITIATIVE_DEMANDS_UPDATE_REQUEST,
 } from '../actions'
 import { extractTagList } from '../tag/sagas'
 import { fromTag } from '../selectors'
@@ -112,6 +116,34 @@ export function* joinInitiative(id) {
   }
 }
 
+export function* updateInitiativeDemands(id, demandData) {
+  try {
+    const { data } = yield call(api.post, `/initiatives/${id}/demands`, demandData)
+    yield put(initiativeDemandsUpdate.success(data))
+  } catch (error) {
+    yield put(initiativeDemandsUpdate.failure(error))
+  }
+}
+
+export function* updateInitiativeDonors(data) {
+  try {
+    const { data: resp } = yield call(api.post, `/initiatives/${data.initiative.id}/demands/${data.demand.id}/donors`, { quantity: data.quantity, user: data.user })
+    yield put(initiativeDonorsUpdate.success(resp))
+  } catch (error) {
+    yield put(initiativeDonorsUpdate.failure(error))
+  }
+}
+
+export function* joInitiative(id) {
+  try {
+    const { data } = yield call(api.put, `/initiatives/${id}/join`)
+    yield put(initiativeJoin.success(data))
+  } catch (error) {
+    yield put(initiativeJoin.failure(error))
+  }
+}
+
+
 export function* leaveInitiative(id) {
   try {
     const { data } = yield call(api.put, `/initiatives/${id}/leave`)
@@ -184,6 +216,20 @@ export function* watchInitiativeUpdateRequest() {
   }
 }
 
+export function* watchInitiativeDemandsUpdateRequest() {
+  while (true) {
+    const { id, data } = yield take(INITIATIVE_DEMANDS_UPDATE_REQUEST)
+    yield call(updateInitiativeDemands, id, data)
+  }
+}
+
+export function* watchInitiativeDonorsUpdateRequest() {
+  while (true) {
+    const { data } = yield take(INITIATIVE_DONORS_UPDATE_REQUEST)
+    yield call(updateInitiativeDonors, data)
+  }
+}
+
 export function* watchInitiativeJoinRequest() {
   while (true) {
     const { id } = yield take(INITIATIVE_JOIN_REQUEST)
@@ -221,4 +267,6 @@ export default function* () {
   yield fork(watchInitiativeLeaveRequest)
   yield fork(watchInitiativePhotoUpdateRequest)
   yield fork(watchInitiativePhotoPreviewRequest)
+  yield fork(watchInitiativeDonorsUpdateRequest)
+  yield fork(watchInitiativeDemandsUpdateRequest)
 }

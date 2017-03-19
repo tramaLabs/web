@@ -16,13 +16,13 @@ const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
     throw new SubmissionError({ _error: 'Você precisa estar conectado para criar uma iniciativa' })
   }
   throw new SubmissionError({
-    _error: 'O servidor está instável. Por favor, tente novamente mais tarde.'
+    _error: 'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.'
   })
 })
 
 const validate = createValidator({
   title: [required, maxLength(120)],
-  description: [required, minLength(10), maxLength(2048)]
+  description: [required, minLength(60), maxLength(2048)]
 })
 
 const mapStateToProps = (state) => ({
