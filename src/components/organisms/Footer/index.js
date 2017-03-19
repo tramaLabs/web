@@ -132,7 +132,6 @@ const Footer = (props) => {
           <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img alt="medium-logo" src={medium} /></Link></li>
         </SocialMedia>
       </TramaSocialNav>
-      <StyledParagraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a nulla nibh. Sed venenatis facilisis turpis, sit amet varius nibh placerat a. Sed sapien dolor, rhoncus quis tellus sed, interdum convallis mi. Nam mattis massa ut lorem ultricies, sed pellentesque quam suscipit. Proin ac rutrum justo. Praesent nulla sapien, maximus at magna id, consectetur dapibus nunc.</StyledParagraph>
       <TramaSitesNav>
         <Platform>
           <h2>Plataforma</h2>
