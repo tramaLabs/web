@@ -5,3 +5,4 @@ coverage
 *.swp
 dist
 webpack/webpack-assets.json
+yarn.lock 
