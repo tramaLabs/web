@@ -1,19 +1,21 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import InitiativeUserList from '.'
+import UserList from '.'
 
-const initiative = {
-  users: [
+const users = [
     { id: 0, name: 'Jeane', picture: 'jeane.jpg', services: { facebook: 'jeane' } },
     { id: 1, name: 'Diego', picture: 'diego.jpg', services: { facebook: 'diego' } }
-  ]
-}
+]
 
-const onOpenInitiativeUserListModal = jest.fn()
+const onOpenUserListModal = jest.fn()
 
-const defaultProps = { initiative, onOpenInitiativeUserListModal }
+const modalName = 'testModal'
 
-const wrap = (props = {}) => shallow(<InitiativeUserList {...defaultProps} {...props} />)
+const modalTitle = 'Test Modal'
+
+const defaultProps = { users, onOpenUserListModal, modalTitle, modalName }
+
+const wrap = (props = {}) => shallow(<UserList {...defaultProps} {...props} />)
 
 it('renders props when passed in', () => {
   const wrapper = wrap({ id: 'foo' })
@@ -28,8 +30,8 @@ it('renders user pictures', () => {
 
 it('renders initiative user list modal open button', () => {
   const wrapper = wrap()
-  const button = wrapper.find({ onClick: onOpenInitiativeUserListModal })
-  expect(onOpenInitiativeUserListModal).not.toBeCalled()
+  const button = wrapper.find({ onClick: onOpenUserListModal })
+  expect(onOpenUserListModal).not.toBeCalled()
   button.simulate('click')
-  expect(onOpenInitiativeUserListModal).toBeCalled()
+  expect(onOpenUserListModal).toBeCalled()
 })
