@@ -51,7 +51,7 @@ const InitiativeDetailPage = ({ initiative, user }) => {
           title="Trama"
           meta={[
               { name: 'description', content: initiative && initiative.description },
-              { property: 'og:site_name', content: `${initiative.title}` },
+              { property: 'og:site_name', content: initiative && initiative.title },
               { property: 'og:image', content: initiative && (initiative.photo.medium) },
               { property: 'og:image:type', content: 'image/png' },
           ]}
@@ -59,7 +59,7 @@ const InitiativeDetailPage = ({ initiative, user }) => {
         <Summary>
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
-        <StyledInitiativeDemandBoard user={user} initiative={initiative} />
+        {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
       </InnerWrapper>
       <Forum />
     </PageTemplate>

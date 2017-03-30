@@ -6,9 +6,9 @@ const wrap = () => {
   const hero = document.createElement('div')
   const header = document.createElement('div')
   hero.id = 'hero'
-  hero.clientHeight = 500
+  Object.defineProperty(hero, 'clientHeight', { value: 500 })
   header.id = 'header'
-  header.clientHeight = 100
+  Object.defineProperty(header, 'clientHeight', { value: 100 })
 
   document.body.appendChild(hero)
   document.body.appendChild(header)
