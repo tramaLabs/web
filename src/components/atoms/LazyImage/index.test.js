@@ -123,8 +123,8 @@ describe('isInViewport', () => {
   })
 
   it('reads documentElement sizes if window sizes are not available', () => {
-    document.documentElement.clientHeight = window.innerHeight
-    document.documentElement.clientWidth = window.innerWidth
+    Object.defineProperty(document.documentElement, 'clientHeight', { value: window.innerHeight })
+    Object.defineProperty(document.documentElement, 'clientWidth', { value: window.innerWidth })
     delete window.innerHeight
     delete window.innerWidth
     const wrapper = wrap({}, getMockImplementation({ top: 10, left: 10 }))
