@@ -9,9 +9,9 @@ const InitiativeCreationPage = () => {
       header={<Header />}
       heading={
         <div>
-          <Heading palette="primary">Vamos abrir a sua iniciativa</Heading>
+          <Heading palette="primary">Crie uma iniciativa</Heading>
           <Paragraph>
-            Crie aqui sua iniciativa. Explique seu propósito, como participar? Uma boa descrição é chave para o sucesso da sua iniciativa'
+            Crie aqui sua iniciativa. Explique seu propósito, como participar outras pessoas podem participar.. Uma boa descrição é chave para o sucesso da sua iniciativa
           </Paragraph>
         </div>
       }
