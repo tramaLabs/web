@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { Paragraph, LogoLink } from 'components'
+import { LogoLink } from 'components'
 import styled from 'styled-components'
 import facebook from './facebook.png'
 import medium from './medium.png'
@@ -31,7 +31,7 @@ const TramaSocialNav = styled.nav`
   ul {
     list-style-type: none;
   }
-  @media only screen and (max-width: 700px) { 
+  @media only screen and (max-width: 700px) {
 
   }
 `
@@ -94,16 +94,6 @@ const TramaSitesNav = styled.nav`
 
 `
 const Platform = styled.ul``
-
-
-const StyledParagraph = styled(Paragraph)`
-  margin: 0;
-  flex-basis: 33.33%;
-  color: white;
-  font-size: 12px;
-  padding: 0 34px;
-`
-
 
 const StyledLogoLink = styled(LogoLink)`
     width: 100%;
