@@ -51,8 +51,8 @@ const InitiativeDetailPage = ({ initiative, user }) => {
           title="Trama"
           meta={[
               { name: 'description', content: initiative && initiative.description },
-              { property: 'og:site_name', content: 'Trama' },
-              { property: 'og:image', content: initiative && initiative.picture },
+              { property: 'og:site_name', content: `${initiative.title}` },
+              { property: 'og:image', content: initiative && (initiative.photo.medium) },
               { property: 'og:image:type', content: 'image/png' },
           ]}
         />
