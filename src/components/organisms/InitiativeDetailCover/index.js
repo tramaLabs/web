@@ -5,7 +5,7 @@ import { get, ifProp } from 'styled-tools'
 
 import { IconButton, Button, UploadStatusBar, Spinner, CoverImage } from 'components'
 
-import defaultPhoto from './cover.jpg'
+import defaultPhoto from './default_cover.png'
 
 const Wrapper = styled.div`
   position: relative;

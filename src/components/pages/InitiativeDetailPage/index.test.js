@@ -3,6 +3,5 @@ import { shallow } from 'enzyme'
 import InitiativeDetailPage from '.'
 
 it('renders', () => {
-  shallow(<InitiativeDetailPage />)
-  shallow(<InitiativeDetailPage initiative={{}} />)
+  shallow(<InitiativeDetailPage initiative={{ title: 'test', photo: { medium: 'test.jpg' } }} />)
 })

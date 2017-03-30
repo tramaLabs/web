@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { palette } from 'styled-theme'
 
 import { Block, CoverImage, Heading, TagList } from 'components'
+import defaultPhoto from './default_small_cover.png'
 
 const Wrapper = styled(Block)`
   position: relative;
@@ -70,7 +71,7 @@ const InitiativeCard = ({ initiative, ...props, reverse }) => {
   return (
     <Wrapper palette={initiative.color} {...props}>
       <StyledLink to={`/iniciativas/${initiative.id}/${initiative.slug}`} />
-      {initiative.photo.small && <StyledCoverImage src={initiative.photo.small} />}
+      {<StyledCoverImage src={initiative.photo.small || defaultPhoto} />}
       <Info>
         <StyledHeading level={2} reverse={!reverse}>{initiative.title}</StyledHeading>
         <StyledTagList tags={initiative.tags} reverse={!reverse} limit={2} lines={1} />
