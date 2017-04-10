@@ -11,7 +11,7 @@ const InitiativeCreationPage = () => {
         <div>
           <Heading palette="primary">Crie uma iniciativa</Heading>
           <Paragraph>
-            Crie aqui sua iniciativa. Explique seu propósito, como participar outras pessoas podem participar.. Uma boa descrição é chave para o sucesso da sua iniciativa
+            Aqui você vai dar o primeiro passo para criar sua ideia. Sente-se num lugar confortável, pegue uma caneca de café e tome o tempo que você precisar para descrever bem a sua iniciativa. Uma boa descrição é chave para atrair colaboradores.
           </Paragraph>
         </div>
       }
