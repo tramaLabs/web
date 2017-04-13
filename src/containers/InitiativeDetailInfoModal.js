@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { reduxForm, SubmissionError } from 'redux-form'
 import { fromUser } from 'store/selectors'
 import { initiativeUpdate } from 'store/actions'
-import { createValidator, required, maxLength } from 'services/validation'
+import { createValidator, maxLength } from 'services/validation'
 
 import { InitiativeDetailInfoModal } from 'components'
 
@@ -22,7 +22,7 @@ const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
 })
 
 const validate = createValidator({
-  summary: [required, maxLength(500)],
+  summary: [maxLength(500)],
 })
 
 const mapStateToProps = (state, ownProps) => ({
