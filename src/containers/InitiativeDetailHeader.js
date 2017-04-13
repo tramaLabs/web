@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { modalShow } from 'store/actions'
+import { fromUser, fromEntities } from 'store/selectors'
+
 
 import { InitiativeDetailHeader } from 'components'
 
@@ -12,4 +14,9 @@ const mapDispatchToProps = (dispatch, { editionModalName }) => ({
 
 })
 
-export default connect(undefined, mapDispatchToProps)(InitiativeDetailHeaderContainer)
+const mapStateToProps = (state) => ({
+  user: fromEntities.getDetail(state, 'user', fromUser.getCurrentDetail(state))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(InitiativeDetailHeaderContainer)

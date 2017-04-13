@@ -36,7 +36,7 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanelModal, onOpenInitiativeDetailInfoModal, ...props, palette, reverse }) => {
+const InitiativeDetailHeader = ({ initiative, user, editionModalName, onOpenSharePanelModal, onOpenInitiativeDetailInfoModal, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
@@ -58,18 +58,22 @@ const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanel
 
       </IconButton>
       <SharePanelModal initiative={initiative} />
-      <IconButton
-        icon="edit"
-        palette="grayscale"
-        breakpoint={840}
-        reverse={reverse}
-        transparent
-        responsive
-        onClick={onOpenInitiativeDetailInfoModal}
-      >
-              Editar iniciativa
-      </IconButton>
-      <InitiativeDetailInfoModal name={editionModalName} title={'Edite sua iniciativa'} initiative={initiative} />
+      { user && initiative.user.id === user.id &&
+        <div>
+          <IconButton
+            icon="edit"
+            palette="grayscale"
+            breakpoint={840}
+            reverse={reverse}
+            transparent
+            responsive
+            onClick={onOpenInitiativeDetailInfoModal}
+          >
+                  Editar iniciativa
+          </IconButton>
+          <InitiativeDetailInfoModal name={editionModalName} title={'Edite sua iniciativa'} initiative={initiative} />
+        </div>
+      }
 
     </Wrapper>
   )
@@ -78,8 +82,10 @@ const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanel
 InitiativeDetailHeader.propTypes = {
   initiative: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired
+    tags: PropTypes.array.isRequired,
+    user: PropTypes.any,
   }).isRequired,
+  user: PropTypes.any,
   editionModalName: PropTypes.string,
   onOpenSharePanelModal: PropTypes.func,
   onOpenInitiativeDetailInfoModal: PropTypes.func,
