@@ -2,10 +2,24 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { key, palette } from 'styled-theme'
 
-import { Caption, Paragraph, InitiativeDetailUser } from 'components'
+import { Caption, Paragraph, InitiativeDetailUser, IconButton } from 'components'
+import { InitiativeDetailInfoModal } from 'containers'
+
 
 const Wrapper = styled.div`
   background-color: ${palette('grayscale', 1, true)};
+`
+
+const SummaryEditionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+`
+
+const StyledEditButton = styled(IconButton)`
+  margin-top: -8px;  position: absolute;
+  right: 0;
+  top: 0;
 `
 
 const InnerWrapper = styled.div`
@@ -39,12 +53,26 @@ const StyledInitiativeDetailUser = styled((props) => <InitiativeDetailUser {...p
   width: 320px;
 `
 
-const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
+const InitiativeDetailInfo = ({ initiative, modalTitle, onOpenInitiativeDetailInfoModal, modalName, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
       <InnerWrapper>
         <Summary>
-          <Caption reverse={reverse}>Resumo</Caption>
+          <SummaryEditionWrapper>
+            <Caption reverse={reverse}>Resumo</Caption>
+            <StyledEditButton
+              icon="edit"
+              height={32}
+              palette={palette}
+              reverse={!reverse}
+              responsive
+              collapsed
+              onClick={onOpenInitiativeDetailInfoModal}
+            >
+              Editar resumo
+            </StyledEditButton>
+            <InitiativeDetailInfoModal name={modalName} title={modalTitle} initiative={initiative} />
+          </SummaryEditionWrapper>
           <SummaryParagraph reverse={reverse}>{initiative.summary}</SummaryParagraph>
         </Summary>
         <StyledInitiativeDetailUser initiative={initiative} reverse={reverse} />
@@ -55,8 +83,13 @@ const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
 
 InitiativeDetailInfo.propTypes = {
   initiative: PropTypes.shape({
+    id: PropTypes.any.isRequired,
     summary: PropTypes.string
   }).isRequired,
+  palette: PropTypes.string,
+  onOpenInitiativeDetailInfoModal: PropTypes.func,
+  modalTitle: PropTypes.string,
+  modalName: PropTypes.string,
   reverse: PropTypes.bool
 }
 
