@@ -16,7 +16,7 @@ const DescriptionPanel = styled.div`
 const InitiativeDetailDescription = ({ initiative, ...props }) => {
   return (
     <DescriptionPanel>
-      Descrição
+      Proposta
       <Wrapper {...props}> {initiative.description}</Wrapper>
     </DescriptionPanel>
   )

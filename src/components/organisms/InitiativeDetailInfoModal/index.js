@@ -57,8 +57,8 @@ error, reverse }) => {
         />
         <StyledField
           name="description"
-          label="Descrição"
-          placeholder="Escreva aqui uma descrição para sua iniciativa"
+          label="Proposta"
+          placeholder="Escreva aqui uma proposta para sua iniciativa"
           type="textarea"
           rows={10}
           maxLength={2048}

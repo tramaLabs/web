@@ -36,7 +36,7 @@ const NewDemandCard = ({ handleSubmit, submitting, error, reverse }) => {
         />
         <Field
           name="description"
-          label="Descrição"
+          label="Proposta"
           placeholder="Escreva aqui os detalhes da sua demanda"
           type="textarea"
           rows={2}
