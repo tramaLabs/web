@@ -30,6 +30,17 @@ error, reverse }) => {
       <Form method="post" onSubmit={handleSubmit}>
         {error && <Alert palette="danger" reverse={reverse}>{error}</Alert>}
         <StyledField
+          name="title"
+          label="Título"
+          placeholder="Escreva aqui o título da sua iniciativa"
+          type="textarea"
+          rows={1}
+          maxLength={120}
+          component={ReduxField}
+          reverse={reverse}
+          value={initiative.title}
+        />
+        <StyledField
           name="summary"
           label="Resumo"
           placeholder="Escreva aqui o resumo da sua iniciativa"
@@ -39,6 +50,17 @@ error, reverse }) => {
           component={ReduxField}
           reverse={reverse}
           value={initiative.summary}
+        />
+        <StyledField
+          name="description"
+          label="Descrição"
+          placeholder="Escreva aqui uma descrição para sua iniciativa"
+          type="textarea"
+          rows={10}
+          maxLength={2048}
+          component={ReduxField}
+          reverse={reverse}
+          value={initiative.description}
         />
         <SubmitWrapper>
           {connected && <Button type="submit" disabled={submitting}>Editar iniciativa</Button>}
@@ -53,7 +75,9 @@ InitiativeDetailInfoModal.propTypes = {
   connected: PropTypes.bool,
   initiative: PropTypes.shape({
     id: PropTypes.any.isRequired,
-    summary: PropTypes.string
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    description: PropTypes.string,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
