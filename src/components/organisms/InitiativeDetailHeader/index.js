@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { Heading, TagList, IconButton, SharePanelModal } from 'components'
-import { InitiativeJoinButton } from 'containers'
+import { InitiativeJoinButton, InitiativeDetailInfoModal } from 'containers'
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,7 +36,13 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, onOpenSharePanelModal, ...props, reverse }) => {
+const StyledEditButton = styled(IconButton)`
+  margin-top: -8px;  position: absolute;
+  right: 0;
+  top: 0;
+`
+
+const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanelModal, onOpenInitiativeDetailInfoModal, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
@@ -57,6 +64,18 @@ const InitiativeDetailHeader = ({ initiative, onOpenSharePanelModal, ...props, r
 
       </IconButton>
       <SharePanelModal initiative={initiative} />
+      <StyledEditButton
+        icon="edit"
+        height={32}
+        palette={palette}
+        reverse={!reverse}
+        responsive
+        collapsed
+        onClick={onOpenInitiativeDetailInfoModal}
+      >
+              Editar iniciativa
+            </StyledEditButton>
+      <InitiativeDetailInfoModal name={editionModalName} title={'Edite sua iniciativa'} initiative={initiative} />
 
     </Wrapper>
   )
@@ -67,7 +86,10 @@ InitiativeDetailHeader.propTypes = {
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired
   }).isRequired,
+  editionModalName: PropTypes.string,
   onOpenSharePanelModal: PropTypes.func,
+  onOpenInitiativeDetailInfoModal: PropTypes.func,
+  palette: PropTypes.any,
   reverse: PropTypes.bool
 }
 

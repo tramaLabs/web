@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { key, palette } from 'styled-theme'
 
 import { Caption, Paragraph, InitiativeDetailUser, IconButton } from 'components'
-import { InitiativeDetailInfoModal } from 'containers'
-
 
 const Wrapper = styled.div`
   background-color: ${palette('grayscale', 1, true)};
@@ -58,21 +56,7 @@ const InitiativeDetailInfo = ({ initiative, modalTitle, onOpenInitiativeDetailIn
     <Wrapper {...props}>
       <InnerWrapper>
         <Summary>
-          <SummaryEditionWrapper>
-            <Caption reverse={reverse}>Resumo</Caption>
-            <StyledEditButton
-              icon="edit"
-              height={32}
-              palette={palette}
-              reverse={!reverse}
-              responsive
-              collapsed
-              onClick={onOpenInitiativeDetailInfoModal}
-            >
-              Editar resumo
-            </StyledEditButton>
-            <InitiativeDetailInfoModal name={modalName} title={modalTitle} initiative={initiative} />
-          </SummaryEditionWrapper>
+          <Caption reverse={reverse}>Resumo</Caption>
           <SummaryParagraph reverse={reverse}>{initiative.summary}</SummaryParagraph>
         </Summary>
         <StyledInitiativeDetailUser initiative={initiative} reverse={reverse} />

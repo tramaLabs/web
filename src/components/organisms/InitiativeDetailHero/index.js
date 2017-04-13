@@ -6,7 +6,7 @@ const InitiativeDetailHero = ({ initiative, reverse, ...props }) => {
   return (
     <div {...props}>
       <InitiativeDetailCover initiative={initiative} reverse={reverse}>
-        <InitiativeDetailHeader initiative={initiative} reverse={!reverse} />
+        <InitiativeDetailHeader editionModalName={'initiativeEdition'} initiative={initiative} reverse={!reverse} />
       </InitiativeDetailCover>
       <InitiativeDetailInfo modalTitle={'Edite sua iniciativa'} modalName={'initiativeEdition'} initiative={initiative} reverse={reverse} />
     </div>

@@ -6,8 +6,10 @@ import { InitiativeDetailHeader } from 'components'
 
 const InitiativeDetailHeaderContainer = props => <InitiativeDetailHeader {...props} />
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenSharePanelModal: () => dispatch(modalShow('sharePanelModal'))
+const mapDispatchToProps = (dispatch, { editionModalName }) => ({
+  onOpenSharePanelModal: () => dispatch(modalShow('sharePanelModal')),
+  onOpenInitiativeDetailInfoModal: () => dispatch(modalShow(editionModalName))
+
 })
 
 export default connect(undefined, mapDispatchToProps)(InitiativeDetailHeaderContainer)
