@@ -10,7 +10,6 @@ import { InitiativeDetailInfoModal } from 'components'
 const InitiativeDetailInfoModalContainer = props => <InitiativeDetailInfoModal {...props} />
 
 const onSubmit = (data, dispatch) => new Promise((resolve, reject) => {
-  console.log(data)
   dispatch(initiativeUpdate.request(data.initiative.id, data, resolve, reject))
 }).catch((error) => {
   console.log(error)
