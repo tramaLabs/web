@@ -36,7 +36,6 @@ error, reverse }) => {
         <StyledField
           name="title"
           label="Título"
-          placeholder="Escreva aqui o título da sua iniciativa"
           type="textarea"
           rows={1}
           maxLength={120}
@@ -47,7 +46,6 @@ error, reverse }) => {
         <StyledField
           name="summary"
           label="Resumo"
-          placeholder="Escreva aqui o resumo da sua iniciativa"
           type="textarea"
           rows={6}
           maxLength={500}
@@ -58,7 +56,6 @@ error, reverse }) => {
         <StyledField
           name="description"
           label="Proposta"
-          placeholder="Escreva aqui uma proposta para sua iniciativa"
           type="textarea"
           rows={10}
           maxLength={2048}
