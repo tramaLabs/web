@@ -2,10 +2,22 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { key, palette } from 'styled-theme'
 
-import { Caption, Paragraph, InitiativeDetailUser } from 'components'
+import { Caption, Paragraph, InitiativeDetailUser, IconButton } from 'components'
 
 const Wrapper = styled.div`
   background-color: ${palette('grayscale', 1, true)};
+`
+
+const SummaryEditionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+`
+
+const StyledEditButton = styled(IconButton)`
+  margin-top: -8px;  position: absolute;
+  right: 0;
+  top: 0;
 `
 
 const InnerWrapper = styled.div`
@@ -39,7 +51,7 @@ const StyledInitiativeDetailUser = styled((props) => <InitiativeDetailUser {...p
   width: 320px;
 `
 
-const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
+const InitiativeDetailInfo = ({ initiative, modalTitle, onOpenInitiativeDetailInfoModal, modalName, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
       <InnerWrapper>
@@ -55,8 +67,13 @@ const InitiativeDetailInfo = ({ initiative, ...props, reverse }) => {
 
 InitiativeDetailInfo.propTypes = {
   initiative: PropTypes.shape({
+    id: PropTypes.any.isRequired,
     summary: PropTypes.string
   }).isRequired,
+  palette: PropTypes.string,
+  onOpenInitiativeDetailInfoModal: PropTypes.func,
+  modalTitle: PropTypes.string,
+  modalName: PropTypes.string,
   reverse: PropTypes.bool
 }
 

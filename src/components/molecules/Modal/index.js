@@ -51,7 +51,7 @@ const ModalBox = styled(ReactModal)`
   max-width: calc(640px - 1rem);
   max-height: calc(100% - 1rem);
   padding-top: ${ifProp('hasHeader', 0, '1rem')};
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 1640px) {
     width: calc(100% - 1rem);
     min-width: 0;
   }

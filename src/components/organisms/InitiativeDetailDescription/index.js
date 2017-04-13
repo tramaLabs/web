@@ -8,9 +8,17 @@ const Wrapper = styled.div`
   padding: 3rem 1rem;
 `
 
+const DescriptionPanel = styled.div`
+  font-family: ${font('primary')};
+  color: ${palette('grayscale', 0)};
+`
+
 const InitiativeDetailDescription = ({ initiative, ...props }) => {
   return (
-    <Wrapper {...props}>{initiative.description}</Wrapper>
+    <DescriptionPanel>
+      Descrição
+      <Wrapper {...props}> {initiative.description}</Wrapper>
+    </DescriptionPanel>
   )
 }
 

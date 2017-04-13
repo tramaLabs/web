@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
 import { Heading, TagList, IconButton, SharePanelModal } from 'components'
-import { InitiativeJoinButton } from 'containers'
+import { InitiativeJoinButton, InitiativeDetailInfoModal } from 'containers'
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const InitiativeDetailHeader = ({ initiative, onOpenSharePanelModal, ...props, reverse }) => {
+const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanelModal, onOpenInitiativeDetailInfoModal, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
       <Title>
@@ -57,6 +58,18 @@ const InitiativeDetailHeader = ({ initiative, onOpenSharePanelModal, ...props, r
 
       </IconButton>
       <SharePanelModal initiative={initiative} />
+      <IconButton
+        icon="edit"
+        palette="grayscale"
+        breakpoint={840}
+        reverse={reverse}
+        transparent
+        responsive
+        onClick={onOpenInitiativeDetailInfoModal}
+      >
+              Editar iniciativa
+      </IconButton>
+      <InitiativeDetailInfoModal name={editionModalName} title={'Edite sua iniciativa'} initiative={initiative} />
 
     </Wrapper>
   )
@@ -67,7 +80,10 @@ InitiativeDetailHeader.propTypes = {
     title: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired
   }).isRequired,
+  editionModalName: PropTypes.string,
   onOpenSharePanelModal: PropTypes.func,
+  onOpenInitiativeDetailInfoModal: PropTypes.func,
+  palette: PropTypes.any,
   reverse: PropTypes.bool
 }
 
