@@ -36,12 +36,6 @@ const StyledHeading = styled(Heading)`
   }
 `
 
-const StyledEditButton = styled(IconButton)`
-  margin-top: -8px;  position: absolute;
-  right: 0;
-  top: 0;
-`
-
 const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanelModal, onOpenInitiativeDetailInfoModal, ...props, palette, reverse }) => {
   return (
     <Wrapper {...props}>
@@ -64,17 +58,17 @@ const InitiativeDetailHeader = ({ initiative, editionModalName, onOpenSharePanel
 
       </IconButton>
       <SharePanelModal initiative={initiative} />
-      <StyledEditButton
+      <IconButton
         icon="edit"
-        height={32}
-        palette={palette}
-        reverse={!reverse}
+        palette="grayscale"
+        breakpoint={840}
+        reverse={reverse}
+        transparent
         responsive
-        collapsed
         onClick={onOpenInitiativeDetailInfoModal}
       >
               Editar iniciativa
-            </StyledEditButton>
+      </IconButton>
       <InitiativeDetailInfoModal name={editionModalName} title={'Edite sua iniciativa'} initiative={initiative} />
 
     </Wrapper>
