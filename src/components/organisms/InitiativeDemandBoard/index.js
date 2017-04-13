@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
 
-import { DemandCard, Heading, Button } from 'components'
+import { DemandCard, Heading, Button, Paragraph } from 'components'
 import { NewDemandCard } from 'containers'
 
 const Wrapper = styled.div`
@@ -45,10 +45,15 @@ class InitiativeDemandBoard extends Component {
     const { initiative, user, reverse, ...props } = this.props
     return (
       <Wrapper {...props}>
-        <Heading level={4}>{initiative.title} precisa de</Heading>
+        {initiative.demands.length > 0 &&
+          <Heading level={4}>{initiative.title} precisa de</Heading>
+        }
         { initiative.demands.map(demand =>
           <DemandCard key={demand.id} initiative={initiative} demand={demand} reverse={reverse} />
         )}
+        {this.isAuthor(user, initiative) && initiative.demands.length < 1 &&
+          <Paragraph>Com demandas você pode registrar tudo o que sua iniciativa precisa para acontecer</Paragraph>
+        }
         {!this.state.addingDemand && this.isAuthor(user, initiative) && <StyledButton type="button" onClick={this.onAddDemand}>Adicionar Demanda</StyledButton>}
         { this.state.addingDemand && <NewDemandCard key="new_demand" initiative={initiative} reverse={reverse} />}
       </Wrapper>
