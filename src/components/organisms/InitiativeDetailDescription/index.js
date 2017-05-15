@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   font-family: ${font('primary')};
   color: ${palette('grayscale', 0)};
   padding: 3rem 1rem;
+    white-space: pre-line;
 `
 
 const DescriptionPanel = styled.div`
@@ -16,8 +17,12 @@ const DescriptionPanel = styled.div`
 const InitiativeDetailDescription = ({ initiative, ...props }) => {
   return (
     <DescriptionPanel>
-      Proposta
-      <Wrapper {...props}> {initiative.description}</Wrapper>
+      <h2>Proposta</h2>
+      <Wrapper {...props}>
+        {initiative.description.split('\n').map((item, key) => {
+          return <span key={key}>{item}<br /></span>
+        })}
+      </Wrapper>
     </DescriptionPanel>
   )
 }
