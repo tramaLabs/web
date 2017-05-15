@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
+import { Heading } from 'components'
 
 const Wrapper = styled.div`
   font-family: ${font('primary')};
@@ -17,7 +18,7 @@ const DescriptionPanel = styled.div`
 const InitiativeDetailDescription = ({ initiative, ...props }) => {
   return (
     <DescriptionPanel>
-      <h2>Proposta</h2>
+      <Heading level={4}>Proposta</Heading>
       <Wrapper {...props}>
         {initiative.description.split('\n').map((item, key) => {
           return <span key={key}>{item}<br /></span>

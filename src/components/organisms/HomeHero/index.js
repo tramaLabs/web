@@ -70,7 +70,7 @@ const HomeHero = ({ ...props, reverse }) => {
         <Button to="/iniciativas/criar" height={54}>Criar iniciativa</Button>
       </Main>
       <SearchBox>
-        <Heading level={2} reverse={!reverse}>Explore iniciativas</Heading>
+        <Heading level={2} reverse={!reverse}>Busque iniciativas</Heading>
         <SearchForm palette="grayscale" transparent reverse={!reverse} />
       </SearchBox>
     </Wrapper>

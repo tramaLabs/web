@@ -37,7 +37,7 @@ const SearchForm = ({ handleSubmit, palette, transparent, reverse, ...props }) =
         transparent={transparent}
         reverse={reverse}
       >
-        Explorar
+        Buscar
       </Button>
     </Form>
   )
