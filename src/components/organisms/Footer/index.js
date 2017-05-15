@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { LogoLink } from 'components'
+import { LogoLink, YouseLink } from 'components'
+import { size } from 'styled-theme'
 import styled from 'styled-components'
 import facebook from './facebook.png'
 import medium from './medium.png'
@@ -10,14 +11,21 @@ import github from './github.png'
 
 
 const Wrapper = styled.footer`
+  background: black;
+  height: 100%;
+`
+
+const InnerWrapper = styled.footer`
+  margin: 0 auto;
   box-sizing: border-box;
   background: black;
   font-family: "Lato", sans-serif;
   padding: 34px 5vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  max-width: ${size('maxWidth')};
   padding: 2rem;
 `
 
@@ -58,6 +66,25 @@ const SocialMedia = styled.ul`
           opacity: 0.6;
       }
     }
+  }
+`
+
+const Sponsors = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 55px 0;
+  flex-basis: 200px;
+  @media only screen and (max-width: 700px) {
+    flex-basis: 70%;
+  }
+
+  h2 {
+       text-align: center;
+      padding-top: 0;
+      text-transform: uppercase;
+      color: #ff8405;
+      font-size: 16px;
   }
 `
 
@@ -109,34 +136,53 @@ const StyledLogoLink = styled(LogoLink)`
     }
 `
 
+const StyledYouseLink = styled(YouseLink)`
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    flex-basis: 100%
+    object-position: center center;
+    margin: auto;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+`
+
 const Footer = (props) => {
   return (
-    <Wrapper {...props}>
-      <TramaSocialNav>
-        <StyledLogoLink />
-        <SocialMedia>
-          <li><Link href="http://www.facebook.com/colet.trama" title="Facebook"><img alt="facebook-logo" src={facebook} /></Link></li>
-          <li><Link href="http://www.github.com/tramalabs" title="GitHub"><img alt="github-logo" src={github} /></Link></li>
-          <li><Link href="https://instagram.com/ColetivoTrama" title="Instagram"><img alt="instagram-logo" src={instagram} /></Link></li>
-          <li><Link href="https://flickr.com/coletivotrama" title="Flickr"><img alt="flickr-logo" src={flickr} /></Link></li>
-          <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img alt="medium-logo" src={medium} /></Link></li>
-        </SocialMedia>
-      </TramaSocialNav>
-      <TramaSitesNav>
-        <Platform>
-          <h2>Plataforma</h2>
-          <li><Link href="/" title="">Página Inicial</Link></li>
-          <li><Link href="/iniciativas/criar" title="">Criar Uma Iniciativa</Link></li>
-          <li><Link href="/iniciativas?q=" title="">Buscar Iniciativas</Link></li>
-          <li><Link href="/colaborades" title="">Colaboradores</Link></li>
-          <li><Link href="/abraseucoracao" title="">Fale Conosco</Link></li>
-        </Platform>
-        <ul id="coletivoTrama">
-          <h2>Coletivo Trama</h2>
-          <li><Link href="/manifesto" title="">Manifesto Trama</Link></li>
-          <li><Link href="https://www.mesclado.com.br/trama" title="">Loja</Link></li>
-        </ul>
-      </TramaSitesNav>
+    <Wrapper>
+      <InnerWrapper {...props}>
+        <TramaSocialNav>
+          <StyledLogoLink />
+          <SocialMedia>
+            <li><Link href="http://www.facebook.com/colet.trama" title="Facebook"><img alt="facebook-logo" src={facebook} /></Link></li>
+            <li><Link href="http://www.github.com/tramalabs" title="GitHub"><img alt="github-logo" src={github} /></Link></li>
+            <li><Link href="https://instagram.com/ColetivoTrama" title="Instagram"><img alt="instagram-logo" src={instagram} /></Link></li>
+            <li><Link href="https://flickr.com/coletivotrama" title="Flickr"><img alt="flickr-logo" src={flickr} /></Link></li>
+            <li><Link href="http://medium.com/coletivo-trama" title="Medium"><img alt="medium-logo" src={medium} /></Link></li>
+          </SocialMedia>
+        </TramaSocialNav>
+        <Sponsors>
+          <h2>Apoio</h2>
+          <StyledYouseLink />
+        </Sponsors >
+        <TramaSitesNav>
+          <Platform>
+            <h2>Plataforma</h2>
+            <li><Link href="/" title="">Página Inicial</Link></li>
+            <li><Link href="/iniciativas/criar" title="">Criar Uma Iniciativa</Link></li>
+            <li><Link href="/iniciativas?q=" title="">Buscar Iniciativas</Link></li>
+            <li><Link href="/colaborades" title="">Colaboradores</Link></li>
+            <li><Link href="/abraseucoracao" title="">Fale Conosco</Link></li>
+          </Platform>
+          <ul id="coletivoTrama">
+            <h2>Coletivo Trama</h2>
+            <li><Link href="/manifesto" title="">Manifesto Trama</Link></li>
+            <li><Link href="https://www.mesclado.com.br/trama" title="">Loja</Link></li>
+          </ul>
+        </TramaSitesNav>
+      </InnerWrapper>
     </Wrapper>
   )
 }
