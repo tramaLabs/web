@@ -29,6 +29,9 @@ const mapStateToProps = (state, ownProps) => ({
   connected: !!fromUser.getCurrentDetail(state),
   initialValues: {
     initiative: ownProps.initiative,
+    title: ownProps.initiative.title,
+    description: ownProps.initiative.description,
+    summary: ownProps.initiative.summary
   }
 })
 
