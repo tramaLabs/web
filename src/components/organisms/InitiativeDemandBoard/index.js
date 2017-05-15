@@ -46,7 +46,7 @@ class InitiativeDemandBoard extends Component {
     return (
       <Wrapper {...props}>
         {initiative.demands.length > 0 &&
-          <Heading level={4}>{initiative.title} precisa de</Heading>
+          <Heading level={4}>{initiative.title} precisa de:</Heading>
         }
         { initiative.demands.map(demand =>
           <DemandCard key={demand.id} initiative={initiative} demand={demand} reverse={reverse} />
