@@ -73,10 +73,11 @@ const Sponsors = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 55px 0;
+  margin-top: -40px;
   flex-basis: 200px;
   @media only screen and (max-width: 700px) {
     flex-basis: 70%;
+    margin:30px 0px;
   }
 
   h2 {
