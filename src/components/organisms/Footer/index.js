@@ -73,11 +73,14 @@ const Sponsors = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 200px;
+  img{
+    width:85%;
+  }
   @media only screen and (max-width: 500px) {
     flex-basis: 100%;
     margin-top: 55px;
-    a {
-        text-align: center;
+    img{
+      width:50%;
     }
   }
   h2 {
@@ -87,6 +90,12 @@ const Sponsors = styled.div`
       color: #ff8405;
       font-size: 16px;
   }
+
+  a{
+    text-align:center;
+  }
+
+  
 `
 
 const TramaSitesNav = styled.nav`
