@@ -46,7 +46,7 @@ class HomePage extends Component {
         hero={<HomeHero id="hero" />}
         footer={<Footer />}
       >
-        <StyledHeading level={2}>Iniciativas em destaque</StyledHeading>
+        <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>
     )
