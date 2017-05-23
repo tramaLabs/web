@@ -12,45 +12,45 @@ import github from './github.png'
 
 const Wrapper = styled.footer`
   background: black;
-  height: 100%;
 `
 
 const InnerWrapper = styled.footer`
   margin: 0 auto;
   box-sizing: border-box;
-  background: black;
   font-family: "Lato", sans-serif;
-  padding: 34px 5vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  max-width: ${size('maxWidth')};
-  padding: 2rem;
-`
-
-const TramaSocialNav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-basis: 144px;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  ul {
-    list-style-type: none;
-  }
-  @media only screen and (max-width: 700px) {
-
-  }
-`
-
-const SocialMedia = styled.ul`
-  padding: 0;
-  margin-bottom: 0;
+  padding: 55px 5vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: ${size('maxWidth')};
+  @media only screen and (max-width: 768px) {
+    justify-content: space-around;
+  }
+  @media only screen and (max-width: 500px) {
+    justify-content: center;
+  }
+`
+
+const TramaSocialNav = styled.nav`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-basis: 144px;
+  box-sizing: border-box;
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+`
+
+const SocialMedia = styled.ul`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   justify-content: space-between;
   width: 144px;
   text-align: center;
@@ -58,7 +58,7 @@ const SocialMedia = styled.ul`
     max-height: 21px;
     max-width: 21px;
     a img {
-      width: 100%;
+      width: auto !important;
       height: 100%;
       max-height: 100%;
       max-width: 100%;
@@ -72,16 +72,16 @@ const SocialMedia = styled.ul`
 const Sponsors = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-top: -40px;
   flex-basis: 200px;
-  @media only screen and (max-width: 700px) {
-    flex-basis: 70%;
-    margin:30px 0px;
+  @media only screen and (max-width: 500px) {
+    flex-basis: 100%;
+    margin-top: 55px;
+    a {
+        text-align: center;
+    }
   }
-
   h2 {
-       text-align: center;
+      text-align: center;
       padding-top: 0;
       text-transform: uppercase;
       color: #ff8405;
@@ -90,24 +90,48 @@ const Sponsors = styled.div`
 `
 
 const TramaSitesNav = styled.nav`
-  justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
   flex-basis: 33.33%;
   box-sizing: border-box;
+  justify-content: space-between;
+  @media only screen and (max-width: 768px) {
+        flex-basis: 100%;
+        justify-content: space-around;
+        margin-top: 55px;
+  }
   ul {
     list-style-type: none;
     margin-top: 0;
     padding: 0;
+    box-sizing: border-box;
+    @media only screen and (max-width: 900px) {
+        flex-basis: 100%;
+    }
+    @media only screen and (max-width: 768px) {
+        flex-basis: 33.33%;
+        text-align: center;
+    }
+    @media only screen and (max-width: 500px) {
+        flex-basis: 100%;
+        text-align: center;
+    }
     h2 {
       padding-top: 0;
       text-transform: uppercase;
       color: #ff8405;
       font-size: 16px;
     }
-
+    
     li {
       list-style: none;
+      @media only screen and (max-width: 500px) {
+        padding: 21px 34px;
+        border: 1px solid #333;
+        &hover {
+        background: rgba(255,255,255,0.1);
+      }
+      } 
       a {
         text-decoration: none;
         font-size: 12px;
@@ -118,36 +142,20 @@ const TramaSitesNav = styled.nav`
       }
     }
   }
-
-
 `
 const Platform = styled.ul``
 
 const StyledLogoLink = styled(LogoLink)`
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center center;
-    max-height: 144px;
-    max-width: 144px;
-    margin: auto;
     img {
-      width: 100%;
-      height: 100%;
+        object-fit: contain;
+        object-position: center center;
+        max-height: 144px;
+        max-width: 144px;
     }
 `
 
 const StyledYouseLink = styled(YouseLink)`
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    flex-basis: 100%
-    object-position: center center;
-    margin: auto;
-    img {
-      width: 100%;
-      height: 100%;
-    }
+    
 `
 
 const Footer = (props) => {
