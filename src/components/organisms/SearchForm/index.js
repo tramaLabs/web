@@ -27,7 +27,7 @@ const SearchForm = ({ handleSubmit, palette, transparent, reverse, ...props }) =
         name="q"
         type="search"
         class=""
-        placeholder="#música #rio de janeiro  roda de samba"
+        placeholder="Digite sua busca aqui :)"
         component={ReduxField}
         borderless={reverse}
       />
