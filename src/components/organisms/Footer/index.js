@@ -196,7 +196,7 @@ const Footer = (props) => {
           </Platform>
           <ul id="coletivoTrama">
             <h2>Coletivo Trama</h2>
-            <li><Link href="/manifesto" title="">Manifesto Trama</Link></li>
+            <li><Link href="https://medium.com/@coletivotrama/manifesto-trama-cc-7228f499dff3" target="_blank" title="">Manifesto Trama</Link></li>
             <li><Link href="https://www.mesclado.com.br/trama" title="">Loja</Link></li>
           </ul>
         </TramaSitesNav>

@@ -114,7 +114,7 @@ class Header extends Component {
           />
           <Nav>
             <UserButton palette="alpha" reverse={!reverse} responsive />
-            <StyledLink to="/" palette="grayscale" reverse={!reverse}>Manifesto</StyledLink>
+            <StyledLink href="https://medium.com/@coletivotrama/manifesto-trama-cc-7228f499dff3" target="_blank" palette="grayscale" reverse={!reverse}>Manifesto</StyledLink>
           </Nav>
         </InnerWrapper>
       </Wrapper>
