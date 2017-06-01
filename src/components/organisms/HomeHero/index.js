@@ -65,7 +65,7 @@ const HomeHero = ({ ...props, reverse }) => {
       <Shadow reverse={reverse} />
       <Main>
         <StyledParagraph reverse={!reverse}>
-         Compartilhe sua ideia, encontre pessoas que irão te ajudar a tirá-la do papel e participe do que acontece ao seu redor.
+         Experiências encurtam distâncias. Compartilhe sua ideia, encontre pessoas engajadas e participe do que acontece ao seu redor.
         </StyledParagraph>
         <Button to="/iniciativas/criar" height={54}>Criar iniciativa</Button>
       </Main>
