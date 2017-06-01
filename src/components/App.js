@@ -26,7 +26,7 @@ const App = ({ children }) => {
             { property: 'og:image:height', content: '630' }
           ]}
           link={[
-            { rel: 'icon', href: 'https://diegohaz.github.io/arc/icon.png' },
+            { rel: 'icon', href: 'http://trama.net.br/wp-content/uploads/2017/03/cropped-favicon-32x32.png' },
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:300,400,700' }
           ]}
         />
