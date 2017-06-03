@@ -44,21 +44,9 @@ class HomePage extends Component {
       <PageTemplate
         header={<Header id="header" hideSearch={!scrolledBeyondHero} scrollsTranslucid />}
         hero={<HomeHero id="hero" />}
-        footer={<Footer />}
-      >
-<<<<<<< HEAD
-        <Helmet
-          title="Trama"
-          meta={[
-              { name: 'description', content: 'Experiências encurtam distâncias. Compartilhe sua ideia, encontre pessoas engajadas e participe do que acontece ao seu redor.' },
-              { property: 'og:site_name', content: 'Trama' },
-              { property: 'og:image', content: 'd021cc017c7a0718a0e27240337fa5d0.jpg' },
-              { property: 'og:image:type', content: 'image/jpeg' },
-          ]}
-        />
-=======
->>>>>>> parent of 3b17046... Teste de Tags OG
-        <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
+         footer={<Footer />}
+       >
+         <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>
     )
