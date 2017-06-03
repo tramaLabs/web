@@ -14,49 +14,29 @@ import {
 import Helmet from 'react-helmet'
 
 const InnerWrapper = styled.div`
-    position: relative;
-    width: 100%;
-    max-width: calc(${key('sizes.maxWidth')} + 2rem);
-    margin: 0 auto;
-    padding: 2rem 0;
-    box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: calc(${key('sizes.maxWidth')} + 2rem);
+  margin: 0 auto;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  > * {
+    margin: 1rem;
+  }
+  @media screen and (max-width: 800px) {
+    flex-wrap: wrap;
     > * {
-        margin: 1rem;
+      width: auto;
+      flex: 1 1 100%;
     }
-    @media screen and (max-width: 1000px) {
-        padding: 5vw;
-    > * {
-        margin: 1rem 0;
-    }
-}
+  }
 `
 const Summary = styled.div`
-    width: calc(100% - 380px - 8rem);
-    @media only screen and (max-width: 1000px) {
-        width: 100%;    
-    }
+  flex: 1;
 `
-const ForumWrapper = styled.div`
-    width: calc(100% - 380px - 8rem);
-    @media only screen and (max-width: 1000px) {
-        width: 100%;    
-    }
-`
+
 const StyledInitiativeDemandBoard = styled((props) => <InitiativeDemandBoard {...props} />)`
-    width: 380px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    @media only screen and (max-width: 1000px) {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-bottom: 55px;
-    }
-    @media only screen and (max-width: 500px) {
-        width: 100%;
-        padding: 0 !important;
-    }                                
+  width: 380px;
 `
 
 const InitiativeDetailPage = ({ initiative, user }) => {
@@ -80,11 +60,8 @@ const InitiativeDetailPage = ({ initiative, user }) => {
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
         {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
-        <ForumWrapper>
-            <Forum />
-        </ForumWrapper>
       </InnerWrapper>
-      
+      <Forum />
     </PageTemplate>
   )
 }
