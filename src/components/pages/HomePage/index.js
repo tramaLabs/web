@@ -53,7 +53,7 @@ class HomePage extends Component {
           meta={[
               { name: 'description', content: 'Experiências encurtam distâncias. Compartilhe sua ideia, encontre pessoas engajadas e participe do que acontece ao seu redor.' },
               { property: 'og:site_name', content: 'Trama' },
-              { property: 'og:image', content: background },
+              { property: 'og:image', content: 'd021cc017c7a0718a0e27240337fa5d0.jpg' },
               { property: 'og:image:type', content: 'image/jpeg' },
           ]}
         />
