@@ -14,49 +14,43 @@ import {
 import Helmet from 'react-helmet'
 
 const InnerWrapper = styled.div`
-    position: relative;
-    width: 100%;
-    max-width: calc(${key('sizes.maxWidth')} + 2rem);
-    margin: 0 auto;
-    padding: 2rem 0;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 34px 5vw;
     box-sizing: border-box;
     > * {
-        margin: 1rem;
+        box-sizing: border-box;
     }
-    @media screen and (max-width: 1000px) {
-        padding: 5vw;
-    > * {
-        margin: 1rem 0;
+    
+    @media only screen and (min-width: 1001px) {
+        display: block;
     }
-}
 `
 const Summary = styled.div`
-    width: calc(100% - 380px - 8rem);
-    @media only screen and (max-width: 1000px) {
-        width: 100%;    
+    order: 1;
+    @media only screen and (min-width: 1001px) {
+        margin-bottom: 21px;
     }
 `
 const ForumWrapper = styled.div`
-    width: calc(100% - 380px - 8rem);
-    @media only screen and (max-width: 1000px) {
-        width: 100%;    
+    order: 3;
+    @media only screen and (min-width: 1001px) {
+        width: calc(100% - 380px - 21px);
     }
 `
 const StyledInitiativeDemandBoard = styled((props) => <InitiativeDemandBoard {...props} />)`
-    width: 380px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    @media only screen and (max-width: 1000px) {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-bottom: 55px;
+    order: 2;
+    width: 100%;
+    margin-bottom: 55px;
+                                           
+    @media only screen and (min-width: 500px) {
+        width: 380px;
     }
-    @media only screen and (max-width: 500px) {
-        width: 100%;
-        padding: 0 !important;
-    }                                
+    @media only screen and (min-width: 1001px) {
+        float: right;
+        margin-left: 21px;
+        margin-bottom: 0px;
+    }
 `
 
 const InitiativeDetailPage = ({ initiative, user }) => {
@@ -76,10 +70,12 @@ const InitiativeDetailPage = ({ initiative, user }) => {
               { property: 'og:image:type', content: 'image/png' },
           ]}
         />
+        {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
+        
         <Summary>
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
-        {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
+        
         <ForumWrapper>
             <Forum />
         </ForumWrapper>
