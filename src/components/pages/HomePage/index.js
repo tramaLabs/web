@@ -2,8 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
 
 import { Header, Footer, PageTemplate, HomeHero, InitiativeCardList, Heading } from 'components'
-import Helmet from 'react-helmet'
-import background from './background.jpg'
 
 const StyledHeading = styled(Heading)`
   margin: 3rem 1rem 1rem;
@@ -48,6 +46,7 @@ class HomePage extends Component {
         hero={<HomeHero id="hero" />}
         footer={<Footer />}
       >
+<<<<<<< HEAD
         <Helmet
           title="Trama"
           meta={[
@@ -57,6 +56,8 @@ class HomePage extends Component {
               { property: 'og:image:type', content: 'image/jpeg' },
           ]}
         />
+=======
+>>>>>>> parent of 3b17046... Teste de Tags OG
         <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>
