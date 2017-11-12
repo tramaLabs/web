@@ -74,7 +74,7 @@ const Sponsors = styled.div`
   flex-direction: column;
   flex-basis: 200px;
   img{
-    width:85%;
+    width:100%;
   }
   @media only screen and (max-width: 500px) {
     flex-basis: 100%;
