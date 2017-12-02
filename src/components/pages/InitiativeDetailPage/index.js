@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { key } from 'styled-theme'
 
 import {
   PageTemplate,
