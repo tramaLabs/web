@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { key } from 'styled-theme'
 
@@ -21,7 +22,7 @@ const InnerWrapper = styled.div`
     > * {
         box-sizing: border-box;
     }
-    
+
     @media only screen and (min-width: 1001px) {
         display: block;
     }
@@ -42,7 +43,7 @@ const StyledInitiativeDemandBoard = styled((props) => <InitiativeDemandBoard {..
     order: 2;
     width: 100%;
     margin-bottom: 55px;
-                                           
+
     @media only screen and (min-width: 500px) {
         width: 380px;
     }
@@ -71,16 +72,16 @@ const InitiativeDetailPage = ({ initiative, user }) => {
           ]}
         />
         {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
-        
+
         <Summary>
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
-        
+
         <ForumWrapper>
             <Forum />
         </ForumWrapper>
       </InnerWrapper>
-      
+
     </PageTemplate>
   )
 }

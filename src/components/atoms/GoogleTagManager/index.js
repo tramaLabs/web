@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import gtmParts from 'react-google-tag-manager'
 
 class GoogleTagManager extends React.Component {
@@ -32,10 +33,10 @@ class GoogleTagManager extends React.Component {
 }
 
 GoogleTagManager.propTypes = {
-  gtmId: React.PropTypes.string.isRequired,
-  dataLayerName: React.PropTypes.string,
-  additionalEvents: React.PropTypes.object,
-  scriptId: React.PropTypes.string
+  gtmId: PropTypes.string.isRequired,
+  dataLayerName: PropTypes.string,
+  additionalEvents: PropTypes.object,
+  scriptId: PropTypes.string
 }
 
 export default GoogleTagManager

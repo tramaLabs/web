@@ -93,7 +93,8 @@ Example:
 **src/components/organisms/PostList**
 ```js
 // just presentational logic
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Post } from 'components'
@@ -117,7 +118,7 @@ export default PostList
 
 **src/containers/PostList**
 ```js
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { postList, fromPost, fromStatus, POST_LIST } from 'store'
 

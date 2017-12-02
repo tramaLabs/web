@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fromStatus } from 'store/selectors'
 import { authLogin, AUTH_LOGIN, CURRENT_USER_READ } from 'store/actions'

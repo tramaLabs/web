@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { change } from 'redux-form'
 import { fromStatus, fromEntities } from 'store/selectors'

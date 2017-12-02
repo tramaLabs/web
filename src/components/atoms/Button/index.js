@@ -1,5 +1,6 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import omit from 'lodash/omit'
-import React, { PropTypes } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router'
 import { Button as MenuButton } from 'react-aria-menubutton'
