@@ -20,7 +20,7 @@ const InnerWrapper = styled.div`
     > * {
         box-sizing: border-box;
     }
-    
+
     @media only screen and (min-width: 1001px) {
         display: block;
     }
@@ -41,7 +41,7 @@ const StyledInitiativeDemandBoard = styled((props) => <InitiativeDemandBoard {..
     order: 2;
     width: 100%;
     margin-bottom: 55px;
-                                           
+
     @media only screen and (min-width: 500px) {
         width: 380px;
     }
@@ -70,16 +70,16 @@ const InitiativeDetailPage = ({ initiative, user }) => {
           ]}
         />
         {initiative && <StyledInitiativeDemandBoard user={user} initiative={initiative} />}
-        
+
         <Summary>
           {initiative && <InitiativeDetailDescription initiative={initiative} />}
         </Summary>
-        
+
         <ForumWrapper>
-            <Forum />
+          <Forum />
         </ForumWrapper>
       </InnerWrapper>
-      
+
     </PageTemplate>
   )
 }

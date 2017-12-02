@@ -44,9 +44,9 @@ class HomePage extends Component {
       <PageTemplate
         header={<Header id="header" hideSearch={!scrolledBeyondHero} scrollsTranslucid />}
         hero={<HomeHero id="hero" />}
-         footer={<Footer />}
-       >
-         <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
+        footer={<Footer />}
+      >
+        <StyledHeading level={2}>Descubra iniciativas</StyledHeading>
         <InitiativeCardList initiatives={initiatives} />
       </PageTemplate>
     )
