@@ -42,7 +42,7 @@ it('renders Link when to is passed in', () => {
 
 it('renders aria menu button when type is menu', () => {
   const wrapper = wrap({ type: 'menu', children: 'test' }).dive()
-  expect(wrapper.find('AriaMenuButton-Button')).toHaveLength(1)
+  expect(wrapper.find('AriaMenuButtonButton')).toHaveLength(1)
 })
 
 it('renders component when component string is passed in', () => {
