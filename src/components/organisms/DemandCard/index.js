@@ -13,6 +13,7 @@ const Wrapper = styled(Block)`
   font-weight: 300;
   font-style: normal;
   overflow: hidden;
+  white-space: pre-line;
 `
 
 const StyledHeading = styled(Heading)`
@@ -60,9 +61,7 @@ const DemandCard = ({ demand, initiative, reverse }) => {
       <StyledHeading level={5} reverse={!reverse}>{demand.title}</StyledHeading>
       <StyledSpan>faltam {missingNumber(demand.quantity, demand.donors)}</StyledSpan>
       <Paragraph>
-        {demand.description.split('\n').map((item, key) => {
-          return <span key={key}>{item}<br /></span>
-        })}
+        <span>{demand.description}</span>
       </Paragraph>
       <StyledUserList modalName={`${demand.id}-modal`} modalTitle="Colaboradores" reverse={reverse} users={donorsToUsers(demand.donors)} />
       <OfferForm form={demand.id} initiative={initiative} demand={demand} />

@@ -19,10 +19,6 @@ const StyledField = styled(Field)`
  width: 100%;
 `
 
-const StyledModal = styled(Modal)`
-  width: 100%;
-`
-
 const InitiativeDetailInfoModal = ({ connected, handleSubmit, initiative, title, ...props, submitting,
 error, reverse }) => {
   return (
