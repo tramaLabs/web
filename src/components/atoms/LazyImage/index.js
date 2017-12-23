@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 class LazyImage extends Component {

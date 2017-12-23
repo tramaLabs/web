@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { GoogleTagManager } from 'components'
 import Helmet from 'react-helmet'
 import { GTMId } from 'config'
